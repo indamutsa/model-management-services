@@ -45,6 +45,6 @@ mvn spring-boot:run
 * ./run.sh 9999
 
 
-#### Head to the url below in your browser and you can use openapi 3.0 to test to experince the service
+#### Head to the url below in your browser and you can use openapi 3.0 to test the service
 -----------------------------------------------------------------------------
 localhost:9000/api-docs

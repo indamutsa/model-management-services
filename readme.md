@@ -35,7 +35,7 @@ mvn spring-boot:run
 ### You can easily run the microservice
 ### The script run.sh:
 1. Packages the service in a jar file
-2. Containerizes the the jar service in a docker file
+2. Containerizes the the jar service in a docker image
 3. runs the service in background
 4. The command below can take a port argument, if you dont provide it, it will use the default
 

@@ -1,0 +1,48 @@
+## Welcome to Lowcomote/MDEForge microservices
+#### The microservices below are developed using Spring boot
+
+----------------------------------------------------------------------------
+### If you want yo use the microservices without cloning the code, 
+### It gets even easier!!
+
+#### Retrieve the image(microservice) you would like to run from docker hub. 
+##### Search my username *indamutsa*, and you will the images available
+#### And copy and paste the above command in your terminal
+
+#### Image name example
+##### indamutsa/model-query-image
+##### The container name is optional, and you can set any name you want
+
+docker run --name {container-name} -d -p 9000:8087 indamutsa/{image-name}
+
+### The service will be available on 9000 locally.
+localhost:9000/api-docs
+
+
+-----------------------------------------------------------------------------
+
+
+## If you want to pull the code locally and use it, just follow the instructions below
+
+### Clone the repository
+git clone https://github.com/Indamutsa/model-management-services.git
+
+### Once downloaded you can run each service separately
+cd microservice-folder
+mvn spring-boot:run
+
+### You can easily run the microservice
+### The script run.sh:
+1. Packages the service in a jar file
+2. Containerizes the the jar service in a docker file
+3. runs the service in background
+4. The command below can take a port argument, if you dont provide it, it will use the default
+
+#### Run the script with no port argument
+* ./run.sh
+#### or with port argument
+* ./run.sh 9999
+
+#### Head to the url below in your browser and you can use openapi 3.0 to test to experince the service
+-----------------------------------------------------------------------------
+localhost:9000/api-docs

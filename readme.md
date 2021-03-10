@@ -2,16 +2,16 @@
 #### The microservices below are developed using Spring boot
 
 ----------------------------------------------------------------------------
-### If you want yo use the microservices without cloning the code, 
+### If you want to use the microservices without cloning the code, 
 ### It gets even easier!!
 
-#### Retrieve the image(microservice) you would like to run from docker hub. 
-##### Search my username *indamutsa*, and you will the images available
-#### And copy and paste the above command in your terminal
+#### Retrieve the image(microservice) you would like to run from my docker hub repo. 
+* Search my username *indamutsa*, and you will see the images available
+* Copy and paste the above command in your terminal
 
 #### Image name example
-##### indamutsa/model-query-image
-##### The container name is optional, and you can set any name you want
+* indamutsa/model-query-image
+###### The container name is optional, and you can set any name you want
 
 docker run --name {container-name} -d -p 9000:8087 indamutsa/{image-name}
 

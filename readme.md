@@ -13,6 +13,7 @@
 * indamutsa/model-query-image
 ###### The container name is optional, and you can set any name you want
 
+##### Run the command below
 docker run --name {container-name} -d -p 9000:8087 indamutsa/{image-name}
 
 ### The service will be available on 9000 locally.

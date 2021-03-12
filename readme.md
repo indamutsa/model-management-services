@@ -7,7 +7,7 @@
 
 #### Retrieve the image(microservice) you would like to run from my docker hub repo. 
 * Search my username *indamutsa*, and you will see the images available
-* Copy and paste the above command in your terminal
+* Copy and paste the command below in your terminal
 
 #### Image name example
 * indamutsa/model-query-image

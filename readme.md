@@ -29,8 +29,8 @@ localhost:9000/api-docs
 git clone https://github.com/Indamutsa/model-management-services.git
 
 ### Once downloaded you can run each service separately
-cd microservice-folder
-mvn spring-boot:run
+* cd microservice-folder
+* mvn spring-boot:run
 
 ### You can easily run the microservice
 ### The script run.sh:

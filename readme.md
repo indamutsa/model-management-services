@@ -16,7 +16,7 @@
 ##### Run the command below
 docker run --name {container-name} -d -p 9000:8087 indamutsa/{image-name}
 
-### The service will be available on 9000 locally.
+### The service will be available on port 9000 locally.
 localhost:9000/api-docs
 
 

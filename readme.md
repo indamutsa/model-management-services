@@ -9,7 +9,7 @@
 * Search my username *indamutsa*, and you will see the images available
 * Copy and paste the command below in your terminal
 
-#### Image name example
+*Image name example*
 * indamutsa/model-query-image
 ###### The container name is optional, and you can set any name you want
 

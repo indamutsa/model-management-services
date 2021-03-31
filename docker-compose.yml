@@ -1,0 +1,136 @@
+version: "3.8"
+
+# Setting the volume
+volumes:
+  db_volume:
+    driver: local
+  prometheus_data: {}
+
+services:
+  # ----------------------------------------------
+  # Mysql database
+  db:
+    hostname: db
+    container_name: db
+    image: "mysql:latest"
+    env_file:
+      - env/database.env
+    volumes:
+      - type: bind
+        source: ./env/setup.sql
+        target: /docker-entrypoint-initdb.d/setup.sql
+      - db_volume:/var/lib/mysql
+    ports:
+      - 3307:3306
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Service registry
+  eureka-registry-server:
+    container_name: eureka-registry-server
+    image: eureka-registry-server
+    build:
+      context: service-registry
+    ports:
+      - "8761:8761"
+    depends_on:
+      - db
+    # The virtual network where we will set up our private network
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Gateway server
+  api-gateway-service:
+    container_name: api-gateway-service
+    image: api-gateway-service
+    build:
+      context: service-gateway
+    depends_on:
+      - eureka-registry-server
+      - storage-service
+
+    ports:
+      - "7000:7000"
+
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DSTORAGE_SERVICE=http://storage-service:8089/
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Storage service
+  storage-service:
+    container_name: storage-service
+    build:
+      context: /home/arsene/IdeaProjects/model-services/storage-service
+    image: storage-service
+    depends_on:
+      - db
+    ports:
+      - "8089:8089"
+    links:
+      - db
+    env_file:
+      - /home/arsene/IdeaProjects/model-services/env/database.env
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus-grafana/config/:/etc/prometheus
+      - ./data/prometheus:/data
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention=31d"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+    ports:
+      - "9090:9090"
+    depends_on:
+      - grafana
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - zipkin
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  zipkin:
+    image: openzipkin/zipkin
+    environment:
+      - STORAGE_TYPE=mem
+    ports:
+      - "9411:9411"
+    networks:
+      - private-network-mms
+
+# ----------------------------------------------
+
+networks:
+  private-network-mms:
+    driver: bridge

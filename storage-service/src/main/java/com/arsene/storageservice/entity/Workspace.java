@@ -16,7 +16,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
                 @UniqueConstraint(name = "workspace_name_unique", columnNames = "name")
         }
 )
-public class Workspace {
+public class Workspace extends Auditable<String> {
     @Id
     @SequenceGenerator(
             name = "workspace_sequence",
@@ -43,15 +43,8 @@ public class Workspace {
 
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-//            mappedBy = "workspace",
+            mappedBy = "workspace",
             orphanRemoval = true
-    )
-    @JoinColumn(
-            name = "project_id",
-            referencedColumnName = "id",
-            foreignKey = @ForeignKey(
-                    name = "project_workspace_fk_id"
-            )
     )
     private Set<Project> projects = new HashSet<>();
 
@@ -67,6 +60,11 @@ public class Workspace {
     private User user;
 
     public Workspace() {
+    }
+
+    public Workspace(String name, User user) {
+        this.name = name;
+        this.user = user;
     }
 
     public Workspace(String name, Set<Project> projects, User user) {

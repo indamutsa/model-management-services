@@ -16,16 +16,16 @@ import static javax.persistence.GenerationType.SEQUENCE;
                 @UniqueConstraint(name = "comment_type_unique", columnNames = "id")
         }
 )
-public class Comment {
+public class Comment extends Auditable<String>{
     @Id
     @SequenceGenerator(
-            name = "workspace_sequence",
-            sequenceName = "workspace_sequence",
+            name = "comment_sequence",
+            sequenceName = "comment_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "workspace_sequence"
+            generator = "comment_sequence"
     )
     @Column(
             name = "id",

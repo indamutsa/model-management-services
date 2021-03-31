@@ -16,4 +16,4 @@ if [ -z "$value" ] ;
 fi
 
 # Run the container
-docker run --name persistence-container -d -p $value:8089 persistence-image
+docker run --name persistence-container -p $value:8089 persistence-image

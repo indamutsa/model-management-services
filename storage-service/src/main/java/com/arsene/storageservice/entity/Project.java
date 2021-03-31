@@ -16,16 +16,16 @@ import static javax.persistence.GenerationType.SEQUENCE;
                 @UniqueConstraint(name = "project_name_unique", columnNames = "name")
         }
 )
-public class Project {
+public class Project extends Auditable<String> {
     @Id
     @SequenceGenerator(
-            name = "workspace_sequence",
-            sequenceName = "workspace_sequence",
+            name = "project_sequence",
+            sequenceName = "project_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "workspace_sequence"
+            generator = "project_sequence"
     )
     @Column(
             updatable = false
@@ -45,6 +45,11 @@ public class Project {
     private Workspace workspace;
 
     public Project() {
+    }
+
+    public Project(String name, Workspace workspace) {
+        this.name = name;
+        this.workspace = workspace;
     }
 
     public Project(String name, Set<User> user, Workspace workspace) {

@@ -1,12 +1,15 @@
-package com.arsene.storageservice.entity.artifacts;
+package com.arsene.storageservice.entity;
 
 import com.arsene.storageservice.entity.Project;
+import com.arsene.storageservice.entity.artifacts.ArtifactType;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Getter
 @Setter
@@ -18,15 +21,22 @@ import java.util.UUID;
                 @UniqueConstraint(name = "artifact_name_unique", columnNames = "name")
         }
 )
-public class Artifact {
+public class Artifact extends Auditable<String>{
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-            name = "uuid",
-            strategy = "uuid2"
+    @SequenceGenerator(
+            name = "artifact_sequence",
+            sequenceName = "artifact_sequence",
+            allocationSize = 1
     )
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "artifact_sequence"
+    )
+    @Column(
+            updatable = false,
+            nullable = false
+    )
+    private Long id;
 
     @Enumerated(value = EnumType.STRING)
     private ArtifactType type;
@@ -41,6 +51,15 @@ public class Artifact {
     @Column(name = "content")
     @Lob
     private byte[] content;
+
+    @Column(name = "valid")
+    private boolean valid;
+
+    @Column(name = "public", columnDefinition = "TINYINT(1)") //for mapping reason columnDefinition has to be set as TINYINT(1)
+    private boolean publicField;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne // Many artifacts to one project
     @JoinColumn(

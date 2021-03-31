@@ -1,20 +1,22 @@
 package com.arsene.storageservice.entity.artifacts;
 
+import com.arsene.storageservice.entity.Artifact;
 import com.arsene.storageservice.entity.Project;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Data
 @Entity(name = "MetaModel")
 @Table(
-        name = "metamodel",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "metamodel_type_unique", columnNames = "metaModelType")
-        }
+        name = "metamodel"
 )
 @PrimaryKeyJoinColumn(
         name = "artifact_id",
@@ -22,24 +24,37 @@ import java.util.UUID;
 )
 public class MetaModel extends Artifact {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(
-            name = "uuid",
-            strategy = "uuid2"
+    @SequenceGenerator(
+            name = "metamodel_sequence",
+            sequenceName = "metamodel_sequence",
+            allocationSize = 1
     )
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(
+            strategy = SEQUENCE,
+            generator = "metamodel_sequence"
+    )
+    @Column(
+            updatable = false,
+            nullable = false
+    )
+    private Long id;
 
-    @Enumerated(value = EnumType.STRING)
-    private MetaModelType metaModelType;
+//    @Enumerated(value = EnumType.STRING)
+//    private MetaModelType metaModelType;
+
+    @OneToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            mappedBy = "metaModel", // This member field is found in Model class
+            orphanRemoval = true
+    )
+    private List<Model> model = new ArrayList<>();
 
     public MetaModel() {
     }
 
-    public MetaModel(ArtifactType type,
-                     @NotNull(message = "Name should be specified") String name,
-                     byte[] content, Project project, MetaModelType metaModelType) {
+    public MetaModel(ArtifactType type, @NotNull(message = "Name should be specified") String name,
+                     byte[] content, Project project, List<Model> model) {
         super(type, name, content, project);
-        this.metaModelType = metaModelType;
+        this.model = model;
     }
 }

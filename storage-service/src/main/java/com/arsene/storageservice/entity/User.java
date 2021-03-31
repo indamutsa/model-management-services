@@ -1,5 +1,8 @@
 package com.arsene.storageservice.entity;
 
+import lombok.Data;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
@@ -10,6 +13,7 @@ import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
+@Data
 @Entity(name = "User")
 @Table(
         name = "user",
@@ -34,13 +38,14 @@ public class User {
     )
     private Long id;
 
-    @Column( nullable = false)
+    @Column( nullable = false, unique = true)
     private String name;
 
     @Email(message = "Email should be valid")
     @Column(
             name = "email",
-            nullable = false
+            nullable = false,
+            unique = true
     )
     private String email;
 
@@ -78,6 +83,12 @@ public class User {
 
     public User() {
     }
+
+    public User(String name, @Email(message = "Email should be valid") String email) {
+        this.name = name;
+        this.email = email;
+    }
+
 
     public User(String name, @Email(message = "Email should be valid") String email, Set<Project> sharedProjects, Set<Comment> comments, List<Workspace> workspaces) {
         this.name = name;

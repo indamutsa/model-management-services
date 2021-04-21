@@ -1,6 +1,9 @@
 package com.arsene.storageservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -41,13 +44,16 @@ public class Workspace extends Auditable<String> {
     )
     private String name;
 
+    @JsonIgnore
     @OneToMany(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             mappedBy = "workspace",
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
     )
     private Set<Project> projects = new HashSet<>();
 
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(
             name = "user_id",
@@ -57,6 +63,7 @@ public class Workspace extends Auditable<String> {
                     name = "workspace_user_fk_id"
             )
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     public Workspace() {

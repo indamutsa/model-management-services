@@ -1,6 +1,7 @@
 package com.arsene.storageservice.repository;
 
 import com.arsene.storageservice.entity.Workspace;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

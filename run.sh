@@ -26,4 +26,9 @@ rm -rf target/
 mvn clean compile package -Dmaven.test.skip=true
 cd ..
 
+cd authorization-server
+rm -rf target/
+mvn clean compile package -Dmaven.test.skip=true
+cd ..
+
 docker-compose up

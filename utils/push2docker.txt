@@ -1,0 +1,3 @@
+docker commit transform-container transform-image:latest
+docker tag transform-image:latest indamutsa/model-transform-image
+docker push indamutsa/transform-image:latest

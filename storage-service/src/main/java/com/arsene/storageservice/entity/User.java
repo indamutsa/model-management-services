@@ -1,5 +1,6 @@
 package com.arsene.storageservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.annotation.PostConstruct;
@@ -49,8 +50,9 @@ public class User {
     )
     private String email;
 
-
+    @JsonIgnore
     @ManyToMany(
+            fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
     )
     @JoinTable( // This creates a table for us on the fly, a many to many table
@@ -68,13 +70,17 @@ public class User {
     )
     private Set<Project> sharedProjects = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
+            fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             mappedBy = "user" // This member field is found in comment
     )
     private Set<Comment> comments = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(
+            fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
             mappedBy = "user", // This member field is found in workspace
             orphanRemoval = true

@@ -27,6 +27,48 @@ services:
 
   # ----------------------------------------------
 
+  # Mysql database
+  dbauth:
+    hostname: dbauth
+    container_name: dbauth
+    image: "mysql:latest"
+    env_file:
+      - env/database.env
+    volumes:
+      - type: bind
+        source: ./env/setup.sql
+        target: /docker-entrypoint-initdb.d/setup.sql
+      - db_volume:/var/lib/mysql
+    ports:
+      - 3308:3306
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Storage service
+  auth-service:
+    container_name: auth-service
+    build:
+      context: /home/arsene/IdeaProjects/model-services/authorization-server
+    image: auth-service
+    depends_on:
+      - dbauth
+    ports:
+      - "8000:8000"
+    links:
+      - dbauth
+    env_file:
+      - /home/arsene/IdeaProjects/model-services/env/database.env
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
   # Service registry
   eureka-registry-server:
     container_name: eureka-registry-server
@@ -54,7 +96,7 @@ services:
       - storage-service
 
     ports:
-      - "7000:7000"
+      - "7500:7000"
 
     environment:
       - JAVA_OPTS=
@@ -126,6 +168,8 @@ services:
       - STORAGE_TYPE=mem
     ports:
       - "9411:9411"
+    depends_on:
+      - eureka-registry-server
     networks:
       - private-network-mms
 

@@ -1,0 +1,10 @@
+# secretGenerator:
+#   - name: mysql-secret
+#     literals:
+#       - password=arsene
+#       - database=model_storage
+#       - username=arsene
+#       - root-password=arsene
+resources:
+  - mysql-deployment.yaml
+  - storage-deployment.yaml

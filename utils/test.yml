@@ -1,0 +1,21 @@
+version: "3"
+services:
+  api-gateway-service:
+    container_name: api-gateway-service
+    image: api-gateway-service
+    build:
+      context: service-gateway
+    depends_on:
+      - eureka-registry-server
+      - storage-service
+
+    ports:
+      - "7500:7000"
+
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DSTORAGE_SERVICE=http://storage-service:8089/
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms

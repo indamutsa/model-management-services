@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-app-server
+  labels:
+    app: registry-app-server
+spec:
+  selector:
+    app: registry-app-server
+  ports:
+    - name: http
+      port: {{ .Values.service.registry.port }}
+      targetPort: {{ .Values.service.registry.targetPort }}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-deployment
+  labels:
+    app: registry-app-server
+spec:
+  replicas: {{ .Values.deployment.registry.replicaCount }}
+  selector:
+    matchLabels:
+      app: registry-app-server
+  template:
+    metadata:
+      labels:
+        app: registry-app-server
+    spec:
+      containers:
+        - name: registry-app-server
+          image: {{ .Values.deployment.registry.image }}:{{ .Values.deployment.registry.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: {{ .Values.deployment.registry.containerPort }}
+          

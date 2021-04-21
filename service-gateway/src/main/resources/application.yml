@@ -6,12 +6,12 @@ spring:
   application:
     name: api-gateway-server
 
-  sleuth:
-    annotation:
-      enabled: true
-  zpkin:
-    enabled: true
-    base-url: ${ZIPKIN_SERVER:http://localhost:9411}
+#  sleuth:
+#    annotation:
+#      enabled: true
+#  zpkin:
+#    enabled: true
+#    base-url: ${ZIPKIN_SERVER:http://localhost:9411}
 
   #  Routing to appropriate microservices
   cloud:
@@ -26,14 +26,12 @@ eureka:
     service-url:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
 
-
-
 # Management
 management:
   endpoints:
     web:
       exposure:
-        include: '*' # Enabling actuator
+        include: "*" # Enabling actuator
   endpoint:
     health:
       show-details: always

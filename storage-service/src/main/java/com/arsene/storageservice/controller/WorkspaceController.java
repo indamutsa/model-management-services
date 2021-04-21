@@ -1,13 +1,17 @@
 package com.arsene.storageservice.controller;
 
+import com.arsene.storageservice.entity.User;
+import com.arsene.storageservice.entity.Workspace;
+import com.arsene.storageservice.service.PersistenceService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class WorkspaceController {
 
-
     @PostMapping("/workspace")
     public String createWorkspace(String name){
+
         return null;
     }
 

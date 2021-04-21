@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f test.yml
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: api-gateway-service
+  name: api-gateway-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: api-gateway-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: /snap/kompose/19/kompose-linux-amd64 convert -f test.yml
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/private-network-mms: "true"
+        io.kompose.service: api-gateway-service
+    spec:
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: ' -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka -DSTORAGE_SERVICE=http://storage-service:8089/
+            -DZIPKIN_SERVER=http://zipkin:9411/'
+        image: api-gateway-service
+        imagePullPolicy: ""
+        name: api-gateway-service
+        ports:
+        - containerPort: 7000
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}

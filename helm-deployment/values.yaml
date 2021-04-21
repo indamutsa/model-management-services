@@ -1,0 +1,43 @@
+deployment:
+  mysql:
+    image: "mysql"
+    tag: "5.6"
+    replicaCount: 1
+    containerPort: 3306
+  
+  storage_api:
+    image: "indamutsa/storage-api-image"
+    tag: "v1.1"
+    containerPort: 8089
+    replicaCount: 1
+
+  api_gateway:
+    image: "indamutsa/api-gateway-image"
+    tag: "v1.0"
+    containerPort: 7000
+    replicaCount: 1
+
+  registry:
+    image: "indamutsa/service-registry-image"
+    tag: "v1.0"
+    containerPort: 8761
+    replicaCount: 1
+
+service:
+  mysql:
+    port: 3306
+  
+  storage_api:
+    port: 8000
+    targetPort: 8089
+    
+
+  api_gateway:
+    port: 7500
+    targetPort: 7000
+    
+
+  registry:
+    port: 8761
+    targetPort: 8761
+    

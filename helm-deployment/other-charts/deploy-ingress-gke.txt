@@ -1,0 +1,15 @@
+Deploy NGINX Ingress Controller
+
+   Before you deploy the NGINX Ingress Helm chart to the GKE cluster, add the nginx-stable Helm repository in Cloud Shell:
+
+   #$: helm repo add nginx-stable https://helm.nginx.com/stable
+   #$: helm repo update
+
+   Deploy an NGINX controller Deployment and Service by running the following command:
+
+   #$: helm install nginx-ingress nginx-stable/nginx-ingress
+
+   Verify that the nginx-ingress-controller Deployment and Service are deployed to the GKE cluster:
+
+   #$: kubectl get deployment nginx-ingress-nginx-ingress
+   #$: kubectl get service nginx-ingress-nginx-ingress

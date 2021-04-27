@@ -1,6 +1,6 @@
 server:
   port: ${port:7000}
-
+  forward-headers-strategy: framework
 # Application details
 spring:
   application:
@@ -25,6 +25,9 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+
 
 # Management
 management:

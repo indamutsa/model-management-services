@@ -5,14 +5,13 @@ metadata:
   labels:
     app: api-gateway-server
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: api-gateway-server
   ports:
     - name: http
       port: {{ .Values.service.api_gateway.port }}
       targetPort: {{ .Values.service.api_gateway.targetPort }}
-
 ---
 
 apiVersion: apps/v1
@@ -40,5 +39,5 @@ spec:
               containerPort: {{ .Values.deployment.api_gateway.containerPort }}
           env:
             - name: JAVA_OPTS
-              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka -DSTORAGE_SERVICE=http://storage-app-server:8089/'
+              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka -DSTORAGE_SERVICE=http://storage-app-server:8089/ '
 

@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1 #networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: model-services-cluster-ingress
+  annotations:
+    # In minikube, you can uncomment this to run the ingress bundled with minkube
+    # nginx.ingress.kubernetes.io/rewrite-target: /$1
+    #
+    # However on gke, you have to use the nginx-ingress controller as a different pod
+    # It is already configured
+    kubernetes.io/ingress.class: "nginx"
+    # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    # - host: inzuestates.eu
+    #   http:
+    #     paths:
+    #       - path: /?(.*)
+    #         pathType: Prefix
+    #         backend:
+    #           service:
+    #             name: registry-app-server
+    #             port: 8761
+
+    #       - path: /test/?(.*)
+    #         pathType: ImplementationSpecific
+    #         backend:
+    #           service:
+    #             name: api-gateway-server
+    #             port: 7000
+
+    - host: inzuestates.eu
+      http:
+        paths:
+        - backend:
+            serviceName: registry-app-server
+            servicePort: 8761

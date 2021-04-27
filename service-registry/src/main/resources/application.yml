@@ -9,6 +9,7 @@ spring:
 
 server:
   port: ${port:8761}
+  forward-headers-strategy: framework
 
 management:
   endpoints:
@@ -18,6 +19,7 @@ management:
   endpoint:
     health:
       show-details: always
-
-
+eureka:
+  instance:
+    prefer-ip-address: true
 

@@ -1,10 +1,10 @@
-gcp_credentials = "lowcomote-mdeforge-project-1ec906132a89.json" 
-gcp_project_id = "lowcomote-mdeforge-project" 
+gcp_credentials = "lowcomote-gke-terraform.json" 
+gcp_project_id = "lowcomote" 
 gcp_region = "europe-west3"
-gcp_cluster_name = "lowcomote-mdeforge-repository-cluster"
+gcp_cluster_name = "lowcomote-cluster"
 gke_zones =  ["europe-west3-a"]
 gke_regional = false
 gke_network = "default"
 gke_subnetwork = "default"
 gke_nodepool_name = "default-node-pool"
-gke_service_account = "terraform-lowcomote-mdeforge@lowcomote-mdeforge-project.iam.gserviceaccount.com"  
+gke_service_account = "lowcomote-sa@lowcomote.iam.gserviceaccount.com"  

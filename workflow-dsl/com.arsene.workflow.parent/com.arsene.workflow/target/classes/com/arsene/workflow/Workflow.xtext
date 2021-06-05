@@ -1,0 +1,149 @@
+grammar com.arsene.workflow.Workflow with org.eclipse.xtext.common.Terminals
+
+generate workflow "http://www.arsene.com/workflow/Workflow"
+
+/**
+ * In this chapter, we implemented a DSL for expressions. This allowed us to explore
+ * some techniques for dealing with recursive grammar rule definitions in Xtext
+ * grammars and some simple type checking. We also showed how to write an
+ * interpreter for an Xtext DSL.
+ * In the next chapter, we will develop a small object-oriented DSL. We will use this
+ * DSL to show some advanced type checking techniques that deal with object-oriented
+ * features such as inheritance and subtyping (type conformance).
+ */
+WorkflowProgramModel:
+	features+=Feature*;
+
+Feature:
+	statement=Statement | Method=Method | workflow=Workflow;
+
+//------------------------------  WORKFLOW  -----------------------------------
+Workflow:
+	'Workflow' name=ID ('type:' type=WorkflowType)?
+	'{'
+	steps+=Step*
+	'}'
+	execute=Execute;
+
+Step:
+	'step' name=STRING body=Block;
+
+enum WorkflowType:
+	sequence='sequence' | parallel='parallel';
+
+Execute:
+	'Execute' workflow=[Workflow] '()';
+
+//------------------------------  METHOD  ------------------------------------- 
+Method:
+	'function' name=ID
+	('(' (params+=Variable (',' params+=Variable)*)? ')' | '()')
+	body=Block;
+
+Block:
+	{Block}'{'
+		statements+=Statement*
+		returnStatement=Return?
+	'}';
+
+Return:
+	'return' expression=Expression;
+
+PrimitiveType:
+	typeName=('boolean' | 'number' | 'string') ':' name=ID;
+
+// ------------------------------------------ STATEMENT--------------------------------------------
+Statement:
+	variabl=Variable |
+	print=Display |
+	assignment=Assignment |
+	ifStatement=IfStatement |
+	loop=LoopStatement |
+	methodInvocation=MethodInvocation;
+
+// -------------------------------------- METHOD INVOCATION ----------------------------------------
+MethodInvocation returns Expression:
+	{MethodInvocation}'call' (invokedMethod=[Method] | service=Service) ('(' (args+=Expression (','
+	args+=Expression)*)? ')' | '()');
+// ( variable=[Variable] '=')? 
+//--------------------------------  SERVICE  --------------------------------
+Service:
+	'service' name=ID;
+
+//------------------------------- LOOP and IF STATEMENT --------------------------------------------
+IfStatement:
+	'if' '(' expression=Expression ')' thenBlock=IfBlock
+	(=>'else' elseBlock=IfBlock)?;
+
+IfBlock returns Block:
+	statements+=Statement
+	| Block;
+
+LoopStatement:
+	'loop:' 'if' '(' expression=Expression ')' thenBlock=IfBlock;
+
+// --------------------------------VARIABLE and ASSIGNEMENT --------------------------------------------
+Variable:
+	((typeName=('boolean' | 'number' | 'string') ':' name=ID)|('Define'? VariableType name=ID (array?='[' (length=INT)? ']')?)) ('=' ((expression=Expression) | (methodInvocation=MethodInvocation)))?;
+
+VariableType:
+	'var' | 'Artifact' | 'Event'; 
+
+Parameter:
+	VariableType name=ID;
+
+Display:
+	'print' '(' expression=Expression ')';
+
+Assignment:
+	variable=[Variable] '=' ((expression=Expression) | (methodInvocation=MethodInvocation)); // Right associativity
+
+//--- Arithmetic/Logic expressions --------------------
+// These are inspired by the solution of Lorenzo Bettini
+// the author of "Implementing Domain-Specific Languages with Xtext and Xtend"
+// --------------------------------------------------------------------------------------------------	
+Expression:
+	Or;
+
+Or returns Expression:
+	And ({Or.left=current} "or" right=And)*;
+
+And returns Expression:
+	Equality ({And.left=current} "and" right=Equality)*;
+
+Equality returns Expression:
+	Comparison ({Equality.left=current} op=("==" | "!=")
+	right=Comparison)*;
+
+Comparison returns Expression:
+	PlusOrMinus ({Comparison.left=current} op=(">=" | "<=" | ">" | "<")
+	right=PlusOrMinus)*;
+
+PlusOrMinus returns Expression:
+	Mod (({Plus.left=current} '+' | {Minus.left=current} '-')
+	right=Mod)*;
+
+Mod returns Expression:
+	MulOrDiv (({Mod.left=current} op=('%'))
+	right=MulOrDiv)*;
+
+MulOrDiv returns Expression:
+	Expo (({MulOrDiv.left=current} op=('*' | '/'))
+	right=Expo)*;
+
+// exponential operator
+Expo returns Expression:
+	Primary (({Expo.left=current} op=('^'))
+	right=Primary)*;
+
+Primary returns Expression:
+	'(' Expression ')' |
+	{Not} "!" expression=Primary | /* right associativity */
+	{ArithmeticSigned} "-" expression=Primary | /* right associativity */
+	Atomic;
+
+Atomic returns Expression:
+	{IntConstant} value=INT |
+	{StringConstant} value=STRING |
+	{BoolConstant} value=('true' | 'false') |
+	{VariableRef} variable=[Variable];

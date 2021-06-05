@@ -1,3 +1,7 @@
+Do this inside the spring folder where there is Dockerfile:
+
+mvn clean compile package
+docker build -t name-of-image .
 docker commit transform-container transform-image:latest
 docker tag transform-image:latest indamutsa/model-transform-image
 docker push indamutsa/transform-image:latest

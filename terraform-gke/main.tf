@@ -1,4 +1,3 @@
-
 module "gke" {
   source                     = "terraform-google-modules/kubernetes-engine/google"
   project_id                 = var.gcp_project_id 
@@ -18,8 +17,8 @@ module "gke" {
     {
       name               = var.gke_nodepool_name 
       machine_type       = "e2-medium"
-      min_count          = 1
-      max_count          = 3
+      min_count          = 2
+      max_count          = 5
       local_ssd_count    = 0
       disk_size_gb       = 100
       disk_type          = "pd-standard"
@@ -28,7 +27,7 @@ module "gke" {
       auto_upgrade       = true
       service_account    = var.gke_service_account
       preemptible        = true
-      initial_node_count = 1
+      initial_node_count = 2
     },
   ]
 

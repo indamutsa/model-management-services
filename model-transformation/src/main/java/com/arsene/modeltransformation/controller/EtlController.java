@@ -2,19 +2,16 @@ package com.arsene.modeltransformation.controller;
 
 import com.arsene.modeltransformation.DTO.ResponseDto;
 import com.arsene.modeltransformation.service.EpsilonTransform;
-import com.arsene.modeltransformation.service.FilePersistance;
-import com.arsene.modeltransformation.utililties.ServiceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @RestController
 @RequestMapping(path = "services/etl")

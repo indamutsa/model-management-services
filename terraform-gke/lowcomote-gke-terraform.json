@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "lowcomote",
+  "private_key_id": "fcd56b714d72c4d7d66d1890b10012445ef9e0bf",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDTjXlfNQTONtja\nzLIsrUWKUD87FHbG6MkrANEQnTJWlNNS1tOj7HWpMjAIK/9J2SUHyeNakdtcKVcz\n42SY7JJBLLzUHeoERsXZ4O0h8Ri7cnJAWQKC3pzPsHn1LML/XNxiyb2xl643iRrX\ncqn060HobfIDP1vp3bDoS6j7qZuRTXr5lSp8fkwVxLi/lk+/Vr6iI2gqhh+V8u6B\nOByEWuqPYSyA+kWmegkg0R0aCALRuA0BLR5iYtFQi9eq16PzMSiG7q1U1X2lw+GM\n+fwiTyraqI1WHdkLCAnQ70UNzFF8MX4jjgvsA5OWzotpl4heQUzMPoeuJatE8AZW\nGlbIDX93AgMBAAECggEABlCB5RhxM8c0UteVoTrCHsjwEjnf+mZGtudigM3zC4g2\nrzwlULkaoU8TsEgWlHmMSZQPmrZMJ2ST1e3Sz15kVoNY1uCrtFlOcjHsshIptv1J\nXBKsE1maBvhRXkLp8R2wSwHoN8L7cBdCEK3l/8mpNnWtqcYm3q9U0UziLDIu/WJr\nms2YSuaa0deiqM3a8K3TQZKqqe3r8678sotbBmk4Ew3xqiD5+Io7GhlyAjX3EiPI\nf8yNnKS58Aw4YX4AFk3Z7bgWCmj/ZBtZ9/aSHpp0ndq02foj1w4kmh6xsmd3YC0N\nIF5moagrC4OIbJkKSx9/tn8I9mNdEFquNtR3wBB4QQKBgQDqjizgGbSU2h8AmgMQ\nyhyW8d9R+pA6PVYsn16ZA4+6XNCNpbDj/nVDeptcxYvjrljYCzzzpMRm5kfGjg32\n/i1qRzmGuuhetb7EJfvTi884lxMZV16rbzA98QPDIVqOz2kgYuKWve6AmK7V5QnL\n24FH323CILKtRxP9vQPxPRbAQQKBgQDm5OoIqzcSJlJbJqnw/+bdrJFxQlCEDb3t\nG7VRzcGBhKOAmD3q3pYJ/BM7SDVfULcLfI0RWS1E/psrQh9iR1xPe0XFD7PextSH\n9Aqwcy1nuKWRC66ah+5wFHJTYxlBxeAUR9TKTV0+Ttv+LRhAtbqFvl5VNlXm7iq9\n6h1dpJXRtwKBgG0O/j6UtSog4Rlegt5jmzdz7uonHrh1nIPS9iEfTszQKwgxajYY\nMl3VvDc+gvSyNAz/7K88hTVzDRx9IHEfbe5kf5LthO3Eg5agMp8B+q/NTswRm6sK\nX9vtHFq2P2z3c2HjmIeOeD7Cv0gk3pEy1sGcWWRR38JBskHgiNy6EsIBAoGAMaMa\nsPxl3XABmnjoZdgNwLAdoFSaTJlLsFKZm1l5dSeXosiX3ws1BDZ9x+vRFYmboEuJ\nZCZgtglqQFV5u74NmUSuDhw/FfB2tjd/qMlKBJdMeK8jPTNlzhCHN2gBgQNSFeoP\nU+Jn3kJDxxPYt+iZjbEMRJNmyjt/Us6mu3/reWcCgYAKwSetS5YS7fNu0ej7lcXF\n78NDMM+biz2B0V++4NPHDq585prJJ1nKbAB9Z1giCaP1RsqKiSuPA7cNXbm0PwjH\nZaSL0pb86G4DKJSW0zZiGfa62EfO924vRZBnF5jcCoAgAj96p65g+UsDbyKDkQtB\nFsQGIwiCl94EODtDgmzNaA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "lowcomote-sa@lowcomote.iam.gserviceaccount.com",
+  "client_id": "113491188044308915440",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/lowcomote-sa%40lowcomote.iam.gserviceaccount.com"
+}

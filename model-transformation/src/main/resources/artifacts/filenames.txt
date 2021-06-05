@@ -1,1 +1,1 @@
-src/main/resources/artifacts/models/hdsj_fe421b61-013c-4170-bb4f-b5edb2799348.xmi
+src/main/resources/artifacts/models/hdsj_19cb237b-cb92-4208-9e08-2153736233cb.xmi

@@ -12,7 +12,7 @@ metadata:
 
 spec:
   rules:
-  - host: 34.107.95.215.xip.io
+  - host: 35.246.240.220.xip.io
     http:
       paths:
       - backend:

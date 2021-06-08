@@ -50,7 +50,7 @@ The name of the folder has to be set in Chart.yaml as the name
 >>> helm create name-of-folder
 
 Install chart
->>> helm install chart-name
+>>> helm install chart-name folder-where-located chart
 
 To upgrade the chart
 >>> helm upgrade chart
@@ -59,8 +59,3 @@ To list deployment
 >>> helm list
 
 You can rollback to the previous release using <i>helm rollack num-of-the-release</i> command and see the available release by <i> helm history name-of-the-release</i>
-
-
-
-
-

@@ -14,7 +14,7 @@ import java.util.List;
 public class AuthUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private Long id;
 
     private String userName;

@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-query-server
+  labels:
+    app: model-query-server
+spec:
+  type: NodePort
+  selector:
+    app: model-query-server
+  ports:
+    - name: http
+      port: {{ .Values.service.model_query.port }}
+      targetPort: {{ .Values.service.model_query.targetPort }}
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-query-deployment
+  labels:
+    app: model-query-server
+spec:
+  replicas: {{ .Values.deployment.model_query.replicaCount }}
+  selector:
+    matchLabels:
+      app: model-query-server
+  template:
+    metadata:
+      labels:
+        app: model-query-server
+    spec:
+      containers:
+        - name: model-query-server
+          image: {{ .Values.deployment.model_query.image }}:{{ .Values.deployment.model_query.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: {{ .Values.deployment.model_query.containerPort }}
+          env:
+            - name: JAVA_OPTS
+              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka 
+                       -DZIPKIN_SERVER=http://zipkin:9411/'
+

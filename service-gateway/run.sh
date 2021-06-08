@@ -12,8 +12,8 @@ value=$1
 # shellcheck disable=SC2157
 if [ -z "$value" ] ;
   then
-    value=7000
+    value=7500
 fi
 
 # Run the container
-docker run --name gateway-container -d -p $value:7000 gateway-image
+docker run --name gateway-container -d -p $value:7500 gateway-image

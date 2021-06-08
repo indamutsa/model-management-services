@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="683d44d8-ea06-4898-8b73-953c087a4672" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/AuthorizationServerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/config/AuthServerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/config/AuthServerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/model/AuthUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/model/AuthUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/repository/RoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/repository/RoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../helm-deployment/Chart.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../helm-deployment/Chart.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../helm-deployment/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../helm-deployment/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-comparison/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../model-comparison/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-comparison/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-comparison/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-comparison/src/main/java/com/arsene/modelcomparison/controller/EclController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-comparison/src/main/java/com/arsene/modelcomparison/controller/EclController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-comparison/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-comparison/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-comparison/src/test/java/com/arsene/modelcomparison/controller/EclControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-comparison/src/test/java/com/arsene/modelcomparison/controller/EclControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-query/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../model-query/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-query/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-query/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-query/src/main/java/com/arsene/modelquery/controller/EolController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-query/src/main/java/com/arsene/modelquery/controller/EolController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-query/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-query/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-query/src/test/java/com/arsene/modelquery/controller/EolControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-query/src/test/java/com/arsene/modelquery/controller/EolControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/out/artifacts/model_transformation_jar/model-transformation.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/out/artifacts/model_transformation_jar/model-transformation.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/src/main/java/com/arsene/modeltransformation/controller/EtlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/src/main/java/com/arsene/modeltransformation/controller/EtlController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/src/main/resources/artifacts/filenames.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/src/main/resources/artifacts/filenames.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/src/main/resources/artifacts/models/hdsj_19cb237b-cb92-4208-9e08-2153736233cb.xmi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-transformation/src/test/java/com/arsene/modeltransformation/controller/EtlControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-transformation/src/test/java/com/arsene/modeltransformation/controller/EtlControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-validation/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../model-validation/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-validation/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-validation/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-validation/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../model-validation/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-validation/src/main/java/com/arsene/modelvalidation/controller/EvlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-validation/src/main/java/com/arsene/modelvalidation/controller/EvlController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-validation/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../model-validation/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../model-validation/src/test/java/com/arsene/modelvalidation/controller/EvlControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../model-validation/src/test/java/com/arsene/modelvalidation/controller/EvlControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../service-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-gateway/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../service-gateway/run.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../service-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-registry/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../service-registry/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-registry/src/main/java/com/arsene/serviceregistry/controller/registry.java" beforeDir="false" afterPath="$PROJECT_DIR$/../service-registry/src/main/java/com/arsene/serviceregistry/controller/registry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../service-registry/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../service-registry/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../steps.md" beforeDir="false" afterPath="$PROJECT_DIR$/../steps.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../storage-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../storage-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../storage-service/src/main/java/com/arsene/storageservice/controller/PersistenceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../storage-service/src/main/java/com/arsene/storageservice/controller/PersistenceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../storage-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../storage-service/src/main/resources/application.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1tcfzSwjdoMsUuGM0nMFc6ztiuq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/service" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/repository" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/model" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/arsene/authorizationserver/DTO" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthorizationServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="authorization-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.arsene.authorizationserver.AuthorizationServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="683d44d8-ea06-4898-8b73-953c087a4672" name="Default Changelist" comment="" />
+      <created>1623073562238</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623073562238</updated>
+      <workItem from="1623073565043" duration="6118000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

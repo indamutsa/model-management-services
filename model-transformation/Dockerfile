@@ -12,5 +12,7 @@ RUN mkdir -p src/main/resources/artifacts/script
 #This file help  us delete previous transformed target model
 RUN touch  src/main/resources/artifacts/filenames.txt
 
-ENTRYPOINT ["java", "-jar", "/transform.jar"]
+ENV JAVA_OPTS=""
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /transform.jar"]
 EXPOSE 8085

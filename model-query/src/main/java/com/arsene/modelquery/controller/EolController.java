@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping(path = "services/eol")
+@RequestMapping(path = "/query")
 public class EolController {
 
     @Autowired

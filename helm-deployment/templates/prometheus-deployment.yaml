@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: prometheus-claim0
+  name: prometheus-claim0
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prometheus
+  name: prometheus
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: {{ .Values.service.prometheus.port }}
+    targetPort: {{ .Values.service.prometheus.targetPort }}
+  selector:
+    app: prometheus
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prometheus
+  name: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - args:
+        - --config.file=/etc/prometheus/prometheus.yml
+        - --storage.tsdb.path=/prometheus
+        - --storage.tsdb.retention=31d
+        - --web.console.libraries=/usr/share/prometheus/console_libraries
+        - --web.console.templates=/usr/share/prometheus/consoles
+        image:  {{ .Values.deployment.prometheus.image }}:{{ .Values.deployment.prometheus.tag }}
+        imagePullPolicy: IfNotPresent
+        name: prometheus
+        ports:
+        - containerPort: {{ .Values.deployment.prometheus.containerPort }} 
+        volumeMounts:
+        - mountPath: /etc/prometheus
+          name: prometheus-claim0
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: prometheus-claim0
+        persistentVolumeClaim:
+          claimName: prometheus-claim0

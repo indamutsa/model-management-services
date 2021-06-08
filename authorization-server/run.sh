@@ -15,4 +15,4 @@ if [ -z "$value" ] ;
 fi
 
 # Run the container
-docker run --name auth-container -d -p $value:8087 auth-image
+docker run --name auth-container -d -p $value:8000 auth-image

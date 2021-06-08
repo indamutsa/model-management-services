@@ -1,26 +1,62 @@
 server:
-  port: ${port:7000}
+  port: ${port:7500}
   forward-headers-strategy: framework
 # Application details
 spring:
   application:
     name: api-gateway-server
 
-#  sleuth:
-#    annotation:
-#      enabled: true
-#  zpkin:
-#    enabled: true
-#    base-url: ${ZIPKIN_SERVER:http://localhost:9411}
+  sleuth:
+    annotation:
+      enabled: true
+  zpkin:
+    enabled: true
+    base-url: ${ZIPKIN_SERVER:http://localhost:9411}
 
   #  Routing to appropriate microservices
   cloud:
     gateway:
       routes:
+        # Route for storage service
         - id: storage-service
-          uri: lb://storage-service
+          uri: lb://storage-service # the name of spring application
           predicates:
-            - Path=/**
+            - Path=/api/mms/store/**
+          filters:
+            - StripPrefix=1
+
+        # Route for model query service
+        - id: model-query
+          uri: lb://model-query
+          predicates:
+            - Path=/api/mms/query/**
+          filters:
+            - StripPrefix=1
+
+        # Route for model transformation service
+        - id: model-transformation
+          uri: lb://model-transformation
+          predicates:
+            - Path=/api/mms/transform/**
+          filters:
+            - StripPrefix=1
+
+        # Route for model validation service
+        - id: model-validation
+          uri: lb://model-validation
+          predicates:
+            - Path=/api/mms/validate/**
+          filters:
+            - StripPrefix=1
+
+        # Route for model comparison
+        - id: model-comparison
+          uri: lb://model-comparison
+          predicates:
+            - Path=/api/mms/compare/**
+          filters:
+            - StripPrefix=1
+
 eureka:
   client:
     service-url:

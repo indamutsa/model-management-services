@@ -25,4 +25,4 @@ scrape_configs:
     scrape_interval: 5s
     metrics_path: "/actuator/prometheus"
     static_configs:
-      - targets: ["api-gateway-service:7000"]
+      - targets: ["api-gateway-service:7500"]

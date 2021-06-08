@@ -9,5 +9,7 @@ RUN mkdir -p src/main/resources/artifacts/models
 RUN mkdir -p src/main/resources/artifacts/metamodels
 RUN mkdir -p src/main/resources/artifacts/script
 
-ENTRYPOINT ["java", "-jar", "/validate.jar"]
+ENV JAVA_OPTS=""
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /validate.jar"]
 EXPOSE 8086

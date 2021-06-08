@@ -67,7 +67,7 @@ class EvlControllerTest {
         MockMultipartFile script = test.handleFiles(3);
 
         try {
-            MvcResult result = mockMvc.perform(multipart("/services/evl/")
+            MvcResult result = mockMvc.perform(multipart("/validate/")
                     .file(model)
                     .file(metaModel)
                     .file(script))

@@ -14,16 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping(path = "services/etl")
+@RequestMapping(path = "/transform")
 public class EtlController {
 
     @Autowired
     private EpsilonTransform epsilonTransform;
 
-
-
     Resource transformedModel = null;
-
 
     /*
      * This endpoint compares two models

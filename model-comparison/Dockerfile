@@ -8,5 +8,7 @@ COPY target/*.jar comparison.jar
 RUN mkdir -p src/main/resources/artifacts/models
 RUN mkdir -p src/main/resources/artifacts/script
 
-ENTRYPOINT ["java", "-jar", "/comparison.jar"]
+ENV JAVA_OPTS=""
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /comparison.jar"]
 EXPOSE 8090

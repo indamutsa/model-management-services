@@ -65,7 +65,7 @@ class EolControllerTest {
         MockMultipartFile script = test.handleFiles(3);
 
         try {
-            MvcResult result = mockMvc.perform(multipart("/services/eol/")
+            MvcResult result = mockMvc.perform(multipart("/query/")
                     .file(model)
                     .file(metaModel)
                     .file(script))

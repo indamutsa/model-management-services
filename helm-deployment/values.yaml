@@ -1,20 +1,74 @@
 deployment:
-  mysql:
-    image: "mysql"
+  model_mysql:
+    image: "indamutsa/model-db-mysql"
     tag: "5.6"
     replicaCount: 1
     containerPort: 3306
 
+  dbauth_mysql:
+    image: "indamutsa/dbauth-mysql"
+    tag: "5.6"
+    replicaCount: 1
+    containerPort: 3306
+
+  authorization_server:
+    image: "indamutsa/auth-image"
+    tag: "v1.0"
+    containerPort: 8000
+    replicaCount: 1
+
+  grafana:
+    image: "indamutsa/grafana"
+    tag: "v1.0"
+    containerPort: 3000
+    replicaCount: 1
+
+  zipkin:
+    image: "indamutsa/zipkin"
+    tag: "v1.0"
+    containerPort: 9411
+    replicaCount: 1
+
+  prometheus:
+    image: "indamutsa/prometheus"
+    tag: "v1.0"
+    containerPort: 9090
+    replicaCount: 1
+
+  model_transformation:
+    image: "indamutsa/model-transformation-image"
+    tag: "v1.0"
+    containerPort: 8085
+    replicaCount: 2
+
+  model_query:
+    image: "indamutsa/model-query-image"
+    tag: "v1.0"
+    containerPort: 8087
+    replicaCount: 2
+
+  model_validation:
+    image: "indamutsa/model-validation-image"
+    tag: "v1.0"
+    containerPort: 8086
+    replicaCount: 2
+
+  model_comparison:
+    image: "indamutsa/model-comparison-image"
+    tag: "v1.0"
+    containerPort: 8088
+    replicaCount: 2
+
   storage_api:
-    image: "indamutsa/storage-api-image"
-    tag: "v1.1"
+    image: "indamutsa/model-storage-image"
+    tag: "v1.0"
     containerPort: 8089
     replicaCount: 2
 
   api_gateway:
     image: "indamutsa/api-gateway-image"
     tag: "v1.0"
-    containerPort: 7000
+    containerPort: 7500
     replicaCount: 1
 
   registry:
@@ -24,8 +78,43 @@ deployment:
     replicaCount: 1
 
 service:
-  mysql:
+  model_mysql:
     port: 3306
+
+  dbauth_mysql:
+    port: 3306
+
+  authorization_server:
+    port: 8000
+    targetPort: 8000
+
+  grafana:
+    port: 3000
+    targetPort: 3000
+
+  prometheus:
+    port: 9090
+    targetPort: 9090
+
+  zipkin:
+    port: 9411
+    targetPort: 9411
+
+  model_transformation:
+    port: 8085
+    targetPort: 8085
+
+  model_query:
+    port: 8087
+    targetPort: 8087
+
+  model_validation:
+    port: 8086
+    targetPort: 8086
+
+  model_comparison:
+    port: 8088
+    targetPort: 8088
 
   storage_api:
     port: 8089

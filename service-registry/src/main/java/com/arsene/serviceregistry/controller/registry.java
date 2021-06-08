@@ -21,13 +21,15 @@ public class registry {
             Applications applications = registry.getApplications();
             ServiceProperty serviceProperty = new ServiceProperty();
             List<ServiceProperty> instances = new ArrayList<ServiceProperty>();
+            var list = new ArrayList();
 
 
-            for(var app : applications.getRegisteredApplications())
-                System.out.println(app.getName());
+            for(var app : applications.getRegisteredApplications()){
+                list.add(app.getInstancesAsIsFromEureka());
+            }
+            System.out.println(list);
 
-
-            return new ResponseEntity(instances, HttpStatus.OK);
+            return new ResponseEntity(list, HttpStatus.OK);
         }
     }
 

@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: mysql-conf
 data:
-  db_url: jdbc:mysql://storage-service:3306/model_storage?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+  db_url: jdbc:mysql://storage-service:3306/model_storage?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
   setup: |
     -- create the databases
     CREATE DATABASE IF NOT EXISTS model_storage;
@@ -66,12 +66,13 @@ metadata:
   labels:
     app: storage-app
 spec:
+  type: NodePort
   ports:
-    - port: {{ .Values.service.mysql.port }}
+    - port: {{ .Values.service.model_mysql.port }}
+      targetPort: {{ .Values.service.model_mysql.port }}
   selector:
     app: storage-app
-    tier: mysql
-  clusterIP: None
+    tier: model-db-mysql
 
 ---
 apiVersion: apps/v1
@@ -84,18 +85,18 @@ spec:
   selector:
     matchLabels:
       app: storage-app
-      tier: mysql
+      tier: model-db-mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: storage-app
-        tier: mysql
+        tier: model-db-mysql
     spec:
       containers:
-        - image: {{ .Values.deployment.mysql.image }}:{{ .Values.deployment.mysql.tag }}
-          name: mysql
+        - image: {{ .Values.deployment.model_mysql.image }}:{{ .Values.deployment.model_mysql.tag }}
+          name: model-db-mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
@@ -118,7 +119,7 @@ spec:
                   name: mysql-secret
                   key: password
           ports:
-            - containerPort: {{ .Values.deployment.mysql.containerPort }} 
+            - containerPort: {{ .Values.deployment.model_mysql.containerPort }} 
               name: mysql
           volumeMounts:
             - name: mysql-persistent-storage

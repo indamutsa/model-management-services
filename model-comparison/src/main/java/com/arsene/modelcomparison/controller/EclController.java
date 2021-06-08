@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 
 @RestController
-@RequestMapping(path = "/services/ecl")
+@RequestMapping(path = "/compare")
 public class EclController {
 
     @Autowired

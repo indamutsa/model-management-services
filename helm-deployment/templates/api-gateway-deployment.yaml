@@ -39,5 +39,10 @@ spec:
               containerPort: {{ .Values.deployment.api_gateway.containerPort }}
           env:
             - name: JAVA_OPTS
-              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka -DSTORAGE_SERVICE=http://storage-app-server:8089/ '
-
+              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka
+                       -DZIPKIN_SERVER=http://zipkin:9411/ 
+                       -DSTORAGE_SERVICE=http://storage-app-server:8089/  
+                       -DMODEL_QUERY_SERVICE=http://model-query-service:8087/
+                       -DMODEL_TRANSFORMATION_SERVICE=http://model-transformation-service:8085/
+                       -DMODEL_VALIDATION_SERVICE=http://model-validation-service:8086/
+                       -DMODEL_COMPARISON_SERVICE=http://model-comparison-service:8088/'

@@ -101,7 +101,7 @@ public class EclControllerTest extends HandlerInterceptorAdapter {
                     "application/octet-stream", inputStreamScriptFile);
 
 
-            MvcResult result = mockMvc.perform(multipart("/services/ecl/")
+            MvcResult result = mockMvc.perform(multipart("/compare/")
                     .file(multipartFile)
                     .file(multipartFile1)
                     .file(multipartScriptFile))

@@ -2,7 +2,7 @@
 mvn package
 
 # We build the the images
-docker build -t validate-image .
+docker build -t validation-image .
 
 
 # First check if the the port is provided
@@ -16,4 +16,4 @@ if [ -z "$value" ] ;
 fi
 
 # Run the container
-docker run --name validate-container -d -p $value:8086 validate-image
+docker run --name validate-container -d -p $value:8086 validation-image

@@ -59,4 +59,5 @@ spec:
                   key: db_url
         
             - name: JAVA_OPTS
-              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka '
+              value: ' -DEUREKA_SERVER=http://registry-app-server:8761/eureka 
+                       -DZIPKIN_SERVER=http://zipkin:9411/'

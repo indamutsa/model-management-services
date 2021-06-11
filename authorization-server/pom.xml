@@ -65,12 +65,12 @@
         </dependency>
         <!-- // OPENAPI 3.0 DEPENDENCIES-->
 
-        <!-- EUREKA CLIENT -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <!-- // EUREKA CLIENT -->
+<!--        &lt;!&ndash; EUREKA CLIENT &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; // EUREKA CLIENT &ndash;&gt;-->
 
         <dependency>
             <groupId>mysql</groupId>

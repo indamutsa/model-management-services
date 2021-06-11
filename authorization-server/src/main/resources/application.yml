@@ -1,11 +1,11 @@
 spring:
   application:
     name: authorization-server
-  sleuth:
-    enabled: true
-  zipkin:
-    enabled: true
-    base-url: ${ZIPKIN_SERVER:http://localhost:9411/}
+#  sleuth:
+#    enabled: true
+#  zipkin:
+#    enabled: true
+#    base-url: ${ZIPKIN_SERVER:http://localhost:9411/}
   # ----------------------------------------------------------
   jpa:
     hibernate:
@@ -19,7 +19,7 @@ spring:
     generate-ddl: true
   # ----------------------------------------------------------
   datasource:
-    url: "jdbc:mysql://dbauth:3306/dbauth?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+    url: "jdbc:mysql://localhost:3306/dbauth?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
     username: arsene
     password: arsene
     initialization-mode: always

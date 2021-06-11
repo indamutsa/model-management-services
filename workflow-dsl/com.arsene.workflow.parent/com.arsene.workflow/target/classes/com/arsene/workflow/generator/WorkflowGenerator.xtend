@@ -210,7 +210,7 @@ class WorkflowGenerator extends AbstractGenerator {
 //		val p = exprs.map(p| "(" + p.compile + ")").join(' + ')
 		// function printOutput shall be implemented in the front side of the web
 		'''
-			window.printOutput(«expression.compile»)
+			window.printConsoleOutput(«expression.compile»)
 		'''
 	}
 

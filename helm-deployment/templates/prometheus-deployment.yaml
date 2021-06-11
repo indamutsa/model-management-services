@@ -1,17 +1,64 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: ConfigMap
 metadata:
-  labels:
-    app: prometheus-claim0
-  name: prometheus-claim0
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
+  name: prometheus-conf
+data:
+  prometheus: |
+    global:
+      scrape_interval: 5s
+      evaluation_interval: 5s
+
+    scrape_configs:
+      - job_name: "Model Storage server"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["storage-app-server:8089"]
+
+      - job_name: "Naming-Registry-service"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["eureka-registry-server:8761"]
+
+      - job_name: "API-Gateway-service"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["api-gateway-server:7500"]
+
+      - job_name: "Authorizaton-server"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["auth-server:8000"]
+
+      - job_name: "Model-comparison-engine"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["model-comparison-server:8088"]
+
+      - job_name: "Model-transformation-engine"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["model-transformation-server:8085"]
+
+      - job_name: "Model query engine"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["model-query-server:8087"]  
+
+      - job_name: "Model validation engine"
+        scrape_interval: 5s
+        metrics_path: "/actuator/prometheus"
+        static_configs:
+          - targets: ["model-validation-server:8086"]
 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -60,11 +107,14 @@ spec:
         ports:
         - containerPort: {{ .Values.deployment.prometheus.containerPort }} 
         volumeMounts:
-        - mountPath: /etc/prometheus
-          name: prometheus-claim0
+        - name: prometheus-setup
+          mountPath: /etc/prometheus
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
-      - name: prometheus-claim0
-        persistentVolumeClaim:
-          claimName: prometheus-claim0
+      - name: prometheus-setup
+        configMap:
+          name: prometheus-conf
+          items:
+            - key: prometheus
+              path: prometheus.yml          

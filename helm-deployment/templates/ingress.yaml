@@ -3,11 +3,10 @@ kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    #nginx.ingress.kubernetes.io/add-base-url: "true"
-    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
-
-
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    # nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # nginx.ingress.kubernetes.io/add-base-url: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 
   name: example
   # namespace: foo
@@ -20,12 +19,23 @@ spec:
               serviceName: registry-app-server
               servicePort: 8761
             path: / #eureka/(.*)
+
           - backend:
               serviceName: api-gateway-server
-              servicePort: 7000
-            path: /api(/|$)(.*)
+              servicePort: http
+            path: /api/mms/(.*)
 
           - backend:
               serviceName: storage-app-server
               servicePort: 8089
-            path: /store(/|$)(.*)
+            path: /mms/store/(.*)
+
+          - backend:
+              serviceName: auth-server
+              servicePort: 8000
+            path: /mms/oauth/(.*)
+
+          - backend:
+              serviceName: dsl-frontend-server
+              servicePort: 8080
+            path: /xtext-service/(.*)            

@@ -490,7 +490,7 @@ public class WorkflowGenerator extends AbstractGenerator {
   
   protected CharSequence _compile(final Display it) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("window.printOutput(");
+    _builder.append("window.printConsoleOutput(");
     CharSequence _compile = this.compile(it.getExpression());
     _builder.append(_compile);
     _builder.append(")");

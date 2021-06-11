@@ -39,31 +39,43 @@ deployment:
     image: "indamutsa/model-transformation-image"
     tag: "v1.0"
     containerPort: 8085
-    replicaCount: 2
+    replicaCount: 1
 
   model_query:
     image: "indamutsa/model-query-image"
     tag: "v1.0"
     containerPort: 8087
-    replicaCount: 2
+    replicaCount: 1
 
   model_validation:
     image: "indamutsa/model-validation-image"
     tag: "v1.0"
     containerPort: 8086
-    replicaCount: 2
+    replicaCount: 1
 
   model_comparison:
     image: "indamutsa/model-comparison-image"
     tag: "v1.0"
     containerPort: 8088
-    replicaCount: 2
+    replicaCount: 1
 
   storage_api:
     image: "indamutsa/model-storage-image"
     tag: "v1.0"
     containerPort: 8089
-    replicaCount: 2
+    replicaCount: 1
+
+  dsl_frontend:
+    image: "indamutsa/dsl-frontend"
+    tag: "v1.3"
+    containerPort: 80
+    replicaCount: 1
+
+  dsl_backend:
+    image: "indamutsa/dsl-backend"
+    tag: "v1.2"
+    containerPort: 8082
+    replicaCount: 1
 
   api_gateway:
     image: "indamutsa/api-gateway-image"
@@ -120,9 +132,17 @@ service:
     port: 8089
     targetPort: 8089
 
+  dsl_frontend:
+    port: 8080
+    targetPort: 80
+
+  dsl_backend:
+    port: 8082
+    targetPort: 8082
+
   api_gateway:
-    port: 7000
-    targetPort: 7000
+    port: 7500
+    targetPort: 7500
 
   registry:
     port: 8761

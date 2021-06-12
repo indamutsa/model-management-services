@@ -67,7 +67,7 @@ deployment:
 
   dsl_frontend:
     image: "indamutsa/dsl-frontend"
-    tag: "v1.3"
+    tag: "v2.0"
     containerPort: 80
     replicaCount: 1
 

@@ -1,10 +1,13 @@
 <template>
   <!-- FILE: <project>/frontend/src/App.vue -->
   <div id="app">
-    <div id="controls">
+    <div id="controls" class="tatanya">
       <!-- Click on "Run" triggers the compiling process -->
-      <button @click="compileToJS">
+      <button @click="compileToJS" style="">
         Execute
+      </button>
+      <button @click="openDoc" style="">
+        Documentation
       </button>
     </div>
     <div class="content">
@@ -57,6 +60,13 @@
             enableCors: true,
           });
         });
+      },
+      openDoc() {
+        window.open(
+          (window.location.href =
+            "https://docs.google.com/document/d/1XrZDK-Z1Q3tmanqjvfaCfil4-XmvH-iRP-G5aLqm5pM/edit?usp=sharing"),
+          "_blank"
+        );
       },
       async compileToJS() {
         try {
@@ -151,5 +161,10 @@
     width: 100%;
     height: 100%;
     border: 1px solid #aaa;
+  }
+
+  .tatanya {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

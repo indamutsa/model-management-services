@@ -35,7 +35,10 @@ spec:
               servicePort: 8000
             path: /mms/oauth/(.*)
 
+    - host: dsl.34.107.29.78.sslip.io
+      http:
+        paths:
           - backend:
               serviceName: dsl-frontend-server
               servicePort: 8080
-            path: /xtext-service/(.*)            
+            path: /

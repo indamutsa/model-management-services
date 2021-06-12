@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-#RUN yarn build ==> Build manually because inside it crashes
+RUN yarn run build 
 
 # production stage
 FROM nginx:stable-alpine as production-stage

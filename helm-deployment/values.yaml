@@ -55,7 +55,7 @@ deployment:
 
   model_comparison:
     image: "indamutsa/model-comparison-image"
-    tag: "v1.0"
+    tag: "v1.1"
     containerPort: 8088
     replicaCount: 1
 
@@ -67,7 +67,7 @@ deployment:
 
   dsl_frontend:
     image: "indamutsa/dsl-frontend"
-    tag: "v2.0"
+    tag: "v2.4"
     containerPort: 80
     replicaCount: 1
 

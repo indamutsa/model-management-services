@@ -127,7 +127,7 @@ class WorkflowGenerator extends AbstractGenerator {
 	def dispatch CharSequence compile(MethodInvocation it){
 		val p = args.map(arg|"" + arg.compile + "").join(', ')
 		
-		'''«invokedMethod.name»«if(args.length === 0) "()" else "(" + p + ")"»'''
+		'''«if(invokedMethod !== null) invokedMethod.name else if(service !== null) service.name»«if(args.length === 0) "()" else "(" + p + ")"»'''
 	}
 
 	def compileBlock(Block block) {
@@ -140,7 +140,7 @@ class WorkflowGenerator extends AbstractGenerator {
 		'''return «expression.compile»'''
 	}
 
-// ---------------------------------------- VARAIBLE ---------------------------------------------
+// ---------------------------------------- VARIABLE ---------------------------------------------
 	def dispatch CharSequence compile(Variable it) {
 		if (it.eContainer instanceof Method)
 			'''«name»'''

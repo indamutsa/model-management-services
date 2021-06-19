@@ -27,6 +27,7 @@ import com.arsene.workflow.workflow.Or;
 import com.arsene.workflow.workflow.Plus;
 import com.arsene.workflow.workflow.PrimitiveType;
 import com.arsene.workflow.workflow.Return;
+import com.arsene.workflow.workflow.Service;
 import com.arsene.workflow.workflow.Statement;
 import com.arsene.workflow.workflow.Step;
 import com.arsene.workflow.workflow.StringConstant;
@@ -268,17 +269,30 @@ public class WorkflowGenerator extends AbstractGenerator {
       };
       final String p = IterableExtensions.join(ListExtensions.<Expression, String>map(it.getArgs(), _function), ", ");
       StringConcatenation _builder = new StringConcatenation();
-      String _name = it.getInvokedMethod().getName();
-      _builder.append(_name);
       String _xifexpression = null;
+      Method _invokedMethod = it.getInvokedMethod();
+      boolean _tripleNotEquals = (_invokedMethod != null);
+      if (_tripleNotEquals) {
+        _xifexpression = it.getInvokedMethod().getName();
+      } else {
+        String _xifexpression_1 = null;
+        Service _service = it.getService();
+        boolean _tripleNotEquals_1 = (_service != null);
+        if (_tripleNotEquals_1) {
+          _xifexpression_1 = it.getService().getName();
+        }
+        _xifexpression = _xifexpression_1;
+      }
+      _builder.append(_xifexpression);
+      String _xifexpression_2 = null;
       int _length = ((Object[])Conversions.unwrapArray(it.getArgs(), Object.class)).length;
       boolean _tripleEquals = (_length == 0);
       if (_tripleEquals) {
-        _xifexpression = "()";
+        _xifexpression_2 = "()";
       } else {
-        _xifexpression = (("(" + p) + ")");
+        _xifexpression_2 = (("(" + p) + ")");
       }
-      _builder.append(_xifexpression);
+      _builder.append(_xifexpression_2);
       _xblockexpression = _builder;
     }
     return _xblockexpression;

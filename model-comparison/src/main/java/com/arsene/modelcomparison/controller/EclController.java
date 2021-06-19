@@ -65,7 +65,7 @@ public class EclController {
             else
                 message = message + ": UNMATCHED";
 
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ResponseDto(message));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(message);
 
         } catch (Exception e) {
             message = "Failed to perform comparison... : " + names[0] + ", " + names[1];

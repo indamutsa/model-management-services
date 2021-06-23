@@ -18,6 +18,7 @@ const serviceRouter = require("./routes/services");
  * we have to enable Cross-Origin Resource Sharing (CORS).
  * What is CORS: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
  */
+
 app.use(
   cors({
     origin: function (origin, callback) {

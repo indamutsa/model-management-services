@@ -293,6 +293,7 @@ public class WorkflowGenerator extends AbstractGenerator {
         _xifexpression_2 = (("(" + p) + ")");
       }
       _builder.append(_xifexpression_2);
+      _builder.newLineIfNotEmpty();
       _xblockexpression = _builder;
     }
     return _xblockexpression;

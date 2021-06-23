@@ -19,36 +19,28 @@ router.post("/transform", async (req, res) => {
     headers: {},
     formData: {
       sourceModel: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/models/${sourcemodel}`
-        ),
+        value: fs.createReadStream(`./artifacts/models/${sourcemodel}`),
         options: {
           filename: sourcemodel,
           contentType: null,
         },
       },
       sourceMetaModel: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/metamodels/${sourcemetamodel}`
-        ),
+        value: fs.createReadStream(`./artifacts/metamodels/${sourcemetamodel}`),
         options: {
           filename: sourcemetamodel,
           contentType: null,
         },
       },
       targetMetaModel: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/metamodels/${targetmetamodel}`
-        ),
+        value: fs.createReadStream(`./artifacts/metamodels/${targetmetamodel}`),
         options: {
           filename: targetmetamodel,
           contentType: null,
         },
       },
       etlScript: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/script/${scriptEtl}`
-        ),
+        value: fs.createReadStream(`./artifacts/script/${scriptEtl}`),
         options: {
           filename: scriptEtl,
           contentType: null,
@@ -79,27 +71,21 @@ router.post("/validate", async (req, res) => {
     headers: {},
     formData: {
       model: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/models/${modelV}`
-        ),
+        value: fs.createReadStream(`./artifacts/models/${modelV}`),
         options: {
           filename: modelV,
           contentType: null,
         },
       },
       metaModel: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/metamodels/${metamodel}`
-        ),
+        value: fs.createReadStream(`./artifacts/metamodels/${metamodel}`),
         options: {
           filename: metamodel,
           contentType: null,
         },
       },
       script: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/script/${scriptEvl}`
-        ),
+        value: fs.createReadStream(`./artifacts/script/${scriptEvl}`),
         options: {
           filename: scriptEvl,
           contentType: null,
@@ -131,27 +117,21 @@ router.post("/query", async (req, res) => {
     headers: {},
     formData: {
       model: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/models/${modelV}`
-        ),
+        value: fs.createReadStream(`./artifacts/models/${modelV}`),
         options: {
           filename: modelV,
           contentType: null,
         },
       },
       metaModel: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/metamodels/${metamodel}`
-        ),
+        value: fs.createReadStream(`./artifacts/metamodels/${metamodel}`),
         options: {
           filename: metamodel,
           contentType: null,
         },
       },
       script: {
-        value: fs.createReadStream(
-          `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/script/${scriptEol}`
-        ),
+        value: fs.createReadStream(`./artifacts/script/${scriptEol}`),
         options: {
           filename: scriptEol,
           contentType: null,
@@ -182,27 +162,21 @@ router.post("/compare", async (req, res) => {
     formData: {
       files: [
         {
-          value: fs.createReadStream(
-            `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/models/${model2}`
-          ),
+          value: fs.createReadStream(`./artifacts/models/${model2}`),
           options: {
             filename: model2,
             contentType: null,
           },
         },
         {
-          value: fs.createReadStream(
-            `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/models/${model1}`
-          ),
+          value: fs.createReadStream(`./artifacts/models/${model1}`),
           options: {
             filename: model1,
             contentType: null,
           },
         },
         {
-          value: fs.createReadStream(
-            `/home/arsene/IdeaProjects/model-management-services/services/src/main/resources/artifacts/script/${script}`
-          ),
+          value: fs.createReadStream(`./artifacts/script/${script}`),
           options: {
             filename: script,
             contentType: null,

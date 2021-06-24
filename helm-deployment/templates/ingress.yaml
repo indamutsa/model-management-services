@@ -42,3 +42,11 @@ spec:
               serviceName: dsl-frontend-server
               servicePort: 8080
             path: /
+
+    - host: back.34.107.29.78.sslip.io
+      http:
+        paths:
+          - backend:
+              serviceName: dsl-backend-server
+              servicePort: 8082
+            path: /

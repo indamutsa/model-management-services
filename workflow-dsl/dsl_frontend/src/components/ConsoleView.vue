@@ -40,6 +40,7 @@
       window._validateModel = this._validateModel;
       window._compareModel = this._compareModel;
       window._queryModel = this._queryModel;
+      window._mergeModels = this._mergeModels;
 
       // window._transfoModel = () => {
       //   this.printConsoleOutput("Executing: \nTransforming the model...!");
@@ -76,12 +77,10 @@
           scriptEtl: script, //"Demo.etl",
         };
 
-        console.log(data);
-
         try {
           await axios
             .post(
-              `http://34.89.156.195:30100/api/exec/transform`,
+              `http://back.34.107.29.78.sslip.io/api/exec/transform`,
               {
                 sourceModel: sourceM,
                 sourceMetaModel: sourceMM,
@@ -120,7 +119,7 @@
         try {
           await axios
             .post(
-              `http://34.89.156.195:30100/api/exec/validate`,
+              `http://back.34.107.29.78.sslip.io/api/exec/validate`,
               {
                 model: m,
                 metaModel: metaM,
@@ -158,7 +157,7 @@
         try {
           await axios
             .post(
-              `http://34.89.156.195:30100/api/exec/compare`,
+              `http://back.34.107.29.78.sslip.io/api/exec/compare`,
               {
                 model1: "catalogue1.xml",
                 model2: "catalogue2.xml",
@@ -196,7 +195,7 @@
         try {
           await axios
             .post(
-              `http://34.89.156.195:30100/api/exec/query`,
+              `http://back.34.107.29.78.sslip.io/api/exec/query`,
               {
                 model: m1,
                 metaModel: metaM,
@@ -219,6 +218,45 @@
             .catch((err) => {
               printConsoleOutput(
                 "\nExecuting: \nQuerying the model...!\n" +
+                  "\n---------------------\n" +
+                  `${err}\n` +
+                  "Please check your function arguments\n" +
+                  "--------------------------"
+              );
+            });
+        } catch (e) {
+          console.log(e + "--");
+        }
+      },
+      async _mergeModels(model1, model2, eclscript, etlscript) {
+        // call service _mergeModels("catalogue1.xml", "catalogue2.xml", "catalogues.ecl", "catalogues.eml")
+        try {
+          await axios
+            .post(
+              `http://back.34.107.29.78.sslip.io/api/exec/merge`,
+              {
+                mod1: model1,
+                mod2: model2,
+                ecl: eclscript,
+                etl: etlscript,
+              },
+              {
+                headers: {
+                  // remove headers
+                },
+              }
+            )
+            .then((response) => {
+              printConsoleOutput(
+                `\nExecuting: \nMerging models ${model1}, ${model2}...!\n\nCode: ${response.status} -- sucesss` +
+                  "\n---------------------\n" +
+                  response.data.message +
+                  "--------------------------"
+              );
+            })
+            .catch((err) => {
+              printConsoleOutput(
+                `\nExecuting: \nMerging models ${model1}, ${model2}...!\n` +
                   "\n---------------------\n" +
                   `${err}\n` +
                   "Please check your function arguments\n" +

@@ -11,4 +11,4 @@ RUN mkdir -p src/main/resources/artifacts/script
 ENV JAVA_OPTS=""
 
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /comparison.jar"]
-EXPOSE 8090
+EXPOSE 8088

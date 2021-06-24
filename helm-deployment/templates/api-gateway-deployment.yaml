@@ -45,4 +45,5 @@ spec:
                        -DMODEL_QUERY_SERVICE=http://model-query-service:8087/
                        -DMODEL_TRANSFORMATION_SERVICE=http://model-transformation-service:8085/
                        -DMODEL_VALIDATION_SERVICE=http://model-validation-service:8086/
-                       -DMODEL_COMPARISON_SERVICE=http://model-comparison-service:8088/'
+                       -DMODEL_COMPARISON_SERVICE=http://model-comparison-service:8088/
+                       -DMODEL_MERGING_SERVICE=http://model-merging-service:8084/'

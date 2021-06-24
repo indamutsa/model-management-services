@@ -58,6 +58,58 @@ router.post("/transform", async (req, res) => {
     });
 });
 
+router.post("/merge", async (req, res) => {
+  const mod1 = req.body.mod1;
+  const mod2 = req.body.mod2;
+  const ecl = req.body.ecl;
+  const etl = req.body.etl;
+  console.log(req.body);
+
+  var options = {
+    method: "POST",
+    url: "http://34.107.29.78.sslip.io/api/mms/merge/",
+    headers: {},
+    formData: {
+      model1: {
+        value: fs.createReadStream(`./artifacts/models/${mod1}`),
+        options: {
+          filename: mod1,
+          contentType: null,
+        },
+      },
+      model2: {
+        value: fs.createReadStream(`./artifacts/models/${mod2}`),
+        options: {
+          filename: mod2,
+          contentType: null,
+        },
+      },
+      eclScript: {
+        value: fs.createReadStream(`./artifacts/script/${ecl}`),
+        options: {
+          filename: ecl,
+          contentType: null,
+        },
+      },
+      emlScript: {
+        value: fs.createReadStream(`./artifacts/script/${etl}`),
+        options: {
+          filename: etl,
+          contentType: null,
+        },
+      },
+    },
+  };
+  await request(options)
+    .then((result) => {
+      res.status(202).json({ message: result });
+    })
+    .catch((err) => {
+      error.err = err.message;
+      res.status(500).json(error);
+    });
+});
+
 router.post("/validate", async (req, res) => {
   const modelV = req.body.model;
   const metamodel = req.body.metaModel;

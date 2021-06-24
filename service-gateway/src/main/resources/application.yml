@@ -57,6 +57,14 @@ spring:
           filters:
             - StripPrefix=1
 
+        # Route for model merging
+        - id: model-merging
+          uri: lb://model-merging
+          predicates:
+            - Path=/api/mms/merge/**
+          filters:
+            - StripPrefix=1
+
 eureka:
   client:
     service-url:
@@ -64,7 +72,6 @@ eureka:
     fetch-registry: true
   instance:
     prefer-ip-address: true
-
 
 # Management
 management:

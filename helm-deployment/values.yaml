@@ -59,6 +59,12 @@ deployment:
     containerPort: 8088
     replicaCount: 1
 
+  model_merging:
+    image: "indamutsa/model-merging-image"
+    tag: "v1.0"
+    containerPort: 8084
+    replicaCount: 1
+
   storage_api:
     image: "indamutsa/model-storage-image"
     tag: "v1.0"
@@ -79,7 +85,7 @@ deployment:
 
   api_gateway:
     image: "indamutsa/api-gateway-image"
-    tag: "v1.0"
+    tag: "v1.2"
     containerPort: 7500
     replicaCount: 1
 
@@ -127,6 +133,10 @@ service:
   model_comparison:
     port: 8088
     targetPort: 8088
+
+  model_merging:
+    port: 8084
+    targetPort: 8084
 
   storage_api:
     port: 8089

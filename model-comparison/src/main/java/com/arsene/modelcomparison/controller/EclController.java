@@ -69,7 +69,7 @@ public class EclController {
 
         } catch (Exception e) {
             message = "Failed to perform comparison... : " + names[0] + ", " + names[1];
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e);
         }
     }
 }

@@ -34,13 +34,13 @@ public class EpsilonCompare {
 
         // Load the model file and set properties
         PlainXmlModel catalogue1 = new PlainXmlModel();
-        catalogue1.setName("Catalogue1");
+        catalogue1.setName(modelFile1.getName());
         catalogue1.setFile(modelFile1);
         catalogue1.load();
 
         // Load the model file and set properties
         PlainXmlModel catalogue2 = new PlainXmlModel();
-        catalogue2.setName("Catalogue2");
+        catalogue2.setName(modelFile2.getName());
         catalogue2.setFile(modelFile2);
         catalogue2.load();
 

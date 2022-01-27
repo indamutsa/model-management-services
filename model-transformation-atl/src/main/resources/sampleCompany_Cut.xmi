@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<metrics:Container xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metrics="org.mdeforge.emf.metric">
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Units" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of bindings" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Input Pattern" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Output Pattern" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Input Models" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Output Models" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Transformation Rules" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Matched Rules (Excluding Lazy Matched Rules)" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Matched Rules (Including Lazy Matched Rules)" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Lazy Matched Rules (Excluding Unique)" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Lazy Matched Rules (Including Unique)" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Unique Lazy Matched Rules" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Called Rules" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Rules with a Filter Condition on the Input Pattern" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Rules with a do Section" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Direct Copies" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Rules with a Using Clause" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Abstract Transformation Rules" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Abstract Matched Rules" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Abstract Lazy Matched Rules" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Abstract Unique Lazy Matched Rules" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Rule Inheritance Trees" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Attribute Helpers with Context" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Attribute Helpers" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Helpers" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Helpers with Context" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Helpers without Context" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Attribute Helpers without Context" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Operation Helpers" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Operation Helpers with Context" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Operation Helpers without Context" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Operation Helpers with Parameters" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Operation Helpers without Parameters" value="1"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Overloaded Helpers" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Helpers with a Let Clause" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Calls to resolveTemp()" value="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Elements per Input Pattern" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Matched Rules per Input Pattern" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Parameters per Called Rule" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Unused Parameters per Called Rule" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Variables per Using Clause" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Statements per do Section" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Rules per Rule Name" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Children per Matched Rule" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Depth of Rule Inheritance Tree" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Width of Rule Inheritance Tree" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Bindings per Rule" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Helpers per Unit" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Attribute Helpers per Unit" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Operation Helpers per Unit" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Helpers per Context" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Helpers per Helper Name (Overloadings)" minimum="1" maximum="1" median="1" average="1.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Helper Cyclomatic Complexity" minimum="3" maximum="4" median="3" average="3.5" standardDeviation="0.70710677"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Operations on Collections per Helper" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Variables per Helper" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Parameters per Operation Helper" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Unused Parameters per Operation Helper" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Imported Units" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Times a Unit is Imported" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to Lazy Matched Rules per Lazy Matched Rule (Fan-In)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to Called Rules per Called Rule (Fan-In)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to Helpers per Helper (Fan-In)" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to Attribute Helpers per Attribute Helper (Fan-In)" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to Operation Helpers per Operation Helper (Fan-In)" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Helpers to Called Rules per Helper (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Helpers to Helpers per Helper (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Helpers to Attribute Helpers per Helper (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Helpers to Operation Helpers per Helper (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Rules to Helpers per Rule (Fan-Out)" minimum="2" maximum="2" median="2" average="2.0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Rules to Rules per Rule (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Rules to Called Rules per Rule (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Rules to Lazy Matched Rules per Rule (Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls from Helpers in Other Units (Unit Fan-In)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to Helpers in Other Units (Unit Fan-Out)" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedIntegerMetric" name="Number of Calls to resolveTemp() per Rule" minimum="0" maximum="0" median="0"/>
+  <metrics xsi:type="metrics:AggregatedRealMetric" name="Rule Complexity Increase" minimum="1.0" maximum="1.0" median="1.0" average="1.0"/>
+</metrics:Container>

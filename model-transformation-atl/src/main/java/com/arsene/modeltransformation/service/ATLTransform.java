@@ -52,6 +52,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.arsene.modeltransformation.DTO.AggregateMetric;
+import com.arsene.modeltransformation.DTO.Metric;
+import com.arsene.modeltransformation.DTO.SimpleMetric;
 import com.arsene.modeltransformation.utililties.ServiceUtil;
 
 import anatlyzer.atl.model.ATLModel;
@@ -76,9 +79,6 @@ public class ATLTransform {
 		ILauncher transformationLauncher = new EMFVMLauncher();
 		Map<String, Object> launcherOptions = getOptions();
 		transformationLauncher.initialize(launcherOptions);
-
-		// TODO Automatically discorver if metamodel is in the repo!
-		// THIS IS AN EXAMPLE OF USING MODEL INFO
 
 		List<EObject> info = getModelInfo(transformation);
 		String inMMName = "";
@@ -167,7 +167,7 @@ public class ATLTransform {
 		return options;
 	}
 
-	public List<String> calculateMetrics(MultipartFile atlTransformation) throws ATLCoreException, IOException {
+	public List<Metric> calculateMetrics(MultipartFile atlTransformation) throws ATLCoreException, IOException {
 		ILauncher transformationLauncher = new EMFVMLauncher();
 		ModelFactory modelFactory = new EMFModelFactory();
 		IInjector injector = new EMFInjector();
@@ -207,8 +207,8 @@ public class ATLTransform {
 
 	}
 
-	private List<String> extractMetrics(String path) {
-		List<String> result = new ArrayList();
+	private List<Metric> extractMetrics(String path) {
+		List<Metric> result = new ArrayList();
 		registerMetamodel("src/main/resources/util/Metric.ecore");
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 		Map<String, Object> m = reg.getExtensionToFactoryMap();
@@ -230,7 +230,8 @@ public class ATLTransform {
 					.toString();
 			if (((EObject) element).eClass().getName().equals("SimpleMetric")) {
 				String value = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("value")).toString();
-				result.add(metricName + " " + value);
+				
+				result.add(new SimpleMetric(metricName, value));
 			}
 			if (((EObject) element).eClass().getName().equals("AggregatedRealMetric")) {
 				String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
@@ -238,7 +239,7 @@ public class ATLTransform {
 				String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
 				String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
 				String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
-				result.add(String.format("%s: min %s, max %s, med %s, avg %s, st %s", metricName, minimum, maximum, median, average, standardDeviation));
+				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
 			}
 			if (((EObject) element).eClass().getName().equals("AggregatedIntegerMetric")) {
 				String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
@@ -246,7 +247,7 @@ public class ATLTransform {
 				String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
 				String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
 				String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
-				result.add(String.format("%s: min %s, max %s, med %s, avg %s, st %s", metricName, minimum, maximum, median, average, standardDeviation));
+				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
 			}
 		}
 

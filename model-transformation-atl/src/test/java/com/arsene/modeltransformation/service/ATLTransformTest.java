@@ -1,12 +1,19 @@
 package com.arsene.modeltransformation.service;
 
-import com.arsene.modeltransformation.utililties.ServiceUtil;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.m2m.atl.common.ATLExecutionException;
-import org.eclipse.m2m.atl.common.ATL.Module;
-import org.eclipse.m2m.atl.common.OCL.OclModel;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +24,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.arsene.modeltransformation.DTO.Metric;
+import com.arsene.modeltransformation.utililties.ServiceUtil;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -95,7 +98,7 @@ public class ATLTransformTest {
 	void computeMetricsTest() throws IOException, ATLExecutionException, ATLCoreException {
 		testNumber = "TWO";
 		MockMultipartFile script = handleFiles(4);
-		List<String> resource = atlTransform.calculateMetrics(script);
+		List<Metric> resource = atlTransform.calculateMetrics(script);
 		resource.forEach(s -> System.out.println(s));
 		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
 	}

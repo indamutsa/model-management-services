@@ -1,8 +1,5 @@
 package com.arsene.modeltransformation.controller;
 
-import com.arsene.modeltransformation.DTO.ResponseDto;
-import com.arsene.modeltransformation.service.ATLTransform;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.arsene.modeltransformation.DTO.Metric;
+import com.arsene.modeltransformation.DTO.ResponseDto;
+import com.arsene.modeltransformation.service.ATLTransform;
 
 @RestController
 @RequestMapping(path = "/transform")
@@ -54,9 +55,8 @@ public class AtlController {
         String message = "Model transformation failed, please check the error and try again!";
 
         try {
-            List<String> metrics = epsilonTransform.calculateMetrics(atlScript);
+            List<Metric> metrics = epsilonTransform.calculateMetrics(atlScript);
             return ResponseEntity.status(HttpStatus.CREATED).body(metrics);
-
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
         }

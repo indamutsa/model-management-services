@@ -1,21 +1,35 @@
 <template>
   <!-- FILE: <project>/frontend/src/App.vue -->
   <div id="app">
-    <div id="controls" class="tatanya">
-      <!-- Click on "Run" triggers the compiling process -->
-      <button @click="compileToJS" style="">
-        Execute
-      </button>
-      <button @click="openDoc" style="">
-        Documentation
-      </button>
-    </div>
-    <div class="content">
-      <div
-        id="xtext-editor"
-        :data-editor-xtext-lang="this.dslFileExtension"
-      ></div>
-      <ConsoleView id="console-view" />
+    <div class="container">
+      <div class="topbar">
+        <div class="topbarTitle">
+          <span>MDEForgeWL Prototype</span>
+        </div>
+        <div class="topbarDocs" @click="openDoc">
+          <img src="/images/book.png" alt="">
+          <hr>
+          <p>Documentation</p>
+        </div>
+      </div>
+      <div class="content">
+        <div class="contentEditor">
+          <div class="editorRun" >
+            <!-- <div class="editorRunTitle"> -->
+              <p class="execute" @click="compileToJS">Execute</p>
+              <img @click="compileToJS" src="images/execute.png" alt="">
+            <!-- </div> -->
+          </div>
+          <div id="xtext-editor" :data-editor-xtext-lang="this.dslFileExtension" class="editorInput">
+            /* Please click documentation button to get started */
+          </div>
+        </div>
+        <div class="contentConsole">
+          <ConsoleView id="console-view" />
+          <!-- <div class="consoleTitle">Console Title</div>
+          <div class="consoleDisplay">Display</div> -->
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +53,7 @@
     },
     mounted() {
       /* If the _xtext object is not null when we mount this component, we can continue to configure our editor, otherwise we will wait for the 'ready' event */
+
       !window._xtext
         ? window.xtextReadyEvent.on("ready", this.setXtextEditor)
         : this.setXtextEditor();
@@ -52,12 +67,15 @@
         /* We have to wait until rendering of this.dslFileExtension
         in data-editor-xtext-lang attribute finishes
         before we initialize the editor */
+
         this.$nextTick(() => {
           this.xtextEditor = window._xtext.createEditor({
             baseUrl: "/",
             serviceUrl: `${protocol}${baseUrl}xtext-service`,
             syntaxDefinition: `xtext-resources/generated/mode-${this.dslFileExtension}.js`,
             enableCors: true,
+            loadFromServer: false,
+            resourceId: "./n.wl",
           });
         });
       },
@@ -111,7 +129,128 @@
 </script>
 
 <style>
-  html,
+  *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+
+  }
+
+  .container {
+    width: 100%;
+    min-width: 1178px;
+    min-height: 363px;
+  }
+
+  .topbar{
+    width: 100%;
+    height: 120px;
+    display: flex;
+    background-color: #3b3c3d;
+    align-items: center;
+    position: relative;
+  }
+
+  .topbarTitle {
+
+    flex: 3;
+    width: 100%;
+    height: 70px;
+    color:black;
+    background-color: yellow;
+    text-align: center;
+    line-height: 70px;
+    margin-right: 300px;
+    margin-left: 300px;
+    border-radius: 15px;
+    -webkit-box-shadow: 2px 2px 10px 9px rgba(0,0,0,0.87); 
+    box-shadow: 2px 2px 10px 9px rgba(0,0,0,0.87);
+
+
+  }
+
+
+
+  .topbarDocs{
+    flex: 1;
+    width: 100%;
+    height: 70px;
+    margin-right: 100px;
+
+  }
+
+  .topbarDocs img{
+    width: 120px;
+    height: 60px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .topbarDocs p{
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .content {
+    width: 100%;
+    display: flex;
+  }
+
+  .contentEditor{
+    flex: 4;
+  }
+
+  .editorRun{
+    border: 2px solid black;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+  .editorRun img{
+    width: 30px;
+    margin: 2px;
+    cursor: pointer;
+  }
+
+  .editorRun img:active{
+        -webkit-box-shadow: 2px 2px 10px 9px rgba(172, 172, 172, 0.87); 
+    box-shadow: 2px 2px 10px 9px rgba(131, 131, 131, 0.87);
+  }
+
+  .editorRun .execute{
+      padding: 4px;
+      margin: 2px;
+      cursor: pointer;
+  
+  }
+
+  .editorRun .execute:active{
+    -webkit-box-shadow: 2px 2px 10px 9px rgba(0,0,0,0.87); 
+    box-shadow: 2px 2px 10px 9px rgba(0,0,0,0.87);
+  }
+
+  #xtext-editor {
+   height: calc(100vh - 160px);
+    width: 100%;
+    border: 1px solid #aaa;
+  }
+
+
+  .contentConsole{
+    flex: 2
+  }
+
+
+
+  /* html,
   body,
   #app {
     height: 100%;
@@ -166,5 +305,5 @@
   .tatanya {
     display: flex;
     justify-content: space-between;
-  }
+  } */
 </style>

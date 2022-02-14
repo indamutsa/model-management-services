@@ -1,0 +1,4 @@
+Arsene has been able to run map reducer program
+using local infrastructure. Arsene needs to install
+hadoop using docker. docker is wonderful. Arsene should persist model
+artifacts using docker cluster

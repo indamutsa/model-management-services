@@ -1,17 +1,9 @@
 package com.arsene.modeltransformation.service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.arsene.modeltransformation.DTO.AggregateMetric;
+import com.arsene.modeltransformation.DTO.Metric;
+import com.arsene.modeltransformation.DTO.SimpleMetric;
+import com.arsene.modeltransformation.utililties.ServiceUtil;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -25,256 +17,247 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-//import org.eclipse.epsilon.common.function.ExceptionContainer;
-//import org.eclipse.epsilon.common.util.StringProperties;
-//import org.eclipse.epsilon.emc.emf.EmfModel;
-//import org.eclipse.epsilon.etl.launch.EtlRunConfiguration;
-import org.eclipse.m2m.atl.common.ATLExecutionException;
 import org.eclipse.m2m.atl.common.ATL.Module;
+import org.eclipse.m2m.atl.common.ATLExecutionException;
 import org.eclipse.m2m.atl.common.OCL.OclModel;
-import org.eclipse.m2m.atl.core.ATLCoreException;
-import org.eclipse.m2m.atl.core.IExtractor;
-import org.eclipse.m2m.atl.core.IInjector;
-import org.eclipse.m2m.atl.core.IModel;
-import org.eclipse.m2m.atl.core.IReferenceModel;
-import org.eclipse.m2m.atl.core.ModelFactory;
+import org.eclipse.m2m.atl.core.*;
 import org.eclipse.m2m.atl.core.emf.EMFExtractor;
 import org.eclipse.m2m.atl.core.emf.EMFInjector;
-import org.eclipse.m2m.atl.core.emf.EMFModel;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.core.emf.EMFReferenceModel;
 import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.emftvm.compiler.AtlResourceImpl;
 import org.eclipse.m2m.atl.engine.compiler.atl2006.Atl2006Compiler;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
-import org.eclipse.m2m.atl.engine.parser.AtlParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.arsene.modeltransformation.DTO.AggregateMetric;
-import com.arsene.modeltransformation.DTO.Metric;
-import com.arsene.modeltransformation.DTO.SimpleMetric;
-import com.arsene.modeltransformation.utililties.ServiceUtil;
-
-import anatlyzer.atl.model.ATLModel;
-import anatlyzer.atl.util.ATLUtils;
-import anatlyzer.atl.util.ATLUtils.ModelInfo;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ATLTransform {
 
-	@Autowired
-	private ServiceUtil serviceUtil;
+    @Autowired
+    private ServiceUtil serviceUtil;
 
-	@Autowired
-	private FilePersistance filePersistance;
+    @Autowired
+    private FilePersistance filePersistance;
 
-	// IN THE END THE METHOD SHOULD TAKE LIST OF IN MMs, OUT MMs, IN Ms.
-	public org.springframework.core.io.Resource execute(MultipartFile sourceModel, MultipartFile sourceMetaModel,
-			MultipartFile targetMetaModel, MultipartFile transformation)
-			throws ATLExecutionException, ATLCoreException, IOException {
-		IInjector injector = new EMFInjector();
-		ModelFactory modelFactory = new EMFModelFactory();
-		ILauncher transformationLauncher = new EMFVMLauncher();
-		Map<String, Object> launcherOptions = getOptions();
-		transformationLauncher.initialize(launcherOptions);
+    // IN THE END THE METHOD SHOULD TAKE LIST OF IN MMs, OUT MMs, IN Ms.
+    public org.springframework.core.io.Resource execute(MultipartFile sourceModel, MultipartFile sourceMetaModel,
+                                                        MultipartFile targetMetaModel, MultipartFile transformation)
+            throws ATLExecutionException, ATLCoreException, IOException {
+        IInjector injector = new EMFInjector();
+        ModelFactory modelFactory = new EMFModelFactory();
+        ILauncher transformationLauncher = new EMFVMLauncher();
+        Map<String, Object> launcherOptions = getOptions();
+        transformationLauncher.initialize(launcherOptions);
 
-		List<EObject> info = getModelInfo(transformation);
-		String inMMName = "";
-		String inMName = "";
-		Module k = (Module) info.get(0);
+        List<EObject> info = getModelInfo(transformation);
+        String inMMName = "";
+        String inMName = "";
+        Module k = (Module) info.get(0);
 
-		// HERE ITERATE
-		for (OclModel i : k.getInModels()) {
-			inMName = i.getName();
-			inMMName = i.getMetamodel().getName();
-			break;
-		}
-		String outMMName = "";
-		String outMName = "";
-		for (OclModel i : k.getOutModels()) {
-			outMName = i.getName();
-			outMMName = i.getMetamodel().getName();
-			break;
-		}
-		IReferenceModel inputMetamodel = modelFactory.newReferenceModel();
-		injector.inject(inputMetamodel, sourceMetaModel.getInputStream(), null);
-		IModel inputModel = modelFactory.newModel(inputMetamodel);
-		injector.inject(inputModel, sourceModel.getInputStream(), null);
-		transformationLauncher.addInModel(inputModel, inMName, inMMName);
+        // HERE ITERATE
+        for (OclModel i : k.getInModels()) {
+            inMName = i.getName();
+            inMMName = i.getMetamodel().getName();
+            break;
+        }
+        String outMMName = "";
+        String outMName = "";
+        for (OclModel i : k.getOutModels()) {
+            outMName = i.getName();
+            outMMName = i.getMetamodel().getName();
+            break;
+        }
+        IReferenceModel inputMetamodel = modelFactory.newReferenceModel();
+        injector.inject(inputMetamodel, sourceMetaModel.getInputStream(), null);
+        IModel inputModel = modelFactory.newModel(inputMetamodel);
+        injector.inject(inputModel, sourceModel.getInputStream(), null);
+        transformationLauncher.addInModel(inputModel, inMName, inMMName);
 
-		IReferenceModel outputMetamodel = modelFactory.newReferenceModel();
-		injector.inject(outputMetamodel, targetMetaModel.getInputStream(), null);
-		IModel outputModel = modelFactory.newModel(outputMetamodel);
-		transformationLauncher.addOutModel(outputModel, outMName, outMMName);
+        IReferenceModel outputMetamodel = modelFactory.newReferenceModel();
+        injector.inject(outputMetamodel, targetMetaModel.getInputStream(), null);
+        IModel outputModel = modelFactory.newModel(outputMetamodel);
+        transformationLauncher.addOutModel(outputModel, outMName, outMMName);
 
-		String asmFileString = compileAsmAndGetPath(transformation);
-		FileInputStream asmFile = new FileInputStream(asmFileString);
-		IExtractor extractor = new EMFExtractor();
-		@SuppressWarnings("unused")
-		Object result = transformationLauncher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), launcherOptions,
-				asmFile);
-		asmFile.close();
+        String asmFileString = compileAsmAndGetPath(transformation);
+        FileInputStream asmFile = new FileInputStream(asmFileString);
+        IExtractor extractor = new EMFExtractor();
+        @SuppressWarnings("unused")
+        Object result = transformationLauncher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), launcherOptions,
+                asmFile);
+        asmFile.close();
 
-		Path targetModelPath = serviceUtil.handleFileName("temp.xmi");
-		extractor.extract(outputModel, targetModelPath.toString());
-		org.springframework.core.io.Resource targetModel = filePersistance.loadFile(targetModelPath);
+        Path targetModelPath = serviceUtil.handleFileName("temp.xmi");
+        extractor.extract(outputModel, targetModelPath.toString());
+        org.springframework.core.io.Resource targetModel = filePersistance.loadFile(targetModelPath);
 
-		return targetModel;
-	}
+        return targetModel;
+    }
 
-	public EList<EObject> getModelInfo(MultipartFile atlTransformation) throws IOException {
-		AtlResourceImpl ri = new AtlResourceImpl();
-		ResourceSet rs = new ResourceSetImpl();
-		rs.getResources().add(ri);
-		ri.load(atlTransformation.getInputStream(), null);
-		return ri.getContents();
-	}
+    public EList<EObject> getModelInfo(MultipartFile atlTransformation) throws IOException {
+        AtlResourceImpl ri = new AtlResourceImpl();
+        ResourceSet rs = new ResourceSetImpl();
+        rs.getResources().add(ri);
+        ri.load(atlTransformation.getInputStream(), null);
+        return ri.getContents();
+    }
 
-	public String storeModel(MultipartFile atlTransformation) throws IOException {
-		String outputFilePath = atlTransformation.getName() + ".xmi";
-		EList<EObject> ri = getModelInfo(atlTransformation);
-		ResourceSet rs = new ResourceSetImpl();
-		Resource xmiRes = rs.createResource(URI.createURI(outputFilePath));
-		xmiRes.getContents().addAll(ri);
-		xmiRes.save(null);
-		return outputFilePath;
+    public String storeModel(MultipartFile atlTransformation) throws IOException {
+        String outputFilePath = atlTransformation.getName() + ".xmi";
+        EList<EObject> ri = getModelInfo(atlTransformation);
+        ResourceSet rs = new ResourceSetImpl();
+        Resource xmiRes = rs.createResource(URI.createURI(outputFilePath));
+        xmiRes.getContents().addAll(ri);
+        xmiRes.save(null);
+        return outputFilePath;
 
-	}
+    }
 
-	public String compileAsmAndGetPath(MultipartFile atlPath) throws IOException {
-		String asmModulePath = "src/main/resources/artifacts/scripts/"
-				+ atlPath.getOriginalFilename().replace(".atl", ".asm");
-		Atl2006Compiler compiler = new Atl2006Compiler();
-		File fle = new File("src/main/resources/artifacts/scripts/" + atlPath.getOriginalFilename());
-		atlPath.transferTo(fle);
-		compiler.compile(new FileInputStream(fle), asmModulePath);
-		return asmModulePath;
-	}
+    public String compileAsmAndGetPath(MultipartFile atlPath) throws IOException {
 
-	private Map<String, Object> getOptions() {
+        String asmModulePath = "src/main/resources/artifacts/scripts/"
+                + atlPath.getOriginalFilename().replace(".atl", ".asm");
+        Atl2006Compiler compiler = new Atl2006Compiler();
+        File fle = new File("src/main/resources/artifacts/scripts/" + atlPath.getOriginalFilename());
+        atlPath.transferTo(fle);
+        compiler.compile(new FileInputStream(fle), asmModulePath);
+        return asmModulePath;
+    }
 
-		Map<String, Object> options;
-		options = new HashMap<String, Object>();
-		options.put("supportUML2Stereotypes", "false");
-		options.put("printExecutionTime", "true");
-		options.put("OPTION_CONTENT_TYPE", "false");
-		options.put("allowInterModelReferences", "false");
-		options.put("step", "false");
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+    private Map<String, Object> getOptions() {
 
-		return options;
-	}
+        Map<String, Object> options;
+        options = new HashMap<String, Object>();
+        options.put("supportUML2Stereotypes", "false");
+        options.put("printExecutionTime", "true");
+        options.put("OPTION_CONTENT_TYPE", "false");
+        options.put("allowInterModelReferences", "false");
+        options.put("step", "false");
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 
-	public List<Metric> calculateMetrics(MultipartFile atlTransformation) throws ATLCoreException, IOException {
-		ILauncher transformationLauncher = new EMFVMLauncher();
-		ModelFactory modelFactory = new EMFModelFactory();
-		IInjector injector = new EMFInjector();
-		IExtractor extractor = new EMFExtractor();
-		/*
-		 * Load metamodels
-		 */
+        return options;
+    }
 
-		IReferenceModel outputMetamodel = modelFactory.newReferenceModel();
-		injector.inject(outputMetamodel, "src/main/resources/util/Metric.ecore");
-		IReferenceModel inputMetamodel = modelFactory.newReferenceModel();
-		injector.inject(inputMetamodel, "src/main/resources/util/ATL.ecore");
+    public List<Metric> calculateMetrics(MultipartFile atlTransformation) throws ATLCoreException, IOException {
+        ILauncher transformationLauncher = new EMFVMLauncher();
+        ModelFactory modelFactory = new EMFModelFactory();
+        IInjector injector = new EMFInjector();
+        IExtractor extractor = new EMFExtractor();
+        /*
+         * Load metamodels
+         */
 
-		String xmiFileString = storeModel(atlTransformation);
-		IModel inputModel = modelFactory.newModel(inputMetamodel);
-		IModel outModel = modelFactory.newModel(outputMetamodel);
+        IReferenceModel outputMetamodel = modelFactory.newReferenceModel();
+        injector.inject(outputMetamodel, "src/main/resources/util/Metric.ecore");
+        IReferenceModel inputMetamodel = modelFactory.newReferenceModel();
+        injector.inject(inputMetamodel, "src/main/resources/util/ATL.ecore");
 
-		InputStream fis = new FileInputStream(new File(xmiFileString));
+        String xmiFileString = storeModel(atlTransformation);
+        IModel inputModel = modelFactory.newModel(inputMetamodel);
+        IModel outModel = modelFactory.newModel(outputMetamodel);
 
-		injector.inject(inputModel, fis, null);
+        InputStream fis = new FileInputStream(new File(xmiFileString));
 
-		transformationLauncher.initialize(new HashMap<String, Object>());
-		transformationLauncher.addInModel(inputModel, "IN", "ATL");
-		transformationLauncher.addOutModel(outModel, "OUT", "Metric");
+        injector.inject(inputModel, fis, null);
 
-		FileInputStream asmFile = new FileInputStream("src/main/resources/util/ATLMetric.asm");
-		transformationLauncher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), new HashMap<String, Object>(),
-				asmFile);
-		asmFile.close();
+        transformationLauncher.initialize(new HashMap<String, Object>());
+        transformationLauncher.addInModel(inputModel, "IN", "ATL");
+        transformationLauncher.addOutModel(outModel, "OUT", "Metric");
 
-		extractor.extract(outModel, "src/main/resources/sampleCompany_Cut.xmi");
-		EMFModelFactory emfModelFactory = (EMFModelFactory) modelFactory;
-		emfModelFactory.unload((EMFReferenceModel) inputMetamodel);
-		emfModelFactory.unload((EMFReferenceModel) outputMetamodel);
-		
-		return extractMetrics("src/main/resources/sampleCompany_Cut.xmi");
+        FileInputStream asmFile = new FileInputStream("src/main/resources/util/ATLMetric.asm");
+        transformationLauncher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), new HashMap<String, Object>(),
+                asmFile);
+        asmFile.close();
 
-	}
+        extractor.extract(outModel, "src/main/resources/sampleCompany_Cut.xmi");
+        EMFModelFactory emfModelFactory = (EMFModelFactory) modelFactory;
+        emfModelFactory.unload((EMFReferenceModel) inputMetamodel);
+        emfModelFactory.unload((EMFReferenceModel) outputMetamodel);
 
-	private List<Metric> extractMetrics(String path) {
-		List<Metric> result = new ArrayList();
-		registerMetamodel("src/main/resources/util/Metric.ecore");
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-		Map<String, Object> m = reg.getExtensionToFactoryMap();
-		m.put("xmi", new XMIResourceFactoryImpl());
-		// Obtain a new resource set
-		ResourceSet resSet = new ResourceSetImpl();
-		// Create a resource
+        return extractMetrics("src/main/resources/sampleCompany_Cut.xmi");
 
-		Resource resource = resSet.createResource(URI.createURI(path));
-		try {
-			resource.load(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		EObject muforge = resource.getContents().get(0);
-		List<Object> list = (List<Object>) muforge.eGet(muforge.eClass().getEStructuralFeature("metrics"));
-		for (Object element : list) {
-			String metricName = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("name"))
-					.toString();
-			if (((EObject) element).eClass().getName().equals("SimpleMetric")) {
-				String value = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("value")).toString();
-				
-				result.add(new SimpleMetric(metricName, value));
-			}
-			if (((EObject) element).eClass().getName().equals("AggregatedRealMetric")) {
-				String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
-				String maximum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("maximum")).toString();
-				String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
-				String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
-				String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
-				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
-			}
-			if (((EObject) element).eClass().getName().equals("AggregatedIntegerMetric")) {
-				String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
-				String maximum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("maximum")).toString();
-				String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
-				String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
-				String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
-				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
-			}
-		}
+    }
 
-		return result;
-	}
+    private List<Metric> extractMetrics(String path) {
+        List<Metric> result = new ArrayList();
+        registerMetamodel("src/main/resources/util/Metric.ecore");
+        Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+        Map<String, Object> m = reg.getExtensionToFactoryMap();
+        m.put("xmi", new XMIResourceFactoryImpl());
+        // Obtain a new resource set
+        ResourceSet resSet = new ResourceSetImpl();
+        // Create a resource
 
-	public Resource registerMetamodel(String ecoreMetamodel) {
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
-		ResourceSet rs = new ResourceSetImpl();
-		// enable extended metadata
-		final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(rs.getPackageRegistry());
-		rs.getLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
-		Resource r = rs.getResource(URI.createFileURI(ecoreMetamodel), true);
-		for (EObject eObject : r.getContents()) {
-			if (eObject instanceof EPackage) {
-				EPackage p = (EPackage) eObject;
-				registerSubPackage(p);
-			}
-		}
-		return r;
-	}
+        Resource resource = resSet.createResource(URI.createURI(path));
+        try {
+            resource.load(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        EObject muforge = resource.getContents().get(0);
+        List<Object> list = (List<Object>) muforge.eGet(muforge.eClass().getEStructuralFeature("metrics"));
+        for (Object element : list) {
+            String metricName = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("name"))
+                    .toString();
+            if (((EObject) element).eClass().getName().equals("SimpleMetric")) {
+                String value = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("value")).toString();
 
-	private void registerSubPackage(EPackage p) {
-		EPackage.Registry.INSTANCE.put(p.getNsURI(), p);
-		for (EPackage pack : p.getESubpackages()) {
-			registerSubPackage(pack);
-		}
-	}
+                result.add(new SimpleMetric(metricName, value));
+            }
+            if (((EObject) element).eClass().getName().equals("AggregatedRealMetric")) {
+                String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
+                String maximum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("maximum")).toString();
+                String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
+                String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
+                String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
+                result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
+            }
+            if (((EObject) element).eClass().getName().equals("AggregatedIntegerMetric")) {
+                String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
+                String maximum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("maximum")).toString();
+                String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
+                String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
+                String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
+                result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
+            }
+        }
+
+        return result;
+    }
+
+    public Resource registerMetamodel(String ecoreMetamodel) {
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+        ResourceSet rs = new ResourceSetImpl();
+        // enable extended metadata
+        final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(rs.getPackageRegistry());
+        rs.getLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
+        Resource r = rs.getResource(URI.createFileURI(ecoreMetamodel), true);
+        for (EObject eObject : r.getContents()) {
+            if (eObject instanceof EPackage) {
+                EPackage p = (EPackage) eObject;
+                registerSubPackage(p);
+            }
+        }
+        return r;
+    }
+
+    private void registerSubPackage(EPackage p) {
+        EPackage.Registry.INSTANCE.put(p.getNsURI(), p);
+        for (EPackage pack : p.getESubpackages()) {
+            registerSubPackage(pack);
+        }
+    }
 
 }

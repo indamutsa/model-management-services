@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<metrics:Container xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metrics="org.mdeforge.emf.metric">
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of MetaClass" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of abstract MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of concrete MetaClass" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of concrete Completely Featureless MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of immediate Featureless MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of abstract immediate Featureless MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of concrete immediate Featureless MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total eStructuralFeature" value="10"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total structural feature with inherited" value="10"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Completely Featureless MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of abstract Completely Featureless MetaClass" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of TotalReference" value="8"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Opposite Reference " value="8"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of TotalReference containment" value="4"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total Attribute" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total Attribute with inherited" value="2"/>
+</metrics:Container>

@@ -283,7 +283,7 @@
 
   :root {
     --light-grey: #e0e0e0;
-    --grey: #a0a0a0;
+    --grey: #4d4a4a;
   }
 
   i {
@@ -341,12 +341,13 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 1.3em;
+    height: 2em;
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: var(--light-grey);
     line-height: 1em;
+
   }
 
   .console_title {
@@ -365,6 +366,6 @@
   .console {
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 </style>

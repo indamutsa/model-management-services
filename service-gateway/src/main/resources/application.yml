@@ -25,6 +25,14 @@ spring:
           filters:
             - StripPrefix=1
 
+            # Route for persistence api
+        - id: persistence-api
+          uri: http://localhost:3200 # the name of spring application
+          predicates:
+            - Path=/api/store/**
+          filters:
+            - StripPrefix=1
+
         # Route for model query service
         - id: model-query
           uri: lb://model-query

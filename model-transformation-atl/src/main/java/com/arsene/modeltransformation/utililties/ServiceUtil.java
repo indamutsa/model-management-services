@@ -99,7 +99,7 @@ public class ServiceUtil {
         Path sourceModelPath = null;;
         Path sourceMetaModelPath = null;;
         Path targetMetaModelPath = null;;
-        Path etlScriptPath = null;
+        Path atlScriptPath = null;
 
         int i = 0;
 
@@ -119,13 +119,13 @@ public class ServiceUtil {
                         targetMetaModelPath = filePath;
                     i++;
                     break;
-                case "etl":
-                    etlScriptPath = filePath;
+                case "atl":
+                    atlScriptPath = filePath;
                     break;
             }
         }
 
-        return new Path[]{sourceModelPath, sourceMetaModelPath, targetMetaModelPath, etlScriptPath};
+        return new Path[]{sourceModelPath, sourceMetaModelPath, targetMetaModelPath, atlScriptPath};
     }
 
     // Delete the file after running them || They are cashed in the repo anyways

@@ -11,11 +11,11 @@ server:
   port: ${port:8087}
   forward-headers-strategy: framework
   servlet:
-    context-path: /mms
+    context-path: /mms/query
 
 springdoc:
   swagger-ui:
-    path: /api-docs/query
+    path: /api-docs
 
 # For integration, this is treated as a client to Eureka server
 eureka:

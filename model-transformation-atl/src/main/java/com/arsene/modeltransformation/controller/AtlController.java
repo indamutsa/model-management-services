@@ -22,7 +22,7 @@ import com.arsene.modeltransformation.service.ATLTransform;
 public class AtlController {
 
     @Autowired
-    private ATLTransform epsilonTransform;
+    private ATLTransform atlTransform;
 
     Resource transformedModel = null;
 
@@ -40,7 +40,7 @@ public class AtlController {
         String message = "Model transformation failed, please check the error and try again!";
 
         try {
-            transformedModel = epsilonTransform.execute(sourceModel, sourceMetaModel, targetMetaModel, atlScript);
+            transformedModel = atlTransform.execute(sourceModel, sourceMetaModel, targetMetaModel, atlScript);
             return ResponseEntity.status(HttpStatus.CREATED).body(transformedModel);
 
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class AtlController {
         String message = "Model transformation failed, please check the error and try again!";
 
         try {
-            List<Metric> metrics = epsilonTransform.calculateMetrics(atlScript);
+            List<Metric> metrics = atlTransform.calculateMetrics(atlScript);
             return ResponseEntity.status(HttpStatus.CREATED).body(metrics);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));

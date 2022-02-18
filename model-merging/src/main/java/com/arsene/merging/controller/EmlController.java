@@ -40,7 +40,6 @@ public class EmlController {
             String mergedData = epsilonMerging.runEngine(model1, model2, eclScript, emlScript);
             System.out.println("Finished merging");
 
-
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(mergedData);
 
         } catch (Exception e) {

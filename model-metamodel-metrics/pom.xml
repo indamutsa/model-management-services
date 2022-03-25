@@ -19,7 +19,7 @@
 		<spring-cloud.version>Hoxton.SR10</spring-cloud.version>
 		<atl.version>4.4.0</atl.version>
 	</properties>
-		<repositories>
+	<repositories>
 		<repository>
 			<id>atl</id>
 			<name>ATL Repository</name>

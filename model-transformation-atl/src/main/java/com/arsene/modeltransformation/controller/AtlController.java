@@ -61,4 +61,18 @@ public class AtlController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
         }
     }
+    @PostMapping(value = "/info", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity calculateInfo(
+            @RequestPart(value = "atlScript") MultipartFile atlScript
+            ) {
+
+        String message = "Model transformation failed, please check the error and try again!";
+
+        try {
+            List<Metric> metrics = atlTransform.calculateMetrics(atlScript);
+            return ResponseEntity.status(HttpStatus.CREATED).body(metrics);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
+        }
+    }
 }

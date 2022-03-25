@@ -24,6 +24,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 
+import com.arsene.modeltransformation.DTO.ATLTransformationInfo;
 import com.arsene.modeltransformation.DTO.Metric;
 import com.arsene.modeltransformation.utililties.ServiceUtil;
 
@@ -90,16 +91,25 @@ public class ATLTransformTest {
 	void getModelInfoTest() throws IOException, ATLExecutionException, ATLCoreException {
 		testNumber = "TWO";
 		MockMultipartFile script = handleFiles(4);
-		EList<EObject> resource = atlTransform.getModelInfo(script);
+		EList<EObject> resource = atlTransform.getResources(script);
 		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
 	}
 	
 	@Test
 	void computeMetricsTest() throws IOException, ATLExecutionException, ATLCoreException {
-		testNumber = "TWO";
+		testNumber = "THREE";
 		MockMultipartFile script = handleFiles(4);
 		List<Metric> resource = atlTransform.calculateMetrics(script);
 		resource.forEach(s -> System.out.println(s));
+		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
+	}
+	
+	@Test
+	void computeATLTransformationInfoTest() throws IOException, ATLExecutionException, ATLCoreException {
+		testNumber = "FOUR";
+		MockMultipartFile script = handleFiles(4);
+		ATLTransformationInfo trafoInfo = atlTransform.getAtlInfo(script);
+		System.out.println(trafoInfo);
 		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
 	}
 

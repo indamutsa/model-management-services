@@ -1,7 +1,9 @@
 package com.arsene.modeltransformation.service;
 
+import com.arsene.modeltransformation.DTO.ATLTransformationInfo;
 import com.arsene.modeltransformation.DTO.AggregateMetric;
 import com.arsene.modeltransformation.DTO.Metric;
+import com.arsene.modeltransformation.DTO.ModelInfo;
 import com.arsene.modeltransformation.DTO.SimpleMetric;
 import com.arsene.modeltransformation.utililties.ServiceUtil;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -62,7 +64,7 @@ public class ATLTransform {
         Map<String, Object> launcherOptions = getOptions();
         transformationLauncher.initialize(launcherOptions);
 
-        List<EObject> info = getModelInfo(transformation);
+        List<EObject> info = getResources(transformation);
         String inMMName = "";
         String inMName = "";
         Module k = (Module) info.get(0);
@@ -106,17 +108,45 @@ public class ATLTransform {
         return targetModel;
     }
 
-    public EList<EObject> getModelInfo(MultipartFile atlTransformation) throws IOException {
+    public EList<EObject> getResources(MultipartFile atlTransformation) throws IOException {
         AtlResourceImpl ri = new AtlResourceImpl();
         ResourceSet rs = new ResourceSetImpl();
         rs.getResources().add(ri);
         ri.load(atlTransformation.getInputStream(), null);
         return ri.getContents();
     }
+    public ATLTransformationInfo getAtlInfo(MultipartFile atlTransformation) throws IOException {
+        ATLTransformationInfo resutl = new ATLTransformationInfo();
+    	IInjector injector = new EMFInjector();
+        ModelFactory modelFactory = new EMFModelFactory();
+        ILauncher transformationLauncher = new EMFVMLauncher();
+        Map<String, Object> launcherOptions = getOptions();
+        transformationLauncher.initialize(launcherOptions);
+        AtlResourceImpl ri = new AtlResourceImpl();
+        ResourceSet rs = new ResourceSetImpl();
+        rs.getResources().add(ri);
+        ri.load(atlTransformation.getInputStream(), null);
+        List<EObject> info = ri.getContents();
+        
+        Module k = (Module) info.get(0);
+
+        // HERE ITERATE
+        
+        for (OclModel i : k.getInModels()) {
+        	ModelInfo in = new ModelInfo(i.getName(),i.getMetamodel().getName());
+            resutl.getInputModels().add(in);
+        }
+        for (OclModel i : k.getOutModels()) {
+        	ModelInfo out = new ModelInfo(i.getName(),i.getMetamodel().getName());
+        	resutl.getOutputModels().add(out);
+        }
+        return resutl;
+    }
+    
 
     public String storeModel(MultipartFile atlTransformation) throws IOException {
         String outputFilePath = atlTransformation.getName() + ".xmi";
-        EList<EObject> ri = getModelInfo(atlTransformation);
+        EList<EObject> ri = getResources(atlTransformation);
         ResourceSet rs = new ResourceSetImpl();
         Resource xmiRes = rs.createResource(URI.createURI(outputFilePath));
         xmiRes.getContents().addAll(ri);

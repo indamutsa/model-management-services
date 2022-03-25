@@ -1,7 +1,5 @@
 package com.arsene.metamodel.metric.service;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,8 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.m2m.atl.common.ATLExecutionException;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.junit.jupiter.api.AfterEach;
@@ -21,16 +17,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.arsene.metamodel.metric.DTO.Metric;
-import com.arsene.metamodel.metric.service.EcoreMetamodelService;
+import com.arsene.metamodel.metric.DTO.QualityAttribute;
 import com.arsene.metamodel.metric.utililties.ServiceUtil;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class EcoreMetamodelTransformTest {
+public class EcoreMetamodelTest {
 
 	/*
 	 * We are performing UNIT Test We are testing the function decoupled with other
@@ -43,7 +38,7 @@ public class EcoreMetamodelTransformTest {
 	private ServiceUtil serviceUtil;
 
 	@Autowired
-	private EcoreMetamodelService atlTransform;
+	private EcoreMetamodelService ecoreService;
 
 	/*
 	 * This function will run before everything runs
@@ -67,7 +62,16 @@ public class EcoreMetamodelTransformTest {
 	void computeMetricsTest() throws IOException, ATLExecutionException, ATLCoreException {
 		testNumber = "TWO";
 		MockMultipartFile script = handleFiles(2);
-		List<Metric> resource = atlTransform.calculateMetrics(script);
+		List<Metric> resource = ecoreService.calculateMetrics(script);
+		resource.forEach(s -> System.out.println(s));
+		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
+	}
+	
+	@Test
+	void computeQualityAttributesTest() throws IOException, ATLExecutionException, ATLCoreException {
+		testNumber = "THREE";
+		MockMultipartFile script = handleFiles(2);
+		List<QualityAttribute> resource = ecoreService.calculateQualityAttributes(script);
 		resource.forEach(s -> System.out.println(s));
 		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
 	}

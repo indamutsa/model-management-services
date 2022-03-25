@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.arsene.metamodel.metric.DTO.Metric;
+import com.arsene.metamodel.metric.DTO.QualityAttribute;
 import com.arsene.metamodel.metric.DTO.ResponseDto;
 import com.arsene.metamodel.metric.service.EcoreMetamodelService;
 
@@ -22,7 +23,7 @@ import com.arsene.metamodel.metric.service.EcoreMetamodelService;
 public class EcoreMetamodelController {
 
     @Autowired
-    private EcoreMetamodelService epsilonTransform;
+    private EcoreMetamodelService ecoreService;
 
     Resource transformedModel = null;
 
@@ -32,14 +33,29 @@ public class EcoreMetamodelController {
 
     @PostMapping(value = "/metrics", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity calculateMetric(
-            @RequestPart(value = "atlScript") MultipartFile atlScript
+            @RequestPart(value = "ecoreMetamodel") MultipartFile ecoreMetamodel
             ) {
 
         String message = "Model transformation failed, please check the error and try again!";
 
         try {
-            List<Metric> metrics = epsilonTransform.calculateMetrics(atlScript);
+            List<Metric> metrics = ecoreService.calculateMetrics(ecoreMetamodel);
             return ResponseEntity.status(HttpStatus.CREATED).body(metrics);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
+        }
+    }
+    
+    @PostMapping(value = "/quality_attributes", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity calculateQualityAttribute(
+            @RequestPart(value = "ecoreMetamodel") MultipartFile ecoreMetamodel
+            ) {
+
+        String message = "Model transformation failed, please check the error and try again!";
+
+        try {
+            List<QualityAttribute> qualityAttributes = ecoreService.calculateQualityAttributes(ecoreMetamodel);
+            return ResponseEntity.status(HttpStatus.CREATED).body(qualityAttributes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
         }

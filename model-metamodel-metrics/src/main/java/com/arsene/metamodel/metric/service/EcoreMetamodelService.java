@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +43,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.arsene.metamodel.metric.DTO.AggregateMetric;
 import com.arsene.metamodel.metric.DTO.Metric;
+import com.arsene.metamodel.metric.DTO.QualityAttribute;
 import com.arsene.metamodel.metric.DTO.SimpleMetric;
+
+import io.micrometer.core.instrument.Metrics;
 
 
 
@@ -87,11 +92,11 @@ public class EcoreMetamodelService {
 		emfModelFactory.unload((EMFReferenceModel) inputMetamodel);
 		emfModelFactory.unload((EMFReferenceModel) outputMetamodel);
 		
-		return extractMetrics("src/main/resources/sampleCompany_Cut.xmi");
+		return extractMetrics("src/main/resources/sampleCompany_Cut.xmi", false);
 
 	}
 
-	private List<Metric> extractMetrics(String path) {
+	private List<Metric> extractMetrics(String path, boolean deleteMe) {
 		List<Metric> result = new ArrayList();
 		registerMetamodel("src/main/resources/util/Metric.ecore");
 		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
@@ -134,7 +139,12 @@ public class EcoreMetamodelService {
 				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
 			}
 		}
-
+		if (deleteMe)
+			try {
+				Files.delete(Paths.get(path));
+			} catch (IOException e) {
+				System.err.println("Cannot delete " + path);
+			}
 		return result;
 	}
 
@@ -159,6 +169,50 @@ public class EcoreMetamodelService {
 		for (EPackage pack : p.getESubpackages()) {
 			registerSubPackage(pack);
 		}
+	}
+
+	public List<QualityAttribute> calculateQualityAttributes(MultipartFile ecoreMetamodel) {
+		// TODO Auto-generated method stub
+		
+		List<QualityAttribute> results = new ArrayList<QualityAttribute>();
+		
+		QualityAttribute maintainability = new QualityAttribute();
+		try {
+			List<Metric> metrics = calculateMetrics(ecoreMetamodel);
+			
+			//TODO PLEASE HERE CHANGE THE LOGIC TO QUATIC
+			SimpleMetric MC = metrics.stream().filter(z -> z.getName().equals("Number of MetaClass")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric TA = metrics.stream().filter(z -> z.getName().equals("Number of Total Attribute")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric TR = metrics.stream().filter(z -> z.getName().equals("Number of TotalReference")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric MAHL = metrics.stream().filter(z -> z.getName().equals("Max generalizzation hierarchical level")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric MHS = metrics.stream().filter(z -> z.getName().equals("Max Hierarchy Sibiling")).map(z-> (SimpleMetric) z).findAny().get();
+			double value = (Integer.parseInt(MC.getValue()) + Integer.parseInt(TA.getValue()) + Integer.parseInt(TR.getValue()) + Integer.parseInt(MAHL.getValue()) + Integer.parseInt(MHS.getValue())* 1.0) / 5;
+			maintainability.setName("maintainability");
+			maintainability.setValue(value);
+			maintainability.getMetrics().add(MHS);
+			maintainability.getMetrics().add(TA);
+			maintainability.getMetrics().add(MC);
+			maintainability.getMetrics().add(TR);
+			maintainability.getMetrics().add(MAHL);
+			results.add(maintainability);	
+			
+		} catch (ATLCoreException | IOException e) {
+			System.err.println("Error computing metrics");
+		}
+		return results;
+		
+	
+		
+
+//		– DITMax : it is the maximum between the DIT value obtained for each class
+//		of the metamodel. The DIT value for a class within a generalization hierarchy
+//		is the longest path from the class to the root of the hierarchy;
+//		– HAggMax : it is the maximum between the HAgg value obtained for each
+//		class of the metamodel. The HAgg value for a class within an relation chain
+//		is the longest path from the class to others
+		
+		
+		
 	}
 
 }

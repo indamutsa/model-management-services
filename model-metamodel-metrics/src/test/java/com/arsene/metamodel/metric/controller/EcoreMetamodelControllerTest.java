@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import com.arsene.metamodel.metric.service.EcoreMetamodelTransformTest;
+import com.arsene.metamodel.metric.service.EcoreMetamodelTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,7 +60,7 @@ class EcoreMetamodelControllerTest {
 
     @Test
     void transformArtefacts() throws Exception {
-        EcoreMetamodelTransformTest test = new EcoreMetamodelTransformTest();
+        EcoreMetamodelTest test = new EcoreMetamodelTest();
         MockMultipartFile sourceModel = test.handleFiles(1);
         MockMultipartFile sourceMetaModel = test.handleFiles(2);
         MockMultipartFile targetMetaModel = test.handleFiles(3);

@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.arsene.metamodel.metric.DTO.Metric;
+import com.arsene.metamodel.metric.DTO.QualitiesAndMetrics;
 import com.arsene.metamodel.metric.DTO.QualityAttribute;
 import com.arsene.metamodel.metric.utililties.ServiceUtil;
 
@@ -76,6 +77,14 @@ public class EcoreMetamodelTest {
 		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
 	}
 
+	@Test
+	void computeQualitiesAndMetricsTest() throws IOException, ATLExecutionException, ATLCoreException {
+		testNumber = "FOUR";
+		MockMultipartFile script = handleFiles(2);
+		QualitiesAndMetrics resource = ecoreService.calculateQualitiesAndMetrics(script);
+		System.out.println(resource);
+		System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
+	}
 	
 
 	public static MockMultipartFile handleFiles(int num) {

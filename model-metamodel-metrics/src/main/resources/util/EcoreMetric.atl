@@ -238,7 +238,8 @@ rule NumOfTotalReferenceOpposite(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of Opposite Reference ',
-  			value	<- thisModule.getAllReference(model)->size().toString()
+  			value	<- thisModule.getAllReference(model)->size().toString(),
+			code	<- 'REFEOP'
   		)
 	do {
 		s_out;
@@ -288,7 +289,8 @@ rule getMaxGeneralizzationHier(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   		
   			name	<- 'Max generalizzation hierarchical level',
-  			value	<- thisModule.getMaxLevelOfGeneralizzation(modelName).toString()
+  			value	<- thisModule.getMaxLevelOfGeneralizzation(modelName).toString(),
+			code	<- 'MAXHL'
   		)
 	do {
 		s_out;
@@ -502,7 +504,8 @@ rule getAverageRelationInAClass(modelName : String){
 rule getAverageAttributeInAClass(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Average Attribute in a class',
-  			value	<- (thisModule.getAllAttribute(modelName)->size()/thisModule.getAllMetaClass(modelName)->size()).toString()
+  			value	<- (thisModule.getAllAttribute(modelName)->size()/thisModule.getAllMetaClass(modelName)->size()).toString(),
+			code	<- 'AVGATTR'
   		)
 	do {
 		s_out;

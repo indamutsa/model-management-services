@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.arsene.metamodel.metric.DTO.Metric;
+import com.arsene.metamodel.metric.DTO.QualitiesAndMetrics;
 import com.arsene.metamodel.metric.DTO.QualityAttribute;
 import com.arsene.metamodel.metric.DTO.ResponseDto;
 import com.arsene.metamodel.metric.service.EcoreMetamodelService;
@@ -55,6 +56,21 @@ public class EcoreMetamodelController {
 
         try {
             List<QualityAttribute> qualityAttributes = ecoreService.calculateQualityAttributes(ecoreMetamodel);
+            return ResponseEntity.status(HttpStatus.CREATED).body(qualityAttributes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
+        }
+    }
+    
+    @PostMapping(value = "/qualities_and_metrics", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity calculateQualitiesAndMetrics(
+            @RequestPart(value = "ecoreMetamodel") MultipartFile ecoreMetamodel
+            ) {
+
+        String message = "Model transformation failed, please check the error and try again!";
+
+        try {
+            QualitiesAndMetrics qualityAttributes = ecoreService.calculateQualitiesAndMetrics(ecoreMetamodel);
             return ResponseEntity.status(HttpStatus.CREATED).body(qualityAttributes);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));

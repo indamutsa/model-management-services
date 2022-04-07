@@ -43,6 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.arsene.metamodel.metric.DTO.AggregateMetric;
 import com.arsene.metamodel.metric.DTO.Metric;
+import com.arsene.metamodel.metric.DTO.QualitiesAndMetrics;
 import com.arsene.metamodel.metric.DTO.QualityAttribute;
 import com.arsene.metamodel.metric.DTO.SimpleMetric;
 
@@ -200,6 +201,52 @@ public class EcoreMetamodelService {
 			System.err.println("Error computing metrics");
 		}
 		return results;
+		
+	
+		
+
+//		– DITMax : it is the maximum between the DIT value obtained for each class
+//		of the metamodel. The DIT value for a class within a generalization hierarchy
+//		is the longest path from the class to the root of the hierarchy;
+//		– HAggMax : it is the maximum between the HAgg value obtained for each
+//		class of the metamodel. The HAgg value for a class within an relation chain
+//		is the longest path from the class to others
+		
+		
+		
+	}
+	
+	public QualitiesAndMetrics calculateQualitiesAndMetrics(MultipartFile ecoreMetamodel) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		QualitiesAndMetrics qem = new QualitiesAndMetrics();
+		try {
+			QualityAttribute maintainability = new QualityAttribute();
+			List<Metric> metrics = calculateMetrics(ecoreMetamodel);
+			//TODO PLEASE HERE CHANGE THE LOGIC TO QUATIC
+			SimpleMetric MC = metrics.stream().filter(z -> z.getName().equals("Number of MetaClass")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric TA = metrics.stream().filter(z -> z.getName().equals("Number of Total Attribute")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric TR = metrics.stream().filter(z -> z.getName().equals("Number of TotalReference")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric MAHL = metrics.stream().filter(z -> z.getName().equals("Max generalizzation hierarchical level")).map(z-> (SimpleMetric) z).findAny().get();
+			SimpleMetric MHS = metrics.stream().filter(z -> z.getName().equals("Max Hierarchy Sibiling")).map(z-> (SimpleMetric) z).findAny().get();
+			double value = (Integer.parseInt(MC.getValue()) + Integer.parseInt(TA.getValue()) + Integer.parseInt(TR.getValue()) + Integer.parseInt(MAHL.getValue()) + Integer.parseInt(MHS.getValue())* 1.0) / 5;
+			maintainability.setName("maintainability");
+			maintainability.setValue(value);
+			maintainability.getMetrics().add(MHS);
+			maintainability.getMetrics().add(TA);
+			maintainability.getMetrics().add(MC);
+			maintainability.getMetrics().add(TR);
+			maintainability.getMetrics().add(MAHL);
+			
+			qem.getQualityAttributes().add(maintainability);
+			qem.getMetrics().addAll(metrics);
+			
+		} catch (ATLCoreException | IOException e) {
+			System.err.println("Error computing metrics");
+		}
+		return qem;
 		
 	
 		

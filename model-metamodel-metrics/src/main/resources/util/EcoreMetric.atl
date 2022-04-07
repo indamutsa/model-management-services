@@ -61,7 +61,8 @@ rule NumOfMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of MetaClass',
-  			value	<- thisModule.getAllMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllMetaClass(model)->size().toString(),
+			code	<- 'MC'
   		)
 	do {
 		s_out;
@@ -76,7 +77,8 @@ rule NumOfAbstracyMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of abstract MetaClass',
-  			value	<- thisModule.getAllAbstractMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllAbstractMetaClass(model)->size().toString(),
+			code	<- 'AMC'
   		)
 	do {
 		s_out;
@@ -97,7 +99,8 @@ rule NumOfConcreteMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of concrete MetaClass',
-  			value	<- thisModule.getAllConcreteMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllConcreteMetaClass(model)->size().toString(),
+			code	<- 'CMC'
   		)
 	do {
 		s_out;
@@ -111,7 +114,8 @@ rule NumOfConcreteCompletelyFeatureLessMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of concrete Completely Featureless MetaClass',
-  			value	<- thisModule.getAllConcreteCompletelyFeatureLessMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllConcreteCompletelyFeatureLessMetaClass(model)->size().toString(),
+			code	<- 'CCFMC'
   		)
 	do {
 		s_out;
@@ -126,7 +130,8 @@ rule NumOfImmediateFeatureLessMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of immediate Featureless MetaClass',
-  			value	<- thisModule.getAllImmediateFeatureLessMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllImmediateFeatureLessMetaClass(model)->size().toString(),
+			code	<- 'IFLMC'
   		)
 	do {
 		s_out;
@@ -140,7 +145,8 @@ rule NumOfAbstractImmediateFeatureLessMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of abstract immediate Featureless MetaClass',
-  			value	<- thisModule.getAllAbstractImmediateFeatureLessMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllAbstractImmediateFeatureLessMetaClass(model)->size().toString(),
+			code	<- 'AIFLMC'
   		)
 	do {
 		s_out;
@@ -154,7 +160,8 @@ rule NumOfConcreteImmediateFeatureLessMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of concrete immediate Featureless MetaClass',
-  			value	<- thisModule.getAllConcreteImmediateFeatureLessMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllConcreteImmediateFeatureLessMetaClass(model)->size().toString(),
+			code	<- 'CIFLMC'
   		)
 	do {
 		s_out;
@@ -170,7 +177,8 @@ rule NumOfTotalStructuralFeature(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of Total eStructuralFeature',
-  			value	<- (thisModule.getAllReference(model)->size() + thisModule.getAllAttribute(model)->size()).toString()
+  			value	<- (thisModule.getAllReference(model)->size() + thisModule.getAllAttribute(model)->size()).toString(),
+			code	<- 'SF'
   		)
 	do {
 		s_out;
@@ -184,7 +192,8 @@ rule NumOfCompletelyFeatureLessMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of Completely Featureless MetaClass',
-  			value	<- thisModule.getAllCompletelyFeatureLessMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllCompletelyFeatureLessMetaClass(model)->size().toString(),
+			code	<- 'CFLMC'
   		)
 	do {
 		s_out;
@@ -199,7 +208,8 @@ rule NumOfAbstractCompletelyFeatureLessMetaClass (model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of abstract Completely Featureless MetaClass',
-  			value	<- thisModule.getAllAbstractCompletelyFeatureLessMetaClass(model)->size().toString()
+  			value	<- thisModule.getAllAbstractCompletelyFeatureLessMetaClass(model)->size().toString(),
+			code	<- 'ACFMC'
   		)
 	do {
 		s_out;
@@ -213,7 +223,8 @@ rule NumOfTotalReference(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of TotalReference',
-  			value	<- thisModule.getAllReference(model)->size().toString()
+  			value	<- thisModule.getAllReference(model)->size().toString(),
+			code	<- 'REF'
   		)
 	do {
 		s_out;
@@ -244,7 +255,8 @@ rule NumOfTotalReferenceContainement(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of TotalReference containment',
-  			value	<- thisModule.getAllReferenceContainement(model)->size().toString()
+  			value	<- thisModule.getAllReferenceContainement(model)->size().toString(),
+			code	<- 'REC_CONT'
   		)
 	do {
 		s_out;
@@ -261,7 +273,8 @@ rule NumOfTotalAttribute(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of Total Attribute',
-  			value	<- thisModule.getAllAttribute(model)->size().toString()
+  			value	<- thisModule.getAllAttribute(model)->size().toString(),
+			code	<- 'ATTR'
   		)
 	do {
 		s_out;
@@ -304,7 +317,8 @@ helper context Ecore!EClass def: getLevelOfGeneralizzation(cont : Integer): Inte
 rule getChainOfContainment(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Max chain of containment',
-  			value	<- thisModule.getMaxLevelOfContainment(modelName).toString()
+  			value	<- thisModule.getMaxLevelOfContainment(modelName).toString(),
+			code	<- 'REFCC'
   		)
 	do {
 		s_out;
@@ -320,7 +334,8 @@ helper context Ecore!EClass def: getLevelOfContainment(cont : Integer): Integer 
 rule getMAxSibilingAttribute(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Max Attribute Sibiling',
-  			value	<- thisModule.getMaxAttributeSibiling(modelName).toString()
+  			value	<- thisModule.getMaxAttributeSibiling(modelName).toString(),
+			code	<- 'MAS'
   		)
 	do {
 		s_out;
@@ -335,7 +350,8 @@ helper def: getMaxAttributeSibiling(model : String): Integer =
 rule getMaxFanIn(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Max incoming Reference class (max fan In)',
-  			value	<- thisModule.getMaxFanInH(modelName).toString()
+  			value	<- thisModule.getMaxFanInH(modelName).toString(),
+			code	<- 'MAXFANIN'
   		)
 	do {
 		s_out;
@@ -352,7 +368,8 @@ helper def: getFanInH(class : Ecore!EClass): Integer =
 rule getMinFanIn(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Mix incoming Reference class (max fan In)',
-  			value	<- thisModule.getMinFanInH(modelName).toString()
+  			value	<- thisModule.getMinFanInH(modelName).toString(),
+			code	<- 'MINFANIN'
   		)
 	do {
 		s_out;
@@ -367,7 +384,8 @@ helper def: getMinFanInH(model : String): Integer =
 rule getLonelyClass(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of lonely classes',
-  			value	<- thisModule.getLonelyClassH(modelName).toString()
+  			value	<- thisModule.getLonelyClassH(modelName).toString(),
+			code	<- 'LMC'
   		)
 	do {
 		s_out;
@@ -383,7 +401,8 @@ helper def: getLonelyClassH(model : String): Integer =
 rule getAverageFanIn(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Average incoming Reference class (max fan In)',
-  			value	<- thisModule.getAverageFanInH(modelName).toString()
+  			value	<- thisModule.getAverageFanInH(modelName).toString(),
+			code	<- 'AVGFANIN'
   		)
 	do {
 		s_out;
@@ -398,7 +417,8 @@ helper def: getAverageFanInH(model : String): Integer =
 rule getInheritedClass(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of class with a super type',
-  			value	<- thisModule.getInheritedClassH(modelName).toString()
+  			value	<- thisModule.getInheritedClassH(modelName).toString(),
+			code	<- 'MCWSP'
   		)
 	do {
 		s_out;
@@ -412,7 +432,8 @@ helper def : getInheritedClassH (modelName : String) : Integer =
 rule getMaxHierarchySibiling(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Max Hierarchy Sibiling',
-  			value	<- thisModule.getMaxHierarchySibilingH(modelName).toString()
+  			value	<- thisModule.getMaxHierarchySibilingH(modelName).toString(),
+			code	<- 'MAXHS'
   		)
 	do {
 		s_out;
@@ -440,7 +461,8 @@ helper def: getHierarchySibilingH2(superType : Ecore!EClass): Integer =
 rule getMAxSibilingReference(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Max Reference Sibiling (max fan Out)',
-  			value	<- thisModule.getMaxReferenceSibiling(modelName).toString()
+  			value	<- thisModule.getMaxReferenceSibiling(modelName).toString(),
+			code	<- 'MAXFANOUT'
   		)
 	do {
 		s_out;
@@ -454,7 +476,8 @@ helper def: getMaxReferenceSibiling(model : String): Integer =
 rule getMinSibilingReference(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Mix Reference Sibiling (min fan Out)',
-  			value	<- thisModule.getMinReferenceSibilingH(modelName).toString()
+  			value	<- thisModule.getMinReferenceSibilingH(modelName).toString(),
+			code	<- 'MINFANOUT'
   		)
 	do {
 		s_out;
@@ -469,7 +492,8 @@ helper def: getMinReferenceSibilingH(model : String): Integer =
 rule getAverageRelationInAClass(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Average Reference in a (class (avg fan out)',
-  			value	<- (thisModule.getAllReference(modelName)->size()/thisModule.getAllMetaClass(modelName)->size()).toString()
+  			value	<- (thisModule.getAllReference(modelName)->size()/thisModule.getAllMetaClass(modelName)->size()).toString(),
+			code	<- 'AVGREF'
   		)
 	do {
 		s_out;
@@ -488,7 +512,8 @@ rule getAverageAttributeInAClass(modelName : String){
 rule NumAIF(modelName : String){
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'AIF',
-  			value	<- thisModule.getAIF(modelName).toString()
+  			value	<- thisModule.getAIF(modelName).toString(),
+			code	<- 'AIF'
   		)
 	do {
 		s_out;
@@ -502,7 +527,8 @@ rule NumOfTotalAttributeWithInherited(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of Total Attribute with inherited',
-  			value	<- thisModule.getAllAttributeWithInherited(model).toString()
+  			value	<- thisModule.getAllAttributeWithInherited(model).toString(),
+			code	<- 'ATTRH'
   		)
 	do {
 		s_out;
@@ -515,7 +541,8 @@ rule NumOfTotalStructuralFeatureWithInherited(model : String){
   --from	m_in : Ecore!EPackage	-- The input pattern is not used for calculating the metric
   	to	s_out: Metric!SimpleMetric(
   			name	<- 'Number of Total structural feature with inherited',
-  			value	<- thisModule.getAllStructuralFeatureWithInherited(model).toString()
+  			value	<- thisModule.getAllStructuralFeatureWithInherited(model).toString(),
+			code	<- 'SFH'
   		)
 	do {
 		s_out;

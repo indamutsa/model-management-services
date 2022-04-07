@@ -118,10 +118,12 @@ public class EcoreMetamodelService {
 		for (Object element : list) {
 			String metricName = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("name"))
 					.toString();
+			String metricCode = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("code"))
+					.toString();
 			if (((EObject) element).eClass().getName().equals("SimpleMetric")) {
 				String value = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("value")).toString();
 				
-				result.add(new SimpleMetric(metricName, value));
+				result.add(new SimpleMetric(metricName, metricCode, value));
 			}
 			if (((EObject) element).eClass().getName().equals("AggregatedRealMetric")) {
 				String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
@@ -129,7 +131,7 @@ public class EcoreMetamodelService {
 				String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
 				String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
 				String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
-				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
+				result.add(new AggregateMetric(metricName, metricCode, minimum, maximum, median, average, standardDeviation));
 			}
 			if (((EObject) element).eClass().getName().equals("AggregatedIntegerMetric")) {
 				String minimum = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("minimum")).toString();
@@ -137,7 +139,7 @@ public class EcoreMetamodelService {
 				String median = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("median")).toString();
 				String average = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("average")).toString();
 				String standardDeviation = ((EObject) element).eGet(((EObject) element).eClass().getEStructuralFeature("standardDeviation")).toString();
-				result.add(new AggregateMetric(metricName, minimum, maximum, median, average, standardDeviation));
+				result.add(new AggregateMetric(metricName, metricCode, minimum, maximum, median, average, standardDeviation));
 			}
 		}
 		if (deleteMe)

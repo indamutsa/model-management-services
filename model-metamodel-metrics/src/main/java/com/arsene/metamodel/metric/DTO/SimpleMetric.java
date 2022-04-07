@@ -5,8 +5,9 @@ public class SimpleMetric extends Metric{
 
 	public SimpleMetric() {
 	}
-	public SimpleMetric(String name, String value) {
+	public SimpleMetric(String name, String code, String value) {
 		this.setName(name);
+		this.setCode(code);
 		this.value = value;
 	}
 

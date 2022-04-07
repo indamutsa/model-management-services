@@ -10,12 +10,13 @@ public class AggregateMetric extends Metric {
 	public String getMinimum() {
 		return minimum;
 	}
-	public AggregateMetric(String name, String minimum, String maximum, String average, String median, String standartdDeviation) {
+	public AggregateMetric(String name, String code, String minimum, String maximum, String average, String median, String standartdDeviation) {
 		this.setName(name);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.average = average;
 		this.median = median;
+		this.setCode(code);
 		this.standartdDeviation = standartdDeviation;
 	}
 	public void setMinimum(String minimum) {

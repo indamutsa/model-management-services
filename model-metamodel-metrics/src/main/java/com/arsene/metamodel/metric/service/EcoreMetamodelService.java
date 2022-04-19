@@ -49,14 +49,8 @@ import com.arsene.metamodel.metric.DTO.SimpleMetric;
 
 import io.micrometer.core.instrument.Metrics;
 
-
-
 @Service
 public class EcoreMetamodelService {
-
-
-
-
 
 	public List<Metric> calculateMetrics(MultipartFile ecoreMetamodel) throws ATLCoreException, IOException {
 		ILauncher transformationLauncher = new EMFVMLauncher();

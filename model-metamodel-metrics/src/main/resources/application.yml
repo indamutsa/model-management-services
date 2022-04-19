@@ -1,29 +1,29 @@
 spring:
   application:
     name: model-transformation
-  sleuth:
-    enabled: true
-  zipkin:
-    enabled: true
-    base-url: ${ZIPKIN_SERVER:http://localhost:9411/}
+#  sleuth:
+#    enabled: true
+#  zipkin:
+#    enabled: true
+#    base-url: ${ZIPKIN_SERVER:http://localhost:9411/}
 
 server:
-  port: ${port:8085}
+  port: ${port:8186}
   forward-headers-strategy: framework
   servlet:
     context-path: /mms
 
 springdoc:
   swagger-ui:
-    path: /api-docs/transform
+    path: /api-docs/metrics
 
 # For integration, this is treated as a client to Eureka server
-eureka:
-  client:
-    service-url:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-  instance:
-    prefer-ip-address: true
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+#  instance:
+#    prefer-ip-address: true
 
 management:
   endpoints:

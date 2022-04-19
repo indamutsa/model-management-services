@@ -20,7 +20,7 @@ import com.arsene.metamodel.metric.DTO.ResponseDto;
 import com.arsene.metamodel.metric.service.EcoreMetamodelService;
 
 @RestController
-@RequestMapping(path = "/transform")
+@RequestMapping(path = "/metrics")
 public class EcoreMetamodelController {
 
     @Autowired
@@ -32,7 +32,7 @@ public class EcoreMetamodelController {
      * This endpoint compares two models
      * */
 
-    @PostMapping(value = "/metrics", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity calculateMetric(
             @RequestPart(value = "ecoreMetamodel") MultipartFile ecoreMetamodel
             ) {
@@ -43,6 +43,7 @@ public class EcoreMetamodelController {
             List<Metric> metrics = ecoreService.calculateMetrics(ecoreMetamodel);
             return ResponseEntity.status(HttpStatus.CREATED).body(metrics);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseDto(message));
         }
     }

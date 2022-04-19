@@ -27,8 +27,9 @@ public class EpsilonTransform {
                               MultipartFile targetMetaModel,
                               MultipartFile etlScript) throws Exception {
 
-        Path[] paths = filePersistance.saveFile(sourceModel, sourceMetaModel, targetMetaModel, etlScript);
         serviceUtil.deletePreviousTargetModels();
+        Path[] paths = filePersistance.saveFile(sourceModel, sourceMetaModel, targetMetaModel, etlScript);
+
 
         Path sourceModelPath = paths[0];
         Path sourceMetaModelPath = paths[1];
@@ -50,26 +51,32 @@ public class EpsilonTransform {
                 .withParameter("parameterPassedFromJava", "Hello from pre")
                 .withProfiling()
                 .build();
+        try{
+            // Transforming source model into target model
+            transformer.run();
+            transformer.getResult();
 
-        // Transforming source model into target model
-        transformer.run();
 
-        // Making the target model available after running
-        transformer.dispose();
+            // Making the target model available after running
+            transformer.dispose();
 
-        System.out.println(" ----- |||| ------- Finished transformation ----- |||| -------");
+            System.out.println(" ----- |||| ------- Finished transformation ----- |||| -------");
 
-        Resource targetModel = filePersistance.loadFile(targetModelPath);
+            Resource targetModel = filePersistance.loadFile(targetModelPath);
 
-        // Delete the resource after performing transformation
-        serviceUtil.deleteFiles(sourceModelPath,
-                sourceMetaModelPath,
-                targetMetaModelPath,
-                etlScriptPath);
+            // Delete the resource after performing transformation
+            serviceUtil.deleteFiles(sourceModelPath,
+                    sourceMetaModelPath,
+                    targetMetaModelPath,
+                    etlScriptPath);
 
-        serviceUtil.writeToFile(targetModelPath.toString());
+            serviceUtil.writeToFile(targetModelPath.toString());
 
-        // We return the transformed model as a resource
-        return targetModel;
+            // We return the transformed model as a resource
+            return targetModel;
+        }catch (Exception e){
+            throw e;
+        }
+
     }
 }

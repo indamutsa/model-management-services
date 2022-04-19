@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Tree xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="TreeDsl" xsi:schemaLocation="TreeDsl src/main/resources/artifacts/metamodels/Tree_e82f2aa3-cc51-476c-8f52-b11ab08006d1.ecore" label="CopyOfa">
+  <children label="CopyOfb">
+    <children label="CopyOfc"/>
+  </children>
+</Tree>

@@ -156,21 +156,32 @@ public class ServiceUtil {
 
     public void deletePreviousTargetModels(){
         String filename= "src/main/resources/artifacts/filenames.txt";
-        List<String> allLines = null;
+        String models = "src/main/resources/artifacts/models/";
+        String metamodels = "src/main/resources/artifacts/metamodels/";
+        String script = "src/main/resources/artifacts/script/";
+
         try {
 
-            // Read file line by line
-            allLines = Files.readAllLines(Paths.get(filename));
+            String [] dir = new String[] {models, metamodels, script};
 
-            // Copy the array of line to another
-            allLines.forEach(line -> {
-                try {
-                    deleteFiles(Paths.get(line));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            FileUtils.writeLines(new File(filename), null, false);
+            for(String d: dir)
+                Files.walk(Paths.get(d))
+                        .filter(Files::isRegularFile)
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+
+//            // Read file line by line
+//            allLines = Files.readAllLines(Paths.get(filename));
+//
+//            // Copy the array of line to another
+//            allLines.forEach(line -> {
+//                try {
+//                    deleteFiles(Paths.get(line));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            FileUtils.writeLines(new File(filename), null, false);
 
         } catch (IOException e) {
             e.printStackTrace();

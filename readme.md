@@ -21,7 +21,11 @@ _Image name example_
 
 ##### Run the command below
 
+```sh
 docker run --name {container-name} -d -p 9000:8087 indamutsa/{image-name}
+```
+
+Inspect docker-compose.yml file to see the ports used by each service.
 
 ### The service will be available on port 9000 locally.
 
@@ -33,12 +37,16 @@ localhost:9000/api-docs
 
 ### Clone the repository
 
+```sh
 git clone https://github.com/Indamutsa/model-management-services.git
+```
 
 ### Once downloaded you can run each service separately
 
-- cd microservice-folder
-- mvn spring-boot:run
+```sh
+cd microservice-folder
+mvn spring-boot:run
+```
 
 ### You can easily run the microservice
 
@@ -51,11 +59,15 @@ git clone https://github.com/Indamutsa/model-management-services.git
 
 #### Run the script with no port argument
 
-- ./run.sh
+```sh
+./run.sh
+```
 
 #### or with port argument
 
-- ./run.sh 9999
+```sh
+./run.sh 9999
+```
 
 #### Head to the url below in your browser and you can use openapi 3.0 to test the service
 
@@ -67,39 +79,138 @@ localhost:9000/api-docs
 
 ### Running the cluster
 
-####
+#### Docker-compose
+
+We can run the cluster using docker-compose. The docker-compose.yml file is in the root directory of the project.
+But before you can run the cluster, you have to build the images and push them to the registry.
+Be mindful the DSL backend image is tagged with the version and compose. The only difference, is that it can be directly accessed externally using localhost:8082
+
+Hence the frontend image can access the backend image using the url above.
+To get get started, just run the script below:
+
+```sh
+docker compose up --build --force-recreate
+```
+
+You can also run the cluster in background using the command below:
+
+```sh
+docker compose up -d --build --force-recreate
+```
+
+To stop the cluster, run the command below:
+
+```sh
+docker compose down -v --remove-orphans
+```
+
+This command is used to stop and remove all containers, networks, and volumes associated with the docker-compose file. It also removes all images not referenced by any existing containers. Run it causiously because it will remove the volumes, so make sure you have backed up the data you want to keep.
+
+```sh
+docker-compose down -v --rmi all --remove-orphans && docker system prune -a --volumes
+```
+
+You can access the services by inspecting the docker-compose.yml file.
+There are model management services, and the DSL services that can be accessed using the openapi 3.0 documentation.
+
+- ETL transformation service: `http://localhost:8085/mms/api-docs/transform`
+- EVL validation service: `http://localhost:8086/mms/api-docs/validate`
+- EOL query service: `http://localhost:8087/mms/api-docs/query`
+- ECL comparison service: `http://localhost:8088/mms/api-docs/compare`
+- EML merging service: `http://localhost:8089/mms/api-docs/merge`
+
+These services are organized in a microservice architecture using spring boot. So we can access these services using the api gateway at `http://localhost:8080/mms/api-docs`.
+To access the services above using the api gateway, you have to use the url below:
+TODO: update the url below
+
+- ETL transformation service: `http://localhost:8080/mms/transform`
+- EVL validation service: `http://localhost:8080/mms/validate`
+- EOL query service: `http://localhost:8080/mms/query`
+- ECL comparison service: `http://localhost:8080/mms/compare`
+- EML merging service: `http://localhost:8080/mms/merge`
+
+TODO: include architecture diagrams
+
+We have the the service registry and the config server that can be accessed using the url below:
+
+- Service registry: `http://localhost:8761`
+
+The above services can be composed and orchestrated using the DSL service which can be found at:
+
+- DSL service: `http://localhost:8080`
+
+Follow the documentation at the page to get started.
+
+#### Kubernetes
 
 We use helm to run the cluster.
--- Run **helm install lowcomote** to install the chart
--- If you want to uninstall the charts **helm uninstall lowcomote**
+-- Run the command below to install the chart
+
+```sh
+helm install lowcomote helm-deployment/
+```
+
+-- If you want to uninstall the charts:
+
+```sh
+helm uninstall lowcomote
+```
+
 -- if you want to update the charts **helm upgrade lowcomote .** in the current directory.
 
 Before you can run these commands, make sure you have built and pushed on the cloud the correct containers.
 For instance, i already have a script that take the name of the container and version, build it and push it to the registry
--- build.sh dsl-frontend v2.9
+
+```sh
+build.sh --name dsl-frontend --tag v5.3
+```
 
 After pushing on the cloud, you have to upgrade the helm charts values, especially the version of the container to retrieve the latest version.
 
 Before you can upgrade the charts, it's good to delete the current deployment you want to update
--- kube delete deployment.apps/dsl-frontend-deployment service/dsl-frontend-server
+
+```sh
+kube delete deployment.apps/dsl-frontend-deployment service/dsl-frontend-server
+```
+
 For instance, here i would like to update the service and deployment above, so i removed them.
 
 Then, now i can update the charts: helm upgrade lowcomote helm-deployment/
 
 In case you want to forward a given container to localhost, use portforwarding
--- kube port-forward service/dsl-frontend-server 9999:8080
+
+```sh
+kube port-forward service/dsl-frontend-server 9999:8080
+```
 
 To enter a container while you are running the cluster:
--- kubectl exec -it dsl-backend-server -- /bin/sh
+
+```sh
+kubectl exec -it dsl-backend-server -- /bin/sh
+```
 
 To get the node where the cluster is deployed:
--- kube get node -o wide
+
+```sh
+kube get node -o wide
+```
 
 To connect to GKE cluster
--- gcloud container clusters get-credentials lowcomote-cluster --zone europe-west3-a --project lowcomote
+
+```sh
+gcloud container clusters get-credentials lowcomote-cluster --zone europe-west3-a --project lowcomote
+```
 
 To allow the cluster
--- gcloud compute firewall-rules create allowed-node-ports --allow tcp:30100
+
+```sh
+gcloud compute firewall-rules create allowed-node-ports --allow tcp:30100
+```
 
 To log a deployment
--- kube logs deployment.apps/dsl-backend-deployment
+
+```sh
+kube logs deployment.apps/dsl-backend-deployment
+```
+
+---

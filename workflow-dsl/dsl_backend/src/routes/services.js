@@ -15,7 +15,7 @@ router.post("/transform", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://34.107.29.78.sslip.io/api/mms/transform/",
+    url: "http://localhost:8085/mms/transform/", //"http://34.107.29.78.sslip.io/api/mms/transform/",
     headers: {},
     formData: {
       sourceModel: {

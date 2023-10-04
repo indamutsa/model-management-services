@@ -15,7 +15,7 @@ services:
     hostname: db
     container_name: db
     restart: always
-    image: "mysql:5.6"
+    image: "indamutsa/model-db-mysql:5.6"
     env_file:
       - env/database.env
     volumes:
@@ -35,7 +35,7 @@ services:
     hostname: dbauth
     container_name: dbauth
     restart: always
-    image: "mysql:5.6"
+    image: "indamutsa/model-db-mysql:5.6"
     env_file:
       - env-auth/database.env
     volumes:
@@ -53,9 +53,9 @@ services:
   # Authorizaton and authentication service
   auth-service:
     container_name: auth-service
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/authorization-server
-    image: auth-image
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/authorization-server
+    image: "indamutsa/auth-image:v1.0"
     depends_on:
       - dbauth
     ports:
@@ -76,7 +76,7 @@ services:
   # Eureka service registry
   eureka-registry-server:
     container_name: eureka-registry-server
-    image: eureka-registry-server
+    # image: eureka-registry-server
     build:
       context: /home/arsene/Project/school-projects/IdeaProjects/model-services/service-registry
     ports:
@@ -94,7 +94,7 @@ services:
   # Eureka Gateway server
   api-gateway-service:
     container_name: api-gateway-service
-    image: api-gateway-service
+    # image: api-gateway-service
     build:
       context: /home/arsene/Project/school-projects/IdeaProjects/model-services/service-gateway
     depends_on:
@@ -126,9 +126,9 @@ services:
   # Storage service
   storage-service:
     container_name: storage-service
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/storage-service
-    image: model-storage-image
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/storage-service
+    image: indamutsa/model-storage-image:v1.0
     restart: always
     depends_on:
       - db
@@ -145,16 +145,16 @@ services:
     networks:
       - private-network-mms
 
-    # ----------------------------------------------
+  # ----------------------------------------------
 
   # Model query service
   dsl-frontend:
-    # container_name: dsl-frontend-container
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_frontend
-    image: indamutsa/dsl-frontend:v1.0
+    container_name: dsl-frontend-container
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_frontend
+    image: indamutsa/dsl-frontend:v5.3-compose # This image is configure to be accessed by the frontend using localhost:8082, for kubernetes refer the readme.md
     ports:
-      - "8080:8080"
+      - "8080:80"
 
     environment:
       - JAVA_OPTS=
@@ -167,10 +167,10 @@ services:
 
   # Model query service
   dsl-backend:
-    # container_name: dsl-backend-container
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_backend
-    image: indamutsa/dsl-backend:v1.0
+    container_name: dsl-backend-container
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_backend
+    image: indamutsa/dsl-backend:v1.8
     ports:
       - "8082:8082"
 
@@ -186,9 +186,9 @@ services:
   # Model query service
   model-query-service:
     container_name: model-query-service
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-query
-    image: model-query-image
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-query
+    image: indamutsa/model-query-image:v1.0
     ports:
       - "8087:8087"
 
@@ -204,9 +204,9 @@ services:
   # Model transformation service
   model-transformation-service:
     container_name: model-transformation-service
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-transformation
-    image: model-transformation-image
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-transformation
+    image: indamutsa/model-transformation-image:v1.0
     ports:
       - "8085:8085"
 
@@ -221,9 +221,9 @@ services:
   # Model validation service
   model-validation-service:
     container_name: model-validation-service
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-validation
-    image: model-validation-image
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-validation
+    image: indamutsa/model-validation-image:v1.0
     ports:
       - "8086:8086"
 
@@ -238,9 +238,9 @@ services:
   # Model comparison service
   model-comparison-service:
     container_name: model-comparison-service
-    build:
-      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-comparison
-    image: model-comparison-image
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-comparison
+    image: indamutsa/model-comparison-image:v1.1
     ports:
       - "8088:8088"
 
@@ -251,9 +251,25 @@ services:
     networks:
       - private-network-mms
   # ----------------------------------------------
+  # Model merging service
+  model-merging-service:
+    container_name: model-merging-service
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-merging
+    image: indamutsa/model-merging-image:v1.0
+    ports:
+      - "8084:8084"
+
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
+  # ----------------------------------------------
 
   prometheus:
-    image: prom/prometheus
+    image: indamutsa/prometheus:v1.0
     volumes:
       - ./prometheus-grafana/config/:/etc/prometheus
       - ./data/prometheus:/data
@@ -273,7 +289,7 @@ services:
   # ----------------------------------------------
 
   grafana:
-    image: grafana/grafana
+    image: indamutsa/grafana:v1.0
     ports:
       - "3000:3000"
     depends_on:
@@ -284,7 +300,7 @@ services:
   # ----------------------------------------------
 
   zipkin:
-    image: openzipkin/zipkin
+    image: indamutsa/zipkin:v1.0
     environment:
       - STORAGE_TYPE=mem
     ports:

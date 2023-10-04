@@ -1,52 +1,113 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
-    # nginx.ingress.kubernetes.io/rewrite-target: /$2
-    # nginx.ingress.kubernetes.io/add-base-url: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-
   name: example
-  # namespace: foo
 spec:
   rules:
-    - host: 34.107.29.78.sslip.io
+    - host: arsene.com
       http:
         paths:
-          - backend:
-              serviceName: registry-app-server
-              servicePort: 8761
-            path: / #eureka/(.*)
-
-          - backend:
-              serviceName: api-gateway-server
-              servicePort: http
-            path: /api/mms/(.*)
-
-          - backend:
-              serviceName: storage-app-server
-              servicePort: 8089
-            path: /mms/store/(.*)
-
-          - backend:
-              serviceName: auth-server
-              servicePort: 8000
-            path: /mms/oauth/(.*)
-
-    - host: dsl.34.107.29.78.sslip.io
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: registry-app-server
+                port:
+                  number: 8761
+          - path: /api/mms/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-server
+                port:
+                  number: 80 # Replace with the correct port number if it's not 80
+          - path: /mms/store/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: storage-app-server
+                port:
+                  number: 8089
+          - path: /mms/oauth/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-server
+                port:
+                  number: 8000
+    - host: dsl.arsene.com
       http:
         paths:
-          - backend:
-              serviceName: dsl-frontend-server
-              servicePort: 8080
-            path: /
-
-    - host: back.34.107.29.78.sslip.io
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dsl-frontend-server
+                port:
+                  number: 8080
+    - host: back.arsene.com
       http:
         paths:
-          - backend:
-              serviceName: dsl-backend-server
-              servicePort: 8082
-            path: /
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: dsl-backend-server
+                port:
+                  number: 8082
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/use-regex: "true"
+#     # nginx.ingress.kubernetes.io/rewrite-target: /$2
+#     # nginx.ingress.kubernetes.io/add-base-url: "true"
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+
+#   name: example
+#   # namespace: foo
+# spec:
+#   rules:
+#     - host: arsene.com #34.107.29.78.sslip.io
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: registry-app-server
+#               servicePort: 8761
+#             path: / #eureka/(.*)
+
+#           - backend:
+#               serviceName: api-gateway-server
+#               servicePort: http
+#             path: /api/mms/(.*)
+
+#           - backend:
+#               serviceName: storage-app-server
+#               servicePort: 8089
+#             path: /mms/store/(.*)
+
+#           - backend:
+#               serviceName: auth-server
+#               servicePort: 8000
+#             path: /mms/oauth/(.*)
+
+#     - host: dsl.arsene.com #dsl.34.107.29.78.sslip.io
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: dsl-frontend-server
+#               servicePort: 8080
+#             path: /
+
+#     - host: back.arsene.com #back.34.107.29.78.sslip.io
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: dsl-backend-server
+#               servicePort: 8082
+#             path: /

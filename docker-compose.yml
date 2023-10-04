@@ -240,7 +240,7 @@ services:
     container_name: model-comparison-service
     # build:
     #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-comparison
-    image: indamutsa/model-comparison-image:v1.1
+    image: indamutsa/model-comparison-image:v1.0
     ports:
       - "8088:8088"
 

@@ -123,11 +123,11 @@ These services are organized in a microservice architecture using spring boot. S
 To access the services above using the api gateway, you have to use the url below:
 TODO: update the url below
 
-- ETL transformation service: `http://localhost:8080/mms/transform`
-- EVL validation service: `http://localhost:8080/mms/validate`
-- EOL query service: `http://localhost:8080/mms/query`
-- ECL comparison service: `http://localhost:8080/mms/compare`
-- EML merging service: `http://localhost:8080/mms/merge`
+- ETL transformation service: `http://localhost:7500/api/mms/transform`
+- EVL validation service: `http://localhost:7500/api/mms/validate`
+- EOL query service: `http://localhost:7500/api/mms/query`
+- ECL comparison service: `http://localhost:7500/api/mms/compare`
+- EML merging service: `http://localhost:7500/api/mms/merge`
 
 TODO: include architecture diagrams
 

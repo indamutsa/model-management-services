@@ -2,6 +2,7 @@ package com.arsene.modelquery.service;
 
 
 
+import com.arsene.modelquery.DTO.DataStr;
 import com.arsene.modelquery.utililties.ServiceUtil;
 import com.google.gson.JsonObject;
 import org.eclipse.epsilon.common.util.StringProperties;
@@ -30,6 +31,37 @@ public class EpsilonQuery {
     public String runEngine(MultipartFile model, MultipartFile metaModel, MultipartFile script) throws Exception {
 
         Path[] paths = filePersistance.saveFile(model, metaModel, script);
+
+        Path modelPath = paths[0];
+        Path metaModelPath = paths[1];
+        Path scriptPath = paths[2];
+
+        // Get the module after parsing the script
+        EolModule module = serviceUtil.isParsed(scriptPath);
+
+        StringProperties modelProperties = serviceUtil.createEmfModel("TreeModel", modelPath, metaModelPath, "true", "false");
+
+        OutputStream outputStream = new ByteArrayOutputStream();
+        EmfModel emfModel = new EmfModel();
+
+        emfModel.load(modelProperties, (IRelativePathResolver) null);
+        module.getContext().setOutputStream(new PrintStream(outputStream));
+        module.getContext().getModelRepository().addModel(emfModel);
+
+        module.execute();
+
+        String out = outputStream.toString();
+
+        return out;
+    }
+
+    public String runEngineStr(DataStr[] dataStrs) throws Exception {
+
+        MultipartFile model = filePersistance.createFile(dataStrs[0]);
+        MultipartFile metamodel = filePersistance.createFile(dataStrs[1]);
+        MultipartFile script = filePersistance.createFile(dataStrs[2]);
+
+        Path[] paths = filePersistance.saveFile(model, metamodel, script);
 
         Path modelPath = paths[0];
         Path metaModelPath = paths[1];

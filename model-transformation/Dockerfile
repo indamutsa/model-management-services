@@ -1,6 +1,12 @@
 FROM adoptopenjdk/openjdk11
 
 VOLUME /container-volume
+
+# Create app directory
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY . .
 COPY target/*.jar transform.jar
 
 # Create these folder so that we can have a temporally buffer incoming files
@@ -14,5 +20,5 @@ RUN touch  src/main/resources/artifacts/filenames.txt
 
 ENV JAVA_OPTS=""
 
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /transform.jar"]
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app/transform.jar"]
 EXPOSE 8085

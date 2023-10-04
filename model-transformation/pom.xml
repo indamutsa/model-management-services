@@ -31,6 +31,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+
         <!-- EPSILON DEPENDENCIES -->
         <dependency>
             <groupId>org.eclipse.epsilon</groupId>
@@ -68,6 +75,7 @@
             <artifactId>gson</artifactId>
             <version>2.8.6</version>
         </dependency>
+
         <!-- // EPSILON DEPENDENCIES -->
 
         <!-- Http request  using UniRest    -->
@@ -79,21 +87,21 @@
         <!--  // Http request -->
 
         <!--   MONITORING AND LOGGING     -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-sleuth</artifactId>-->
-<!--        </dependency>-->
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-sleuth</artifactId>
+       </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-zipkin</artifactId>-->
-<!--        </dependency>-->
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-zipkin</artifactId>
+       </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>io.micrometer</groupId>-->
-<!--            <artifactId>micrometer-registry-prometheus</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
+       <dependency>
+           <groupId>io.micrometer</groupId>
+           <artifactId>micrometer-registry-prometheus</artifactId>
+           <scope>runtime</scope>
+       </dependency>
         <!--  //  MONITORING AND LOGGING     -->
 
         <!--        JSON Handling -->
@@ -122,10 +130,10 @@
         <!-- OPENAPI 3.0 DEPENDENCIES-->
 
         <!-- EUREKA CLIENT -->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
-<!--        </dependency>-->
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+       </dependency>
         <!-- // EUREKA CLIENT -->
 
         <!-- DEV dependencies -->
@@ -147,6 +155,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

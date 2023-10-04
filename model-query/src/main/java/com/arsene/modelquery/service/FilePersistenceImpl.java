@@ -2,15 +2,20 @@ package com.arsene.modelquery.service;
 
 
 
+import com.arsene.modelquery.DTO.DataStr;
 import com.arsene.modelquery.utililties.ServiceUtil;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -97,6 +102,34 @@ public class FilePersistenceImpl implements FilePersistance {
         Path scriptPath = saveFile(script);
 
         return new Path[]{modelPath, metaModelPath, scriptPath};
+    }
+
+
+    @Override
+    public MultipartFile createFile(DataStr dataStr) {
+
+        Path dir = serviceUtil.handleFileName(dataStr.getName());
+
+        try {
+            //Creating a new file
+            File newFile = new File(dir.toUri());
+            newFile.createNewFile();
+
+            // Writing to the file
+            FileWriter myWriter = new FileWriter(newFile);
+            myWriter.write(dataStr.getContent());
+            myWriter.close();
+
+            FileInputStream input = new FileInputStream(newFile);
+            MultipartFile multipartFile = new MockMultipartFile("file",
+                    newFile.getName(), "text/plain", IOUtils.toByteArray(input));
+            return multipartFile;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     /*

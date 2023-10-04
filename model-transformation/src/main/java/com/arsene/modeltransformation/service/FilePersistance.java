@@ -1,9 +1,11 @@
 package com.arsene.modeltransformation.service;
 
+import com.arsene.modeltransformation.DTO.DataStr;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
@@ -11,6 +13,8 @@ import java.util.stream.Stream;
 public interface FilePersistance {
     public void init();
     public Path saveFile(MultipartFile file);
+
+    public MultipartFile createFile(DataStr dataStr);
     public Resource loadFile(Path dir);
     public void deleteAll(Path dir);
     public Stream<Path> loadAllFiles(Path dir);

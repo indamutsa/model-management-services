@@ -70,6 +70,20 @@
       },
       async _transfoModel(sourceM, sourceMM, targetMM, script) {
         // call service _transfoModel("Tree.xmi", "Tree.ecore", "Tree.ecore", "Demo.etl")
+        /**
+         * http://178.238.238.209:8088/mms/compare/
+         * http://178.238.238.209:8285/mms/transform/
+         * http://178.238.238.209:8087/mms/query/
+         * http://178.238.238.209:8088/mms/validate/
+         * 
+         * 
+         * http://back.34.107.29.78.sslip.io/api/exec/transform
+         * http://back.34.107.29.78.sslip.io/api/exec/validate
+         * http://back.34.107.29.78.sslip.io/api/exec/compare
+         * http://back.34.107.29.78.sslip.io/api/exec/query
+         * http://back.34.107.29.78.sslip.io/api/exec/merge
+         * 
+        */
         const data = {
           sourceModel: sourceM, //"Tree.xmi",
           sourceMetaModel: sourceMM, //"Tree.ecore",
@@ -80,7 +94,7 @@
         try {
           await axios
             .post(
-              `http://back.34.107.29.78.sslip.io/api/exec/transform`,
+              `http://178.238.238.209:8285/mms/transform/`,
               {
                 sourceModel: sourceM,
                 sourceMetaModel: sourceMM,
@@ -119,7 +133,7 @@
         try {
           await axios
             .post(
-              `http://back.34.107.29.78.sslip.io/api/exec/validate`,
+              `http://178.238.238.209:8088/mms/validate/`,
               {
                 model: m,
                 metaModel: metaM,
@@ -157,7 +171,7 @@
         try {
           await axios
             .post(
-              `http://back.34.107.29.78.sslip.io/api/exec/compare`,
+              `http://178.238.238.209:8088/mms/compare/`,
               {
                 model1: "catalogue1.xml",
                 model2: "catalogue2.xml",
@@ -195,7 +209,7 @@
         try {
           await axios
             .post(
-              `http://back.34.107.29.78.sslip.io/api/exec/query`,
+              `http://178.238.238.209:8087/mms/query/`,
               {
                 model: m1,
                 metaModel: metaM,
@@ -233,7 +247,7 @@
         try {
           await axios
             .post(
-              `http://back.34.107.29.78.sslip.io/api/exec/merge`,
+              `http://178.238.238.209:8087/mms/merge/`,
               {
                 mod1: model1,
                 mod2: model2,

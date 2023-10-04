@@ -1,6 +1,7 @@
 package com.arsene.modelvalidation.service;
 
 
+import com.arsene.modelvalidation.DTO.DataStr;
 import com.arsene.modelvalidation.utililties.ServiceUtil;
 import com.google.gson.JsonObject;
 import org.eclipse.epsilon.common.util.StringProperties;
@@ -29,6 +30,48 @@ public class EpsilonValidate {
     public String runEngine(MultipartFile model, MultipartFile metaModel, MultipartFile script) throws Exception {
 
         Path[] paths = filePersistance.saveFile(model, metaModel, script);
+
+        Path modelPath = paths[0];
+        Path metaModelPath = paths[1];
+        Path scriptPath = paths[2];
+
+        // Get the module after parsing the script
+        EvlModule module = serviceUtil.isParsed(scriptPath);
+
+        // Get the model property
+        StringProperties modelProperties = serviceUtil.createEmfModel("TreeModel", modelPath, metaModelPath, "true", "false");
+
+
+        // To help me write in stream the output of the program
+        OutputStream outputStream = new ByteArrayOutputStream();
+        EmfModel emfModel = new EmfModel();
+
+
+        emfModel.load(modelProperties, (IRelativePathResolver) null);
+        module.getContext().setOutputStream(new PrintStream(outputStream));
+        module.getContext().getModelRepository().addModel(emfModel);
+
+        // Run the engine
+        module.execute();
+
+        String out = outputStream.toString();
+
+        // Delete the resource after performing transformation
+        serviceUtil.deleteFiles(modelPath,
+                metaModelPath,
+                scriptPath);
+
+        return out;
+
+    }
+
+    public String runEngineStr(DataStr[] dataStrs) throws Exception {
+
+        MultipartFile model = filePersistance.createFile(dataStrs[0]);
+        MultipartFile metamodel = filePersistance.createFile(dataStrs[1]);
+        MultipartFile script = filePersistance.createFile(dataStrs[2]);
+
+        Path[] paths = filePersistance.saveFile(model, metamodel, script);
 
         Path modelPath = paths[0];
         Path metaModelPath = paths[1];

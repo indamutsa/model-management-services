@@ -1,7 +1,3 @@
-server:
-  port: ${port:7500}
-  forward-headers-strategy: framework
-# Application details
 spring:
   application:
     name: api-gateway-server
@@ -73,20 +69,23 @@ spring:
           filters:
             - StripPrefix=1
 
+server:
+  port: ${port:7500}
+  forward-headers-strategy: framework
+# For integration, this is treated as a client to Eureka server
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-    fetch-registry: true
+      defaultZone: ${EUREKA_SERVER:http://eureka-registry-server:8761/eureka} # on localhost, change it to ==>> EUREKA_SERVER:http://localhost:8761/eureka
   instance:
     prefer-ip-address: true
 
-# Management
 management:
   endpoints:
     web:
       exposure:
-        include: "*" # Enabling actuator
+        include: "*"
   endpoint:
     health:
       show-details: always
+

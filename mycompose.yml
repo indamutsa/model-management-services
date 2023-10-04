@@ -1,0 +1,316 @@
+version: "3.8"
+
+# Setting the volume
+volumes:
+  db_volume:
+    driver: local
+  dbauth_volume:
+    driver: local
+  prometheus_data: {}
+
+services:
+  # ----------------------------------------------
+  # Mysql database for model artefacts
+  db:
+    hostname: db
+    container_name: db
+    image: indamutsa/model-db-mysql:5.6
+    env_file:
+      - env/database.env
+    ports:
+      - 3307:3306
+    volumes:
+      - type: bind
+        source: ./env/setup.sql
+        target: /docker-entrypoint-initdb.d/setup.sql
+      - db_volume:/var/lib/mysql
+    environment:
+      - HOST=0.0.0.0
+    networks:
+      - private-network-mms
+    restart: on-failure   
+
+  # ----------------------------------------------
+
+  # Mysql database for user management
+  dbauth:
+    hostname: dbauth
+    container_name: dbauth
+    image: indamutsa/dbauth-mysql:5.6
+    env_file:
+      - env-auth/database.env
+    volumes:
+      - type: bind
+        source: ./env-auth/setup.sql
+        target: /docker-entrypoint-initdb.d/setup.sql
+      - dbauth_volume:/var/lib/mysql
+    ports:
+      - 3308:3306
+    environment:
+      - HOST=0.0.0.0
+    networks:
+      - private-network-mms
+    restart: on-failure 
+
+  # ----------------------------------------------
+
+  # Authorizaton and authentication service
+  auth-service:
+    container_name: auth-service
+    image: indamutsa/auth-image:v1.0
+    depends_on:
+      - dbauth
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+    env_file:
+      - /home/arsene/IdeaProjects/model-services/env-auth/database.env
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
+    restart: on-failure
+
+  # ----------------------------------------------
+
+  # Eureka service registry
+  eureka-registry-server:
+    container_name: eureka-registry-server
+    image: indamutsa/eureka-registry-image:v1.5
+    depends_on:
+      - dbauth
+    ports:
+      - "8761:8761"
+    depends_on:
+      - db
+      - dbauth
+    environment:
+      - HOST=0.0.0.0
+    networks:
+      - private-network-mms
+    restart: on-failure
+
+  # ----------------------------------------------
+
+  # Eureka Gateway server
+  api-gateway-service:
+    container_name: api-gateway-service
+    image: indamutsa/api-gateway-image:v2.1
+    depends_on:
+      - db
+      - eureka-registry-server
+      - storage-service
+      - model-query-service
+      - model-transformation-service
+      - model-validation-service
+      - model-comparison-service
+
+    ports:
+      - "7500:7500"
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DSTORAGE_SERVICE=http://storage-service:8089/
+        -DMODEL_QUERY_SERVICE=http://model-query-service:8087/
+        -DMODEL_TRANSFORMATION_SERVICE=http://model-transformation-service:8085/
+        -DMODEL_VALIDATION_SERVICE=http://model-validation-service:8086/
+        -DMODEL_COMPARISON_SERVICE=http://model-comparison-service:8088/
+        -DZIPKIN_SERVER=http://zipkin:9411/
+
+    environment:
+      - HOST=0.0.0.0
+    networks:
+      - private-network-mms
+    restart: on-failure
+  # ----------------------------------------------
+
+  # Storage service
+  storage-service:
+    container_name: storage-service
+    image: indamutsa/model-storage-image:v1.1
+    depends_on:
+      - db
+    ports:
+      - "8089:8089"
+    links:
+      - db
+    env_file:
+      - /home/arsene/IdeaProjects/model-services/env/database.env
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    environment:
+      - HOST=0.0.0.0
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
+    restart: on-failure
+    # ----------------------------------------------
+
+  # Model query service
+  # dsl-frontend:
+  #   container_name: dsl-frontend-container
+  #   image: indamutsa/dsl-frontend:v5.1
+  #   environment:
+  #     - HOST=0.0.0.0
+  #     - JAVA_OPTS=
+  #       -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+  #       -DZIPKIN_SERVER=http://zipkin:9411/
+  #   networks:
+  #   ports:
+  #     - "8280:8080"
+  #   networks:
+  #     - private-network-mms
+
+  # ----------------------------------------------
+
+  # Model query service
+  dsl-backend:
+    container_name: dsl-backend-container
+    image: indamutsa/dsl-backend:v1.7
+    ports:
+      - "8082:8082"
+    environment:
+      - HOST=0.0.0.0
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Model query service
+  model-query-service:
+    container_name: model-query-service
+    image: indamutsa/model-query-image:v1.2
+    ports:
+      - "8087:8087"
+    environment:
+      - HOST=0.0.0.0
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Model transformation service
+  model-transformation-service:
+    container_name: model-transformation-service
+    image: indamutsa/model-transfo-image:v1.2
+    ports:
+      - "8085:8085"
+    environment:
+      - HOST=0.0.0.0
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+
+  # Model validation service
+  model-validation-service:
+    container_name: model-validation-service
+    image: indamutsa/model-validation-image:v1.2
+    ports:
+      - "8086:8086"
+    environment:
+      - HOST=0.0.0.0
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+    networks:
+      - private-network-mms
+  # ----------------------------------------------
+
+  # Model comparison service
+  model-comparison-service:
+    container_name: model-comparison-service
+    image: indamutsa/model-comparison-image:v1.0
+    ports:
+      - "8088:8088"
+    environment:
+      - HOST=0.0.0.0
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+    networks:
+      - private-network-mms
+  # ----------------------------------------------
+
+  # Model comparison service
+  model-merging-service:
+    container_name: model-merging-service
+    image: indamutsa/model-merging-image:v1.0
+    ports:
+      - "8084:8084"
+    environment:
+      - HOST=0.0.0.0
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+    networks:
+      - private-network-mms
+  # ----------------------------------------------
+  prometheus:
+    image: indamutsa/prometheus:v1.0
+    environment:
+      - HOST=0.0.0.0
+    volumes:
+      - ./prometheus-grafana/config/:/etc/prometheus
+      - ./data/prometheus:/data
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention=31d"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+    ports:
+      - "9090:9090"
+    depends_on:
+      - grafana
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+  grafana:
+    image: indamutsa/grafana:v1.0
+    environment:
+      - HOST=0.0.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - zipkin
+    networks:
+      - private-network-mms
+
+  # ----------------------------------------------
+  zipkin:
+    image: indamutsa/zipkin:v1.0
+    environment:
+      - HOST=0.0.0.0
+      - STORAGE_TYPE=mem
+    ports:
+      - "9411:9411"
+    depends_on:
+      - eureka-registry-server
+    networks:
+      - private-network-mms
+
+# ----------------------------------------------
+
+networks:
+  private-network-mms:
+    driver: bridge

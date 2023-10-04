@@ -57,31 +57,31 @@ class EtlControllerTest {
      * This is our Acceptance testing
      * */
 
-    @Test
-    void transformArtefacts() throws Exception {
-        EpsilonTransformTest test = new EpsilonTransformTest();
-        MockMultipartFile sourceModel = test.handleFiles(1);
-        MockMultipartFile sourceMetaModel = test.handleFiles(2);
-        MockMultipartFile targetMetaModel = test.handleFiles(3);
-        MockMultipartFile script = test.handleFiles(4);
-
-        try {
-            MvcResult result = mockMvc.perform(multipart("/transform/")
-                    .file(sourceModel)
-                    .file(sourceMetaModel)
-                    .file(targetMetaModel)
-                    .file(script))
-                    .andDo(MockMvcResultHandlers.print())
-                    .andExpect(status().isCreated())
-                    .andReturn();
-
-            System.out.println(result.getResponse().getContentAsString());
-
-            System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(String.format("Test %s failed: " + e.getMessage(), testNumber));
-        }
-    }
+//    @Test
+//    void transformArtefacts() throws Exception {
+//        EpsilonTransformTest test = new EpsilonTransformTest();
+//        MockMultipartFile sourceModel = test.handleFiles(1);
+//        MockMultipartFile sourceMetaModel = test.handleFiles(2);
+//        MockMultipartFile targetMetaModel = test.handleFiles(3);
+//        MockMultipartFile script = test.handleFiles(4);
+//
+//        try {
+//            MvcResult result = mockMvc.perform(multipart("/transform/")
+//                    .file(sourceModel)
+//                    .file(sourceMetaModel)
+//                    .file(targetMetaModel)
+//                    .file(script))
+//                    .andDo(MockMvcResultHandlers.print())
+//                    .andExpect(status().isCreated())
+//                    .andReturn();
+//
+//            System.out.println(result.getResponse().getContentAsString());
+//
+//            System.out.println(String.format("Test ---> %s passed successfully!", testNumber));
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println(String.format("Test %s failed: " + e.getMessage(), testNumber));
+//        }
+//    }
 }

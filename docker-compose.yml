@@ -54,7 +54,7 @@ services:
   auth-service:
     container_name: auth-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/authorization-server
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/authorization-server
     image: auth-image
     depends_on:
       - dbauth
@@ -63,7 +63,7 @@ services:
     links:
       - dbauth
     env_file:
-      - /home/arsene/IdeaProjects/model-services/env-auth/database.env
+      - /home/arsene/Project/school-projects/IdeaProjects/model-services/env-auth/database.env
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
@@ -78,7 +78,7 @@ services:
     container_name: eureka-registry-server
     image: eureka-registry-server
     build:
-      context: /home/arsene/IdeaProjects/model-services/service-registry
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/service-registry
     ports:
       - "8761:8761"
     depends_on:
@@ -96,7 +96,7 @@ services:
     container_name: api-gateway-service
     image: api-gateway-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/service-gateway
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/service-gateway
     depends_on:
       - db
       - eureka-registry-server
@@ -127,7 +127,7 @@ services:
   storage-service:
     container_name: storage-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/storage-service
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/storage-service
     image: model-storage-image
     restart: always
     depends_on:
@@ -137,7 +137,7 @@ services:
     links:
       - db
     env_file:
-      - /home/arsene/IdeaProjects/model-services/env/database.env
+      - /home/arsene/Project/school-projects/IdeaProjects/model-services/env/database.env
     environment:
       - JAVA_OPTS=
         -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
@@ -151,7 +151,7 @@ services:
   dsl-frontend:
     # container_name: dsl-frontend-container
     build:
-      context: /home/arsene/IdeaProjects/model-services/workflow-dsl/dsl_frontend
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_frontend
     image: indamutsa/dsl-frontend:v1.0
     ports:
       - "8080:8080"
@@ -169,7 +169,7 @@ services:
   dsl-backend:
     # container_name: dsl-backend-container
     build:
-      context: /home/arsene/IdeaProjects/model-services/workflow-dsl/dsl_backend
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_backend
     image: indamutsa/dsl-backend:v1.0
     ports:
       - "8082:8082"
@@ -187,7 +187,7 @@ services:
   model-query-service:
     container_name: model-query-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/model-query
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-query
     image: model-query-image
     ports:
       - "8087:8087"
@@ -205,7 +205,7 @@ services:
   model-transformation-service:
     container_name: model-transformation-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/model-transformation
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-transformation
     image: model-transformation-image
     ports:
       - "8085:8085"
@@ -222,7 +222,7 @@ services:
   model-validation-service:
     container_name: model-validation-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/model-validation
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-validation
     image: model-validation-image
     ports:
       - "8086:8086"
@@ -239,7 +239,7 @@ services:
   model-comparison-service:
     container_name: model-comparison-service
     build:
-      context: /home/arsene/IdeaProjects/model-services/model-comparison
+      context: /home/arsene/Project/school-projects/IdeaProjects/model-services/model-comparison
     image: model-comparison-image
     ports:
       - "8088:8088"

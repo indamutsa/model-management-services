@@ -49,6 +49,8 @@ node_modules/
 npm-debug.log
 yarn-error.log
 yarn-debug.log
+package-lock.json
+yarn.lock
 *.tgz
 .env
 .cache/
@@ -77,3 +79,4 @@ Thumbs.db
 
 # === Custom exclusions ===
 # ...
+terraform-gke/lowcomote-gke-terraform.json

@@ -101,7 +101,7 @@
         try {
           await axios
             .post(
-              `http://back.arsence.com/api/exec/transform/`,
+              `http://back.arsene.com/api/exec/transform/`,
               {
                 sourceModel: sourceM,
                 sourceMetaModel: sourceMM,
@@ -140,7 +140,7 @@
         try {
           await axios
             .post(
-               `http://back.arsence.com/api/exec/validate/`,
+               `http://back.arsene.com/api/exec/validate/`,
               {
                 model: m,
                 metaModel: metaM,
@@ -178,7 +178,7 @@
         try {
           await axios
             .post(
-               `http://back.arsence.com/api/exec/compare/`,
+               `http://back.arsene.com/api/exec/compare`,
               {
                 model1: "catalogue1.xml",
                 model2: "catalogue2.xml",
@@ -216,7 +216,7 @@
         try {
           await axios
             .post(
-               `http://back.arsence.com/api/exec/query/`,
+               `http://back.arsene.com/api/exec/query/`,
               {
                 model: m1,
                 metaModel: metaM,
@@ -249,17 +249,17 @@
           console.log(e + "--");
         }
       },
-      async _mergeModels(model1, model2, eclscript, etlscript) {
+      async _mergeModels(model1, model2, eclscript, emlscript) {
         // call service _mergeModels("catalogue1.xml", "catalogue2.xml", "catalogues.ecl", "catalogues.eml")
         try {
           await axios
             .post(
-               `http://back.arsence.com/api/exec/merge/`,
+               `http://back.arsene.com/api/exec/merge/`,
               {
-                mod1: model1,
-                mod2: model2,
-                ecl: eclscript,
-                etl: etlscript,
+                model1: model1,
+                model2: model2,
+                scriptEcl: eclscript,
+                scriptEml: emlscript,
               },
               {
                 headers: {

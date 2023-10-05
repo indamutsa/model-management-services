@@ -80,11 +80,13 @@
         });
       },
       openDoc() {
-        window.open(
-          (window.location.href =
-            "https://docs.google.com/document/d/1XrZDK-Z1Q3tmanqjvfaCfil4-XmvH-iRP-G5aLqm5pM/edit?usp=sharing"),
-          "_blank"
-        );
+          window.open("https://docs.google.com/document/d/1XrZDK-Z1Q3tmanqjvfaCfil4-XmvH-iRP-G5aLqm5pM/edit?usp=sharing", "_blank");
+
+        // window.open(
+        //   (window.location.href =
+        //     "https://docs.google.com/document/d/1XrZDK-Z1Q3tmanqjvfaCfil4-XmvH-iRP-G5aLqm5pM/edit?usp=sharing"),
+        //   "_blank"
+        // );
       },
       async compileToJS() {
         try {

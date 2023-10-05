@@ -113,6 +113,8 @@ docker-compose down -v --rmi all --remove-orphans && docker system prune -a --vo
 You can access the services by inspecting the docker-compose.yml file.
 There are model management services, and the DSL services that can be accessed using the openapi 3.0 documentation.
 
+<img src="./images/logic-workflow.jpg" alt="workflow" width="500"/>
+
 - ETL transformation service: `http://localhost:8085/mms/api-docs/transform`
 - EVL validation service: `http://localhost:8086/mms/api-docs/validate`
 - EOL query service: `http://localhost:8087/mms/api-docs/query`
@@ -121,15 +123,13 @@ There are model management services, and the DSL services that can be accessed u
 
 These services are organized in a microservice architecture using spring boot. So we can access these services using the api gateway at `http://localhost:8080/mms/api-docs`.
 To access the services above using the api gateway, you have to use the url below:
-TODO: update the url below
 
 - ETL transformation service: `http://localhost:7500/api/mms/transform`
 - EVL validation service: `http://localhost:7500/api/mms/validate`
 - EOL query service: `http://localhost:7500/api/mms/query`
-- ECL comparison service: `http://localhost:7500/api/mms/compare`
 - EML merging service: `http://localhost:7500/api/mms/merge`
 
-TODO: include architecture diagrams
+<img src="./images/High Level architecture-1.jpg" alt="architecture" width="500"/>
 
 We have the the service registry and the config server that can be accessed using the url below:
 
@@ -147,6 +147,7 @@ We use helm to run the cluster.
 -- Run the command below to install the chart
 
 ```sh
+# Install the chart
 helm install lowcomote helm-deployment/
 ```
 
@@ -156,21 +157,19 @@ helm install lowcomote helm-deployment/
 helm uninstall lowcomote
 ```
 
--- if you want to update the charts **helm upgrade lowcomote .** in the current directory.
-
-Before you can run these commands, make sure you have built and pushed on the cloud the correct containers.
-For instance, i already have a script that take the name of the container and version, build it and push it to the registry
+If you want to update the charts in the current directory. Run the command below:
 
 ```sh
-build.sh --name dsl-frontend --tag v5.3
+helm upgrade lowcomote helm-deployment/
 ```
 
+Before you can run these commands, make sure you have built and pushed on the cloud the correct containers.
 After pushing on the cloud, you have to upgrade the helm charts values, especially the version of the container to retrieve the latest version.
 
-Before you can upgrade the charts, it's good to delete the current deployment you want to update
+In case you want to delete all the resources in the cluster, run the command below:
 
 ```sh
-kube delete deployment.apps/dsl-frontend-deployment service/dsl-frontend-server
+kubectl delete all,secrets,configmaps,pv,pvc --all --all-namespaces
 ```
 
 For instance, here i would like to update the service and deployment above, so i removed them.

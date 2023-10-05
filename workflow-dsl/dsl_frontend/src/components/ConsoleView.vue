@@ -94,7 +94,8 @@
         try {
           await axios
             .post(
-              `http://178.238.238.209:8285/mms/transform/`,
+              //`http://178.238.238.209:8285/mms/transform/`,
+              `http://localhost:8082/api/exec/transform/`,
               {
                 sourceModel: sourceM,
                 sourceMetaModel: sourceMM,
@@ -133,7 +134,8 @@
         try {
           await axios
             .post(
-              `http://178.238.238.209:8088/mms/validate/`,
+            // `http://178.238.238.209:8088/mms/validate/`,
+               `http://localhost:8082/api/exec/validate/`,
               {
                 model: m,
                 metaModel: metaM,
@@ -171,7 +173,8 @@
         try {
           await axios
             .post(
-              `http://178.238.238.209:8088/mms/compare/`,
+            // `http://178.238.238.209:8088/mms/compare/`,
+               `http://localhost:8082/api/exec/compare/`,
               {
                 model1: "catalogue1.xml",
                 model2: "catalogue2.xml",
@@ -209,7 +212,8 @@
         try {
           await axios
             .post(
-              `http://178.238.238.209:8087/mms/query/`,
+            // `http://178.238.238.209:8087/mms/query/`,
+               `http://localhost:8082/api/exec/query/`,
               {
                 model: m1,
                 metaModel: metaM,
@@ -247,7 +251,8 @@
         try {
           await axios
             .post(
-              `http://178.238.238.209:8087/mms/merge/`,
+            // `http://178.238.238.209:8087/mms/merge/`,
+               `http://localhost:8082/api/exec/merge/`,
               {
                 mod1: model1,
                 mod2: model2,

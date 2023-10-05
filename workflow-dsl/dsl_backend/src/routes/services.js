@@ -15,7 +15,7 @@ router.post("/transform", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://localhost:8085/mms/transform/", //"http://34.107.29.78.sslip.io/api/mms/transform/",
+    url: "http://api-gateway-service:7500/api/mms/transform/", //"http://localhost:8085/mms/transform/", //"http://34.107.29.78.sslip.io/api/mms/transform/",
     headers: {},
     formData: {
       sourceModel: {
@@ -59,15 +59,15 @@ router.post("/transform", async (req, res) => {
 });
 
 router.post("/merge", async (req, res) => {
-  const mod1 = req.body.mod1;
-  const mod2 = req.body.mod2;
-  const ecl = req.body.ecl;
-  const etl = req.body.etl;
+  const mod1 = req.body.model1;
+  const mod2 = req.body.model2;
+  const ecl = req.body.scriptEcl;
+  const eml = req.body.scriptEml;
   console.log(req.body);
 
   var options = {
     method: "POST",
-    url: "http://34.107.29.78.sslip.io/api/mms/merge/",
+    url: "http://api-gateway-service:7500/api/mms/merge/", //"http://34.107.29.78.sslip.io/api/mms/merge/",
     headers: {},
     formData: {
       model1: {
@@ -92,9 +92,9 @@ router.post("/merge", async (req, res) => {
         },
       },
       emlScript: {
-        value: fs.createReadStream(`./artifacts/script/${etl}`),
+        value: fs.createReadStream(`./artifacts/script/${eml}`),
         options: {
-          filename: etl,
+          filename: eml,
           contentType: null,
         },
       },
@@ -119,7 +119,7 @@ router.post("/validate", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://34.107.29.78.sslip.io/api/mms/validate/",
+    url: "http://api-gateway-service:7500/api/mms/validate/", //"http://34.107.29.78.sslip.io/api/mms/validate/",
     headers: {},
     formData: {
       model: {
@@ -165,7 +165,7 @@ router.post("/query", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://34.107.29.78.sslip.io/api/mms/query/",
+    url: "http://api-gateway-service:7500/api/mms/query/", //"http://api-gateway-service:7500/api/mms/query/", //"http://34.107.29.78.sslip.io/api/mms/query/",
     headers: {},
     formData: {
       model: {
@@ -209,7 +209,7 @@ router.post("/compare", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://34.107.29.78.sslip.io/api/mms/compare/",
+    url: "http://model-comparison-service:8088/mms/compare/", //"http://34.107.29.78.sslip.io/api/mms/compare/",
     headers: {},
     formData: {
       files: [

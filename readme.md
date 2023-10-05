@@ -1,6 +1,6 @@
 ## Welcome to Lowcomote/MDEForge microservices
 
-### The microservices below are developed using Spring boot (Java)
+-- <code> The microservices below are developed using Spring boot (Java) and dockerized. </code>
 
 ---
 

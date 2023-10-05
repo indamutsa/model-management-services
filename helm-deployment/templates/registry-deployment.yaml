@@ -5,7 +5,7 @@ metadata:
   labels:
     app: registry-app-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: registry-app-server
   ports:

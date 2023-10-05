@@ -24,7 +24,7 @@ spec:
   selector: # Selects any Pod with labels `app=polling-app,tier=mysql`
     app: polling-app
     tier: mysql
-  clusterIP: None
+  ClusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment # Type of the kubernetes resource

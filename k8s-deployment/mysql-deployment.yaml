@@ -71,7 +71,7 @@ spec:
   selector:
     app: storage-app
     tier: mysql
-  clusterIP: None
+  ClusterIP: None
 
 ---
 apiVersion: apps/v1

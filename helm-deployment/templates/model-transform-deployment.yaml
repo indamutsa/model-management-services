@@ -5,7 +5,7 @@ metadata:
   labels:
     app: model-transformation-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: model-transformation-server
   ports:

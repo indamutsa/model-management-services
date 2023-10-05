@@ -5,7 +5,7 @@ metadata:
   labels:
     app: model-validation-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: model-validation-server
   ports:

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: storage-app-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: storage-app-server
   ports:

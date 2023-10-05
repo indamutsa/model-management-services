@@ -66,7 +66,7 @@ metadata:
     app: prometheus
   name: prometheus
 spec:
-  type: NodePort
+  type: ClusterIP 
   ports:
   - name: http
     port: {{ .Values.service.prometheus.port }}

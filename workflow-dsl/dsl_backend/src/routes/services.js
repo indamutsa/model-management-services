@@ -15,7 +15,7 @@ router.post("/transform", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://api-gateway-service:7500/api/mms/transform/", //"http://localhost:8085/mms/transform/", //"http://34.107.29.78.sslip.io/api/mms/transform/",
+    url: "http://api-gateway-server:7500/api/mms/transform/", //"http://localhost:8085/mms/transform/", //"http://34.107.29.78.sslip.io/api/mms/transform/",
     headers: {},
     formData: {
       sourceModel: {
@@ -67,7 +67,7 @@ router.post("/merge", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://api-gateway-service:7500/api/mms/merge/", //"http://34.107.29.78.sslip.io/api/mms/merge/",
+    url: "http://api-gateway-server:7500/api/mms/merge/", //"http://34.107.29.78.sslip.io/api/mms/merge/",
     headers: {},
     formData: {
       model1: {
@@ -119,7 +119,7 @@ router.post("/validate", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://api-gateway-service:7500/api/mms/validate/", //"http://34.107.29.78.sslip.io/api/mms/validate/",
+    url: "http://api-gateway-server:7500/api/mms/validate/", //"http://34.107.29.78.sslip.io/api/mms/validate/",
     headers: {},
     formData: {
       model: {
@@ -165,7 +165,7 @@ router.post("/query", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://api-gateway-service:7500/api/mms/query/", //"http://api-gateway-service:7500/api/mms/query/", //"http://34.107.29.78.sslip.io/api/mms/query/",
+    url: "http://api-gateway-server:7500/api/mms/query/", //"http://api-gateway-server:7500/api/mms/query/", //"http://34.107.29.78.sslip.io/api/mms/query/",
     headers: {},
     formData: {
       model: {
@@ -209,7 +209,7 @@ router.post("/compare", async (req, res) => {
 
   var options = {
     method: "POST",
-    url: "http://model-comparison-service:8088/mms/compare/", //"http://34.107.29.78.sslip.io/api/mms/compare/",
+    url: "http://back.arsene.com/mms/compare", //"http://34.107.29.78.sslip.io/api/mms/compare/",
     headers: {},
     formData: {
       files: [

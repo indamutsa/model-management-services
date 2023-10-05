@@ -5,7 +5,7 @@ metadata:
   labels:
     app: model-query-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: model-query-server
   ports:

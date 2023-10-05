@@ -13,10 +13,10 @@
 
 // // 1. Frontend running locally:
 
-module.exports = {
-  baseUrl: "localhost:8082/",
-  protocol: "http://",
-};
+// module.exports = {
+//   baseUrl: "localhost:8082/",
+//   protocol: "http://",
+// };
 
 // 2. Frontend running in the same cluster:
 // module.exports = {
@@ -26,10 +26,10 @@ module.exports = {
 
 // 3. Frontend running somewhere else:
 
-// module.exports = {
-//   baseUrl: "back.arsene.com/",
-//   protocol: "http://",
-// };
+module.exports = {
+  baseUrl: "back.arsene.com/",
+  protocol: "http://",
+};
 
 // FILE: <project>/frontend/src/services/ConnectionData.js
 

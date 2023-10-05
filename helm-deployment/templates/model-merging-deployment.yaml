@@ -5,7 +5,7 @@ metadata:
   labels:
     app: model-merging-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: model-merging-server
   ports:

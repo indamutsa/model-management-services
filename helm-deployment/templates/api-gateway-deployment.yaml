@@ -5,7 +5,7 @@ metadata:
   labels:
     app: api-gateway-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: api-gateway-server
   ports:

@@ -2,11 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   name: example
 spec:
+  ingressClassName: nginx
   rules:
     - host: arsene.com
       http:
@@ -18,22 +18,22 @@ spec:
                 name: registry-app-server
                 port:
                   number: 8761
-          - path: /api/mms/(.*)
-            pathType: Prefix
+          - path: /gateway/(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: api-gateway-server
                 port:
-                  number: 80 # Replace with the correct port number if it's not 80
+                  number: 7500
           - path: /mms/store/(.*)
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: storage-app-server
                 port:
                   number: 8089
           - path: /mms/oauth/(.*)
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: auth-server
@@ -59,6 +59,13 @@ spec:
                 name: dsl-backend-server
                 port:
                   number: 8082
+          - path: /mms/compare
+            pathType: Prefix
+            backend:
+              service:
+                name: model-comparison-server
+                port:
+                  number: 8088
 # apiVersion: networking.k8s.io/v1beta1
 # kind: Ingress
 # metadata:

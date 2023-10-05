@@ -5,7 +5,7 @@ metadata:
   labels:
     app: dsl-frontend-server
 spec:
-  type: NodePort
+  type: NodePort 
   selector:
     app: dsl-frontend-server
   ports:

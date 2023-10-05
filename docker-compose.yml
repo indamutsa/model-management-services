@@ -30,46 +30,46 @@ services:
 
   # ----------------------------------------------
 
-  # # Mysql database for user management
-  # dbauth:
-  #   hostname: dbauth
-  #   container_name: dbauth
-  #   restart: always
-  #   image: "indamutsa/model-db-mysql:5.6"
-  #   env_file:
-  #     - env-auth/database.env
-  #   volumes:
-  #     - type: bind
-  #       source: ./env-auth/setup.sql
-  #       target: /docker-entrypoint-initdb.d/setup.sql
-  #     - dbauth_volume:/var/lib/mysql
-  #   ports:
-  #     - 3308:3306
-  #   networks:
-  #     - private-network-mms
+  # Mysql database for user management
+  dbauth:
+    hostname: dbauth
+    container_name: dbauth
+    restart: always
+    image: "indamutsa/model-db-mysql:5.6"
+    env_file:
+      - env-auth/database.env
+    volumes:
+      - type: bind
+        source: ./env-auth/setup.sql
+        target: /docker-entrypoint-initdb.d/setup.sql
+      - dbauth_volume:/var/lib/mysql
+    ports:
+      - 3308:3306
+    networks:
+      - private-network-mms
 
-  # # ----------------------------------------------
+  # ----------------------------------------------
 
-  # # Authorizaton and authentication service
-  # auth-service:
-  #   container_name: auth-service
-  #   # build:
-  #   #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/authorization-server
-  #   image: "indamutsa/auth-image:v1.0"
-  #   depends_on:
-  #     - dbauth
-  #   ports:
-  #     - "8000:8000"
-  #   links:
-  #     - dbauth
-  #   env_file:
-  #     - /home/arsene/Project/school-projects/IdeaProjects/model-services/env-auth/database.env
-  #   environment:
-  #     - JAVA_OPTS=
-  #       -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
-  #       -DZIPKIN_SERVER=http://zipkin:9411/
-  #   networks:
-  #     - private-network-mms
+  # Authorizaton and authentication service
+  auth-service:
+    container_name: auth-service
+    # build:
+    #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/authorization-server
+    image: "indamutsa/auth-image:v1.0"
+    depends_on:
+      - dbauth
+    ports:
+      - "8000:8000"
+    links:
+      - dbauth
+    env_file:
+      - /home/arsene/Project/school-projects/IdeaProjects/model-services/env-auth/database.env
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://eureka-registry-server:8761/eureka
+        -DZIPKIN_SERVER=http://zipkin:9411/
+    networks:
+      - private-network-mms
 
   # ----------------------------------------------
 
@@ -152,7 +152,7 @@ services:
     container_name: dsl-frontend-container
     # build:
     #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_frontend
-    image: indamutsa/dsl-frontend:v6.1
+    image: indamutsa/dsl-frontend:v6.4kub
     ports:
       - "8080:80"
 
@@ -268,47 +268,47 @@ services:
       - private-network-mms
   # ----------------------------------------------
 
-  # prometheus:
-  #   image: indamutsa/prometheus:v1.0
-  #   volumes:
-  #     - ./prometheus-grafana/config/:/etc/prometheus
-  #     - ./data/prometheus:/data
-  #   command:
-  #     - "--config.file=/etc/prometheus/prometheus.yml"
-  #     - "--storage.tsdb.path=/prometheus"
-  #     - "--storage.tsdb.retention=31d"
-  #     - "--web.console.libraries=/usr/share/prometheus/console_libraries"
-  #     - "--web.console.templates=/usr/share/prometheus/consoles"
-  #   ports:
-  #     - "9090:9090"
-  #   depends_on:
-  #     - grafana
-  #   networks:
-  #     - private-network-mms
+  prometheus:
+    image: indamutsa/prometheus:v1.0
+    volumes:
+      - ./prometheus-grafana/config/:/etc/prometheus
+      - ./data/prometheus:/data
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention=31d"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+    ports:
+      - "9090:9090"
+    depends_on:
+      - grafana
+    networks:
+      - private-network-mms
 
-  # # ----------------------------------------------
+  # ----------------------------------------------
 
-  # grafana:
-  #   image: indamutsa/grafana:v1.0
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - zipkin
-  #   networks:
-  #     - private-network-mms
+  grafana:
+    image: indamutsa/grafana:v1.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - zipkin
+    networks:
+      - private-network-mms
 
-  # # ----------------------------------------------
+  # ----------------------------------------------
 
-  # zipkin:
-  #   image: indamutsa/zipkin:v1.0
-  #   environment:
-  #     - STORAGE_TYPE=mem
-  #   ports:
-  #     - "9411:9411"
-  #   depends_on:
-  #     - eureka-registry-server
-  #   networks:
-  #     - private-network-mms
+  zipkin:
+    image: indamutsa/zipkin:v1.0
+    environment:
+      - STORAGE_TYPE=mem
+    ports:
+      - "9411:9411"
+    depends_on:
+      - eureka-registry-server
+    networks:
+      - private-network-mms
 
 # ----------------------------------------------
 

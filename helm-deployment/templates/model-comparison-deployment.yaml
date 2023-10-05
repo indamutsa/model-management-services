@@ -5,7 +5,7 @@ metadata:
   labels:
     app: model-comparison-server
 spec:
-  type: NodePort
+  type: ClusterIP 
   selector:
     app: model-comparison-server
   ports:

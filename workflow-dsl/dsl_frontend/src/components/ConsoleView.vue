@@ -83,6 +83,13 @@
          * http://back.34.107.29.78.sslip.io/api/exec/query
          * http://back.34.107.29.78.sslip.io/api/exec/merge
          * 
+         * 
+         * http://localhost:8082/api/exec/transform/
+         * http://localhost:8082/api/exec/validate/
+         * http://localhost:8082/api/exec/compare/
+         * http://localhost:8082/api/exec/query/
+         * http://localhost:8082/api/exec/merge/
+         * 
         */
         const data = {
           sourceModel: sourceM, //"Tree.xmi",
@@ -94,8 +101,7 @@
         try {
           await axios
             .post(
-              //`http://178.238.238.209:8285/mms/transform/`,
-              `http://localhost:8082/api/exec/transform/`,
+              `http://back.arsence.com/api/exec/transform/`,
               {
                 sourceModel: sourceM,
                 sourceMetaModel: sourceMM,
@@ -134,8 +140,7 @@
         try {
           await axios
             .post(
-            // `http://178.238.238.209:8088/mms/validate/`,
-               `http://localhost:8082/api/exec/validate/`,
+               `http://back.arsence.com/api/exec/validate/`,
               {
                 model: m,
                 metaModel: metaM,
@@ -173,8 +178,7 @@
         try {
           await axios
             .post(
-            // `http://178.238.238.209:8088/mms/compare/`,
-               `http://localhost:8082/api/exec/compare/`,
+               `http://back.arsence.com/api/exec/compare/`,
               {
                 model1: "catalogue1.xml",
                 model2: "catalogue2.xml",
@@ -212,8 +216,7 @@
         try {
           await axios
             .post(
-            // `http://178.238.238.209:8087/mms/query/`,
-               `http://localhost:8082/api/exec/query/`,
+               `http://back.arsence.com/api/exec/query/`,
               {
                 model: m1,
                 metaModel: metaM,
@@ -251,8 +254,7 @@
         try {
           await axios
             .post(
-            // `http://178.238.238.209:8087/mms/merge/`,
-               `http://localhost:8082/api/exec/merge/`,
+               `http://back.arsence.com/api/exec/merge/`,
               {
                 mod1: model1,
                 mod2: model2,

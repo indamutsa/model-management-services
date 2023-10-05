@@ -83,6 +83,7 @@ We will use both docker-compose and kubernetes to run the cluster.
 
 ### Docker-compose
 
+<img src="./images/logic-workflow.jpg" alt="workflow" width="500"/>
 We can run the cluster using docker-compose. The docker-compose.yml file is in the root directory of the project.
 But before you can run the cluster, you have to build the images and push them to the registry.
 Be mindful the DSL backend image is tagged with the version and compose. The only difference, is that it can be directly accessed externally using localhost:8082
@@ -99,6 +100,7 @@ Follow the instructions in the README.md file at the root of the project.
 
 ## Kubernetes
 
+<img src="./images/High Level architecture-1.jpg" alt="architecture" width="500"/>
 Let us first have the cluster installed locally using minikube.
 But first, make sure you have helm, kubeclt and minikube installed on your machine.
 

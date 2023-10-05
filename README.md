@@ -87,7 +87,7 @@ We can run the cluster using docker-compose. The docker-compose.yml file is in t
 But before you can run the cluster, you have to build the images and push them to the registry.
 Be mindful the DSL backend image is tagged with the version and compose. The only difference, is that it can be directly accessed externally using localhost:8082
 
-You need to switch to the docker-compose branch to have the right docker-compose file.
+You need to switch to the `docker-compose` branch to have the right docker-compose file.
 
 ```sh
 git checkout docker-compose
@@ -102,7 +102,7 @@ Follow the instructions in the README.md file at the root of the project.
 Let us first have the cluster installed locally using minikube.
 But first, make sure you have helm, kubeclt and minikube installed on your machine.
 
-Switch to the kubernetes branch to have the right helm charts.
+Switch to the `kubernetes` branch to have the right helm charts.
 
 ```sh
 git checkout kubernetes

@@ -79,6 +79,8 @@ localhost:9000/api-docs
 
 We will use both docker-compose and kubernetes to run the cluster.
 
+---
+
 ### Docker-compose
 
 We can run the cluster using docker-compose. The docker-compose.yml file is in the root directory of the project.
@@ -150,6 +152,8 @@ docker-compose down -v --rmi all --remove-orphans && docker system prune -a --vo
 ```
 
 Be careful, this command will remove all the images used by the docker-compose file, and all the volumes. So make sure you have backed up the data you want to keep.
+
+---
 
 ## Kubernetes
 
@@ -285,4 +289,10 @@ To log a deployment
 kube logs deployment.apps/dsl-backend-deployment
 ```
 
----
+In the meantime, you can access the DSL, MDEForgeWL using the url below according to my local domain:
+
+```sh
+dsl.arsene.com
+```
+
+You can check more urls in the ingress.yaml [file](./helm-deployment/templates/ingress.yaml). You can also configure more urls in the ingress as I did as well.

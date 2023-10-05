@@ -256,11 +256,11 @@
             .post(
                `http://back.arsene.com/api/exec/merge/`,
               {
-                model1: model1,
-                model2: model2,
-                scriptEcl: eclscript,
-                scriptEml: emlscript,
-              },
+              "model1": model1,
+              "model2": model2,
+              "scriptEcl": eclscript,
+              "scriptEml": emlscript
+            },
               {
                 headers: {
                   // remove headers

@@ -246,7 +246,7 @@
           console.log(e + "--");
         }
       },
-      async _mergeModels(model1, model2, eclscript, etlscript) {
+      async _mergeModels(model1, model2, eclscript, emlscript) {
         // call service _mergeModels("catalogue1.xml", "catalogue2.xml", "catalogues.ecl", "catalogues.eml")
         try {
           await axios
@@ -254,10 +254,10 @@
             // `http://178.238.238.209:8087/mms/merge/`,
                `http://localhost:8082/api/exec/merge/`,
               {
-                mod1: model1,
-                mod2: model2,
-                ecl: eclscript,
-                etl: etlscript,
+                model1: model1,
+                model2: model2,
+                scriptEcl: eclscript,
+                scriptEml: emlscript,
               },
               {
                 headers: {

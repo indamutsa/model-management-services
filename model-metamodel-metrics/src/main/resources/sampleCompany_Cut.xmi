@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<metrics:Container xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metrics="org.mdeforge.emf.metric">
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of MetaClass" code="MC" value="6"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of abstract MetaClass" code="AMC" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of concrete MetaClass" code="CMC" value="4"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of concrete Completely Featureless MetaClass" code="CCFMC" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of immediate Featureless MetaClass" code="IFLMC" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of abstract immediate Featureless MetaClass" code="AIFLMC" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of concrete immediate Featureless MetaClass" code="CIFLMC" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total eStructuralFeature" code="SF" value="10"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total structural feature with inherited" code="SFH" value="17"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Completely Featureless MetaClass" code="CFLMC" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of abstract Completely Featureless MetaClass" code="ACFMC" value="0"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of TotalReference" code="REF" value="7"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Opposite Reference " code="REFEOP" value="7"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of TotalReference containment" code="REC_CONT" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total Attribute" code="ATTR" value="3"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of Total Attribute with inherited" code="ATTRH" value="7"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Max generalizzation hierarchical level" code="MAXHL" value="2"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Max chain of containment" code="REFCC" value="50"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Average Reference in a (class (avg fan out)" code="AVGREF" value="1.1666666666666667"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Average Attribute in a class" code="AVGATTR" value="0.5"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of class with a super type" code="MCWSP" value="4"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Max Hierarchy Sibiling" code="MAXHS" value="3"/>
+  <metrics xsi:type="metrics:SimpleMetric" name="Number of lonely classes" code="LMC" value="1"/>
+</metrics:Container>

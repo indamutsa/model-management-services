@@ -152,7 +152,7 @@ services:
     container_name: dsl-frontend-container
     # build:
     #   context: /home/arsene/Project/school-projects/IdeaProjects/model-services/workflow-dsl/dsl_frontend
-    image: indamutsa/dsl-frontend:v6.1
+    image: indamutsa/dsl-frontend:v6.3
     ports:
       - "8080:80"
 

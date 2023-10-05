@@ -254,10 +254,10 @@
             // `http://178.238.238.209:8087/mms/merge/`,
                `http://localhost:8082/api/exec/merge/`,
               {
-                mod1: model1,
-                mod2: model2,
-                ecl: eclscript,
-                etl: etlscript,
+                "model1": model1,
+                "model2": model2,
+                "scriptEcl": eclscript,
+                "scriptEml": etlscript,
               },
               {
                 headers: {

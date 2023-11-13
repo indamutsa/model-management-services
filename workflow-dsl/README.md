@@ -1,12 +1,12 @@
 ## In this project we are going to migrate xtext dsl to the web:
 
---- First, we need to create xtext web integrated project.
---- Open Eclipse, click new, go to other, choose Create an xtext project, click next. In the coming advanced xtext configuration, check the web integration
---- You also need to check maven as the prefered build system, fat as language server and source as plain
+- First, we need to create xtext web integrated project.
+- Open Eclipse, click new, go to other, choose Create an xtext project, click next. In the coming advanced xtext configuration, check the web integration
+- You also need to check maven as the prefered build system, fat as language server and source as plain
 
 For me I usually developing dsl using xtend language. it is a variant of java and python but very powerful, anything in Java runs seamlessly in that language but using it u get addition features such as code generation templates. If u want to use it, be sure to check the xtend as the preferXtendStubs to true in the file with .mwe2 extension in the main package. After that you can generate xtext artifact and run mwe2. To generate artifact right click in the xtext grammar, run as --> and generate xtext artifacts. And then run as on .mwe2 and the run .mwe2 workflow. This will generate the all needed classes.
 
---- Once you have xtext in place. Search MWE2 workflow and run it as MWE2 workflow.
+- Once you have xtext in place. Search MWE2 workflow and run it as MWE2 workflow.
 Once it has run, it will generate more folder in main pacakage. This time, you need to right click on the web directory, and run it as java application,
 there will open a dialog box, choouse ServerLauncher and Ok. It will start the server on (localhost:8080) and you can check your editor.
 
@@ -37,10 +37,10 @@ To run the server as standlone, run: java -jar name-of-exported-jar.jar
 ## Export compiler
 
 Next you need to export the compiler, you will need to: <br>
---- When you first create the project, enable the web integration from the startup startup
---- Once go to to the mwe2, and enable the main method, "generateXtendMain = true". this line generates the main
---- You will also need to enable xtend, just set it true as preferred language inside mwe2
---- Right click the Main.xtend in generotor pacakage, export it as the the runnable jar, and select package required libraries into jar
+- When you first create the project, enable the web integration from the startup startup
+- Once go to to the mwe2, and enable the main method, "generateXtendMain = true". this line generates the main
+- You will also need to enable xtend, just set it true as preferred language inside mwe2
+- Right click the Main.xtend in generotor pacakage, export it as the the runnable jar, and select package required libraries into jar
 
 Afterwards, copy the language server and the compiler in their folder in web project, make sure the server for the language server is set well.
 
